@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+    <ul>
+        <input type="button" value="Añadir Viaje" onclick="location.reload();location.href='/crearViaje'"/>
+    </ul>
+    <h2> Viajes disponibles:</h2>
+{% endblock %}
+
+{% block body %}
+  <ul>
+    {% if viajes %}
+      {% for viaje in viajes %}
+        <p><b><a href="/verViaje/{{viaje.id}}">{{ viaje.destino }} [{{ viaje.desplazamiento }}]</a></b></p>
+      {% endfor %}
+    {% else %}
+      <h4> No hay ningún viaje :( </h4>
+    {% endif %}
+  </ul>
+{% endblock %}

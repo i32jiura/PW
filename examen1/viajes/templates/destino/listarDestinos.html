@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+    <ul>
+        <input type="button" value="Añadir Destino" onclick="location.reload();location.href='/crearDestino'"/>
+    </ul>
+  <h2> Destinos disponibles:</h2>
+{% endblock %}
+
+{% block body %}
+  <ul>
+    {% if destinos %}
+      {% for destino in destinos %}
+        <p><b><a href="/verDestino/{{destino.id}}">{{ destino.lugar }}</a></b></p>
+      {% endfor %}
+    {% else %}
+      <h4> No hay ningún destino :(</h4>
+    {% endif %}
+  </ul>
+{% endblock %}

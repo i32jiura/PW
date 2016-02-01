@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% block title %}<title> Agencia de viajes </title> {% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+	  background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-plane"></span> Agencia de viajes</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li{% if navbar == "inicio" %}class="active"{% endif %}><a href="/"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
+        <li{% if navbar == "destino" %}class="active"{% endif %}><a href="/destino"><span class="glyphicon glyphicon-map-marker"></span> Destinos</a></li>
+        <li{% if navbar == "viaje" %}class="active"{% endif %}><a href="/viaje"><span class="glyphicon glyphicon-send"></span> Viajes</a></li>
+        <li{% if navbar == "ruta" %}class="active"{% endif %}><a href="/ruta"><span class="glyphicon glyphicon-road"></span> Rutas</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          {% if not user.is_authenticated %}
+            <li{% if navbar == "login" %}class="active"{% endif %}><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión</a></li>
+            <li{% if navbar == "registro" %}class="active"{% endif %}><a href="/registro"><span class="glyphicon glyphicon-check"></span> Registrarse</a></li>
+          {% else %}
+              <li><a href="/"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    {% block subtitle %}{% endblock %}
+    {% block body %}{% endblock %}
+  </div>
+</div>

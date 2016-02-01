@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  <h2> Editar viaje:</h2>
+{% endblock %}
+
+{% block body %}
+  <form id='formulario' method="post" action="">
+    {% csrf_token %}
+    {{ formulario.as_p }}
+    <input type="button" value="Cancelar" onclick="location.reload();location.href='/viaje'"/>
+    <input type="submit" value="Modificar"/>
+  </form>
+{% endblock %}
