@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% comment %} Aqui van comentarios {% endcomment %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+<link rel='stylesheet' href='{{STATIC_URL}}css/jugar.css'>
+	<table id='menu2'>
+	  <tr>
+		  <td><a href='/jugar/clasificacion'>Clasificación</a></td>
+		  <td><a href='/jugar/equipo'>Mi Equipo</a></td>
+		  <td><a href='/jugar/fichajes'>Mercado De Fichajes</a></td>
+		  <td><a href='/jugar/buscar'>Buscar un Jugador</a></td>
+      	 </tr>
+    	</table>
+    	
+    	
+  <p>
+	 Buscar Jugador:
+  </p>
+	<ul>
+		<form id='formulario' method='post' action=''>{% csrf_token %}
+		<table>{{formulario}}</table>
+		<p><input type='submit' value='Buscar'/></p>
+		</form>
+	</ul>
+    	
+    	
+{% endblock %}

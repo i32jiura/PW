@@ -1,0 +1,91 @@
+#encoding:utf-8
+
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Jugador(models.Model):
+	nombre = models.CharField(max_length=50 )
+	club = models.CharField(max_length=50)
+	posicion = models.CharField(max_length=50)
+	puntos = models.PositiveIntegerField(default=0)
+	precio = models.PositiveIntegerField(default=0)
+
+	def __unicode__(self):
+		return self.nombre
+
+class Liga(models.Model):
+	nombre = models.CharField(max_length=50)
+	jugadores = models.ManyToManyField(Jugador)
+	
+	def __unicode__(self):
+		return self.nombre
+		
+class Equipo(models.Model):
+	
+	user = models.OneToOneField(User, unique=True )
+	nombre = models.CharField(max_length=50)
+	liga = models.ForeignKey(Liga)
+	dinero = models.IntegerField(default=0)
+	puntos = models.PositiveIntegerField(default=0)
+
+	def __unicode__(self):
+		return self.nombre
+			
+class Compra(models.Model):
+	
+	auto = models.AutoField(primary_key=True)
+	jugador = models.ForeignKey(Jugador)
+	liga = models.ForeignKey(Liga)
+	equipo = models.ForeignKey(Equipo)
+	fecha = models.DateTimeField(auto_now_add=True)
+	precio = models.PositiveIntegerField(default=0)
+	
+	def _unicode__(self):
+		return self.auto
+
+		
+class Posible(models.Model):
+	
+	auto = models.AutoField(primary_key=True)
+	jugador = models.ForeignKey(Jugador)
+	jugadorcambio = models.CharField(max_length=50)
+	liga = models.ForeignKey(Liga)
+	comprador = models.ForeignKey(Equipo)
+	fecha = models.DateTimeField(auto_now_add=True)
+	precio = models.PositiveIntegerField(default=0)
+	
+	def _unicode__(self):
+		return self.auto
+       		
+class Comentario(models.Model):
+    	nombre = models.ForeignKey(User)
+   	fecha = models.DateTimeField(auto_now_add=True)
+    	texto = models.TextField(help_text='Tu comentario', verbose_name='Comentario')
+    	liga = models.ForeignKey(Liga)
+
+    	def __unicode__(self):
+        	return self.texto
+        	
+class Noticia(models.Model):
+    	nombre = models.ForeignKey(User)
+   	fecha = models.DateTimeField(auto_now_add=True)
+    	texto = models.TextField(help_text='Tu comentario', verbose_name='Comentario')
+
+    	def __unicode__(self):
+        	return self.texto
+        	
+        	
+class Fichaje(models.Model):
+	auto = models.AutoField(primary_key=True)
+	jugador = models.ForeignKey(Jugador)
+	liga = models.ForeignKey(Liga)
+	precio = models.PositiveIntegerField(default=0)
+	
+class NuevosPuntos(models.Model):
+	jugador = models.ForeignKey(Jugador)
+	puntos = models.PositiveIntegerField(default=0)
+	        
+	        
+	        
+

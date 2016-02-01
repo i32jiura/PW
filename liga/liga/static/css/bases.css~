@@ -1,0 +1,20 @@
+
+#menu td a
+	{
+ 	color:#ffffff;
+ 	text-decoration: none;
+       	display:block;
+	}
+#menu td a:hover
+	{
+	background-color :#000000;
+    	color: #D2CD2F;
+	}
+#h1
+	{
+	font-size: 4em; 
+	/*border: thin red solid;*/
+	line-height:1.5em;
+	font-weight: normal;
+	color: #FFFFFF;
+	}

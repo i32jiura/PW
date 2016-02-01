@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% comment %} Aqui van comentarios {% endcomment %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+<link rel='stylesheet' href='{{STATIC_URL}}css/jugar.css'>
+	<table id='menu2'>
+	  <tr>
+		  <td><a href='/jugar/clasificacion'>Clasificación</a></td>
+		  <td><a href='/jugar/equipo'>Mi Equipo</a></td>
+		  <td><a href='/jugar/fichajes'>Mercado De Fichajes</a></td>
+		  <td><a href='/jugar/buscar'>Buscar un Jugador</a></td>
+      	 </tr>
+    	</table>
+    	
+    	
+  <p>
+	 Mi equipo:
+  </p>
+	<ul>
+	<table id = 'equipo2'>
+		<tr>
+	  		<td>Nombre</td>
+	  		<td>Precio</td>
+	  		<td>Puntos</td>
+	  		<td>Posicion</td>
+		</tr>
+	 	{% for dato in lista %}
+	 		<tr>
+
+			 	<td><a href='{% url principal.views.detalle_jugador dato.jugador.id %}'>{{dato.jugador.nombre}}</a></td>
+			 	<td>{{dato.jugador.precio}}</td>
+			 	<td>{{dato.jugador.puntos}}</td>
+			 	<td>{{dato.jugador.posicion}}</td>		  
+			</tr>
+	  	{% endfor %}
+ 	</table>
+	</ul>
+    	
+    	
+{% endblock %}

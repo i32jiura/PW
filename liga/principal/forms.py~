@@ -1,0 +1,19 @@
+#encoding:utf-8 
+from django.forms import ModelForm
+from django import forms
+from principal.models import Jugador, Equipo, Noticia, Liga, Comentario, Compra, Posible, Fichaje, NuevosPuntos
+
+class Registro(forms.Form):
+	nick = forms.CharField(max_length=50)
+	password = forms.CharField(max_length=15)
+	email = forms.EmailField(label='Tu correo electrónico')
+	NombreEquipo = forms.CharField(max_length=15, label='Nombre de tu equipo')
+	Liga = forms.CharField(max_length=30 , label='Nombre de la Liga')
+	
+class Fichajes(forms.Form):
+	jugadorComprado = forms.CharField(max_length=15, label='Nombre Jugador que Compra')
+	precio = forms.IntegerField()
+	jugadorVendemos = forms.CharField(max_length=15, label='Nombre Jugador que Cambia')
+	
+class Buscar(forms.Form):
+	nombre = forms.CharField(max_length=15, label='Nombre del Jugador')

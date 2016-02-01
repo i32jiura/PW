@@ -1,0 +1,351 @@
+from principal.models import Jugador, Equipo, Noticia, Liga, Comentario, Compra, Posible, Fichaje, NuevosPuntos
+from principal.forms import Registro, Fichajes, Buscar
+from django.shortcuts import render_to_response
+from django.contrib.auth.models import User
+from django.template import RequestContext
+from django.core.mail import EmailMessage
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate, logout
+from django.http import HttpResponse, HttpResponseRedirect
+import random
+
+
+def inicio(request):
+    comentario = Noticia.objects.all()
+    return render_to_response('inicio.html',{'lista': comentario}, context_instance=RequestContext(request))
+
+
+def registro(request):
+    if request.method=='POST':
+        formulario = Registro(request.POST)
+        if formulario.is_valid():
+            nick = formulario.cleaned_data['nick']
+            password = formulario.cleaned_data['password']
+            email = formulario.cleaned_data['email']
+            usuario = User.objects.create_user(nick , email , password)
+            ligaj = formulario.cleaned_data['Liga']
+            equipo = formulario.cleaned_data['NombreEquipo']
+            identificador = User.objects.get(username = nick ).id
+            if 1 != Liga.objects.filter(nombre = ligaj).count():
+            	Liga.objects.create(nombre = ligaj)
+            	liga_id = Liga.objects.get(nombre = ligaj).id
+            	count = Jugador.objects.all().count()
+            	for j in range(6):			
+			ram = random.choice(range(count))
+			precio = Jugador.objects.get(id = ram).precio 		
+			Fichaje.objects.create(jugador_id = ram , liga_id = liga_id , precio = precio)
+
+            ligacrear = Liga.objects.get(nombre = ligaj).id
+            a = Equipo.objects.create(user_id = identificador, nombre = equipo, liga_id = ligacrear , dinero = 10000000, puntos = 0)
+            equipoid = a.id
+            lista = []
+            lista.insert(0 , 'Delantero\n')
+            lista.insert(0 , 'Centrocampista\n')
+            lista.insert(0 , 'Defensa\n')
+            lista.insert(0 , 'Portero\n')
+            for i in lista:
+                
+                if i == 'Centrocampista\n' :
+                	for j in range(4):
+				salir = 0
+			    	while (salir == 0):
+				    	count = Jugador.objects.filter( posicion = i).count()
+				    	player = Jugador.objects.filter( posicion = i)
+				    	ram = random.choice(range(count))
+				    	jug = player[ram]
+			    		if(0 == Compra.objects.filter(jugador_id = jug.id , liga_id = ligacrear).count()):
+			    			Compra.objects.create(jugador_id = jug.id , equipo_id = equipoid , precio = 0 ,  liga_id = ligacrear )
+			    			salir = 1
+			    			
+		if i == 'Defensa\n':
+                	for j in range(4):
+				salir = 0
+			    	while (salir == 0):
+				    	count = Jugador.objects.filter( posicion = i).count()
+				    	player = Jugador.objects.filter( posicion = i)
+				    	ram = random.choice(range(count))
+				    	jug = player[ram]
+			    		if(0 == Compra.objects.filter(jugador_id = jug.id , liga_id = ligacrear).count()):
+			    			Compra.objects.create(jugador_id = jug.id , equipo_id = equipoid , precio = 0 ,  liga_id = ligacrear )
+			    			salir = 1
+			    				    			
+		if i == 'Portero\n':
+			salir = 0
+			while (salir == 0):
+				count = Jugador.objects.filter( posicion = i).count()
+				player = Jugador.objects.filter( posicion = i)
+				ram = random.choice(range(count))
+				jug = player[ram]
+			    	if(0 == Compra.objects.filter(jugador_id = jug.id , liga_id = ligacrear).count()):
+			  		Compra.objects.create(jugador_id = jug.id , equipo_id = equipoid , precio = 0 ,  liga_id = ligacrear )
+			    		salir = 1
+			    			
+		if i == 'Delantero\n':
+                	for j in range(2):
+				salir = 0
+			    	while (salir == 0):
+				    	count = Jugador.objects.filter( posicion = i).count()
+				    	player = Jugador.objects.filter( posicion = i)
+				    	ram = random.choice(range(count))
+				    	jug = player[ram]
+			    		if(0 == Compra.objects.filter(jugador_id = jug.id , liga_id = ligacrear).count()):
+			    			Compra.objects.create(jugador_id = jug.id , equipo_id = equipoid , precio = 0 ,  liga_id = ligacrear )
+			    			salir = 1
+            return HttpResponseRedirect('/jugar')
+    else:
+        formulario = Registro()
+    	return render_to_response('registro.html',{'formulario':formulario}, context_instance=RequestContext(request))
+    
+   
+def ingresar(request):
+    if not request.user.is_anonymous():
+        return HttpResponseRedirect('/privado')
+    if request.method == 'POST':
+        formulario = AuthenticationForm(request.POST)
+        if formulario.is_valid:
+            usuario = request.POST['username']
+            clave = request.POST['password']
+            acceso = authenticate(username=usuario, password=clave)
+            if acceso is not None:
+                if acceso.is_active:
+                    login(request, acceso)
+                    return HttpResponseRedirect('/privado')
+                else:
+                    return render_to_response('noactivo.html', context_instance=RequestContext(request))
+            else:
+                return render_to_response('nousuario.html', context_instance=RequestContext(request))
+    else:
+        formulario = AuthenticationForm()
+    return render_to_response('ingresar.html',{'formulario':formulario}, context_instance=RequestContext(request))
+    
+@login_required(login_url='/ingresar')
+def privado(request):
+    usuario = request.user
+    return render_to_response('privado.html', {'usuario':usuario}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')
+def cerrar(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+def jugar(request):
+	user = request.user
+	id_user = User.objects.get(username = user).id
+	comentario = Comentario.objects.all()
+	lista = Equipo.objects.filter(id = id_user)
+	if not request.user.is_anonymous():
+        	return render_to_response('jugar.html', {'comentario':comentario , 'lista' : lista}, context_instance=RequestContext(request))
+	return HttpResponseRedirect('/ingresar')
+	
+def detalle_jugador(request, id_jugador):
+    lista = Jugador.objects.filter(id = id_jugador)
+    return render_to_response('jugador.html', { 'lista' : lista} , context_instance=RequestContext(request))
+    
+def detalle_equipo(request, id):
+    lista = Equipo.objects.filter(id = id)
+    listas = Compra.objects.filter(equipo_id = id)
+    return render_to_response('equipo.html', { 'lista' : lista , 'listas' : listas } , context_instance=RequestContext(request))
+
+
+@login_required(login_url='/ingresar')
+def clasificacion(request):
+	usuario = request.user
+	id_user = User.objects.get(username = usuario).id
+	liga = Equipo.objects.get(user_id = id_user).liga_id
+	lista = Equipo.objects.filter(liga = liga).order_by('puntos').reverse()
+	return render_to_response('clasificacion.html', {'lista' : lista}, context_instance=RequestContext(request))
+	
+@login_required(login_url='/ingresar')	
+def equipo(request):
+	usuario = request.user
+	id_user = User.objects.get(username = usuario).id
+	iden = Equipo.objects.get(user_id = id_user).id
+	lista = Compra.objects.filter(equipo_id = iden)
+	return render_to_response('miequipo.html', {'lista' : lista} , context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')	
+def fichajes(request):
+	usuario = request.user
+	id_user = User.objects.get(username = usuario).id
+	liga = Equipo.objects.get(user_id = id_user).liga
+	lista = Fichaje.objects.filter(liga_id = liga)
+	nombre = Equipo.objects.filter(user_id = id_user)
+	lista2 = Posible.objects.filter(comprador = nombre)
+	if request.method=='POST':
+        	formulario = Fichajes(request.POST)
+        	if formulario.is_valid():
+			nombreC = formulario.cleaned_data['jugadorComprado']
+			precio = formulario.cleaned_data['precio']
+			nombreV = formulario.cleaned_data['jugadorVendemos']
+			dinero = Equipo.objects.get(user_id = id_user).dinero
+			errora = 1
+			errorb = 1
+			errorc = 1
+			error1 = 1
+			error2 = 1
+			error3 = 1
+			print Jugador.objects.filter(nombre = nombreC).count()
+			print Jugador.objects.filter(nombre = nombreV).count()
+			if 1 == Jugador.objects.filter(nombre = nombreC).count():
+				id_nombreC = Jugador.objects.get(nombre = nombreC).id
+				error1 = 0
+			if 1 == Jugador.objects.filter(nombre = nombreV).count():
+				id_nombreV = Jugador.objects.get(nombre = nombreV).id
+				error2 = 0
+			print precio
+			print dinero
+			if dinero >= precio:
+				error3 = 0	
+			if error1 == 0 and error2 == 0 and error3 == 0:
+				for i in lista:
+					if id_nombreC == i.jugador_id:
+						errora=0
+				lista = Compra.objects.filter(equipo = nombre)
+				for i in lista:
+					if id_nombreV == i.jugador_id:
+						errorb=0
+				pos1 = Jugador.objects.get(nombre = nombreC).posicion
+				pos2 = Jugador.objects.get(nombre = nombreV).posicion
+				print pos1
+				print pos2
+				if pos1 == pos2:
+					errorc = 0
+				if errora == 0 and errorb == 0 and errorc == 0:
+					Posible.objects.create(jugador_id = id_nombreC, comprador_id = id_user, precio = precio, liga_id = liga.id, jugadorcambio = nombreV)			
+					return render_to_response('realizada.html', context_instance=RequestContext(request))
+			
+			return render_to_response('error.html', context_instance=RequestContext(request))
+	else:
+        	formulario = Fichajes()	
+	return render_to_response('mercado.html', {'lista' : lista , 'lista2' : lista2 , 'formulario':formulario} , context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')	
+def buscar(request):
+	if request.method=='POST':
+        	formulario = Buscar(request.POST)
+        	if formulario.is_valid():
+        		nombre_jugador = formulario.cleaned_data['nombre']
+        		lista = Jugador.objects.filter(nombre = nombre_jugador)
+        		return render_to_response('jugador.html', { 'lista' : lista} , context_instance=RequestContext(request))
+	else:
+		formulario = Buscar()
+	return render_to_response('buscar.html', {'formulario':formulario}, context_instance=RequestContext(request))
+
+
+def administrar(request):
+	return render_to_response('administrar.html',  context_instance=RequestContext(request))
+	
+def admpuntos(request):
+	c = NuevosPuntos.objects.all().count()
+	nuevo = NuevosPuntos.objects.all()
+	for i in range(c):
+		jugador_id = nuevo[i].jugador_id
+		jugapuntos = nuevo[i].puntos
+		count = Compra.objects.filter(jugador_id = jugador_id).count()
+		if count != 0:
+			a = Compra.objects.filter(jugador_id = jugador_id)
+			punjuga = Jugador.objects.get(id = jugador_id).puntos
+			punjuga = punjuga + jugapuntos
+			Jugador.objects.filter(id = jugador_id).update(puntos = punjuga)
+			for j in range(count):
+				equipo_id = a[j].equipo_id
+				puntos = Equipo.objects.get(id = equipo_id).puntos
+				dinero = Equipo.objects.get(id = equipo_id).dinero
+				nuevodinero = dinero + (jugapuntos * 10000)
+				nuevospuntos = puntos + jugapuntos
+				Equipo.objects.filter(id = equipo_id).update(dinero = nuevodinero , puntos = nuevospuntos)
+	NuevosPuntos.objects.all().delete()
+	if NuevosPuntos.objects.all().count() == 0:	
+		return render_to_response('realizada.html', context_instance=RequestContext(request))
+	else:
+		return render_to_response('error.html', context_instance=RequestContext(request))
+		
+		
+def admfichajes(request):
+	c = Posible.objects.values('jugador' , 'liga').distinct().count()
+	for i in range(c):
+		a = Posible.objects.all().order_by('precio').reverse()
+		b = a[0].jugadorcambio
+		liga_id = a[0].liga.id
+		equipo_id = a[0].comprador.id
+		precio = a[0].precio
+		dinero = Equipo.objects.get(id = equipo_id).dinero
+		nombre = Equipo.objects.get(id = equipo_id).nombre
+		nombrejuga = Jugador.objects.get(id = a[0].jugador.id ).nombre
+		
+		Compra.objects.create(jugador_id = a[0].jugador.id , equipo_id = a[0].comprador.id , precio = a[0].precio ,  liga_id = a[0].liga.id)
+		
+		nuevodinero = dinero - precio
+		Equipo.objects.filter(id = equipo_id).update(dinero = nuevodinero)
+		
+		preciocadena = str(precio)
+		texto = nombre + ' ha cambiado ' + nombrejuga + ' por ' + b + ' por una cantidad de : ' + preciocadena + ' Euros '
+		Comentario.objects.create(nombre_id = 1 , texto = texto , liga_id = liga_id )
+		
+		Posible.objects.filter(liga = a[0].liga.id , jugador = a[0].jugador.id).delete()
+		
+		jugador_id = Jugador.objects.get(nombre = b).id
+		Compra.objects.filter(liga = liga_id , jugador = jugador_id).delete()
+		
+	c = Liga.objects.values().count()
+	count = Jugador.objects.all().count()
+	Fichaje.objects.all().delete()
+	for i in range(c):
+		for j in range(6):
+			salir = 0
+			while (salir == 0):
+				ram = random.choice(range(count))
+				if 0 == Compra.objects.filter(jugador_id = ram , liga_id = i+1).count():
+					precio = Jugador.objects.get(id = ram).precio 		
+			 		Fichaje.objects.create(jugador_id = ram , liga_id = i+1 , precio = precio)
+			 		salir = 1
+	if Posible.objects.count() == 0:
+		return render_to_response('realizada.html', context_instance=RequestContext(request))
+	else:
+		return render_to_response('error.html', context_instance=RequestContext(request))
+
+	
+def puntosaleatorios (request):
+	count = Jugador.objects.all().count()
+	for i in range(count):
+		ram = random.choice(range(15))
+		NuevosPuntos.objects.create(jugador_id = i+1 , puntos = ram)
+
+	if count == NuevosPuntos.objects.all().count():
+		return render_to_response('realizada.html', context_instance=RequestContext(request))
+	else:
+		return render_to_response('error.html', context_instance=RequestContext(request))
+
+
+def jugadorenbd(request):
+
+	f = open("/home/i02allof/Escritorio/Paginaweb/liga/Equipos/equipos.txt", "r")
+	
+	for linea in f:
+		aux = 0
+		for i in linea.split('	 '):
+			aux = aux +1
+		if aux == 1:
+			equipo = i			
+		else:
+			count = 0
+			for i in linea.split('	 '):
+				count = count +1
+				if count == 1:
+					nombre = i
+				else:
+					posicion = i
+			ram = random.choice(range(100)) +1
+			precio = ram *10000
+			Jugador.objects.create(nombre = nombre , club = equipo , posicion = posicion ,puntos = 0 , precio = precio)
+		
+	f.close()
+	
+	if  Jugador.objects.all().count() != 0:
+			return render_to_response('realizada.html', context_instance=RequestContext(request))
+	else:
+		return render_to_response('error.html', context_instance=RequestContext(request))
+
+	

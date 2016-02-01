@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd>
+
+<html lang='es'>
+<head>
+  <meta charset='utf-8'>
+  
+  <title>AlFutbol -- Tu Liga Virtual de Futbol {% block titulo %}{% endblock %}</title>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/bases22.css'>
+  <link rel='shortcut icon' href='{{STATIC_URL}}img/logo.jpg'>
+  {% block style_css %}{% endblock %}
+	
+</head>
+<body>
+  <header>
+  {% block encabezado %}{% endblock %}
+  <div id="estructura">
+	<div id="logo">
+  		<img src="{{STATIC_URL}}img/logo.jpg" width="100" height="150" alt="Worldwide Apparel logo" />
+	</div>
+	
+	<nav>
+	<div id="h1">
+		Alfutbol:<em> Tu Liga </em>
+	</div>
+	  <table id='menu'>
+	  <tr>
+		  <td><a href='/'>Inicio</a></td>
+		  <td><a href='/jugar'>Jugar</a></td>
+		  <td><a href='/registro'>Registrar Usuario</a></td>
+		  <td><a href='/ingresar'>Autentificarse</a></td>
+		  <td><a href='/cerrar'>Cerrar Seción</a></td>
+		  <td><a href='/administrar'>Administrar Liga</a></td>
+      	 </tr>
+    	</table>
+	</nav>
+	<hr>
+	<div id="cuerpo">
+	{% block contenido %}{% endblock %}
+	</div>
+  </header>	
+  <footer>
+	<p>Practica Programación Web Felipe Alcaide López &copy;2012</p>
+  </footer>
+  </div>
+</body>
+</html>

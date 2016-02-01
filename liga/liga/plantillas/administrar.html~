@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% comment %} Aqui van comentarios {% endcomment %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+<link rel='stylesheet' href='{{STATIC_URL}}css/jugar.css'>
+	<table id='menu2'>
+	  <tr>
+		  <td><a href='/administrar/fichajes'>Administración de Fichajes</a></td>
+		  <td><a href='/administrar/puntos'>Completar Puntos</a></td>
+		  <td><a href='/administrar/puntosaleatorios'>Introducir Puntos Aleatorios</a></td>
+      	 </tr>
+    	</table>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% comment %} Aqui van comentarios {% endcomment %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+    	
+    	Tarea Realizada!!!!!
+
+{% endblock %}

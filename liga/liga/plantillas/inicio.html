@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% comment %} Aqui van comentarios {% endcomment %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+<link rel='stylesheet' href='{{STATIC_URL}}css/inicio.css'>
+  <p>
+	  Noticias:
+  </p>
+	<ul>
+	<div id="noticia">		
+	  {% for dato in lista %}
+	  	{{dato.nombre}} escribió el {{dato.fecha}}: <br/>
+	  	{{dato.texto}} 	
+	  {% endfor %}
+	</div>
+	</ul>
+{% endblock %}

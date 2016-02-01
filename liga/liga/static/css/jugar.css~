@@ -1,0 +1,23 @@
+
+
+#menu2 td { 	
+	float: left; 
+	width: 120px; 	
+	height: 25px; 
+	background-color: #6F0F02; 	
+	text-align: left;	
+	border-left: 1px black solid; 	
+	border-right: 1px black solid;
+	line-height: 25px;
+	}
+#menu2 td a
+	{
+ 	color:#ffffff;
+ 	text-decoration: none;
+       	display:block;
+	}
+#menu2 td a:hover
+	{
+	background-color :#000000;
+    	color: #D2CD2F;
+	}
