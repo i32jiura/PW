@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>django.contrib.markup | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/ref/contrib/markup.1">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/ref/contrib/markup.1">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/ref/contrib/markup.1">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-module-django.contrib.markup">
+<span id="s-django-contrib-markup"></span><span id="module-django.contrib.markup"></span><span id="django-contrib-markup"></span><h1>django.contrib.markup<a class="headerlink" href="markup.1#module-django.contrib.markup" title="Permalink to this headline">¶</a></h1>
+<div class="deprecated">
+<span class="title">Deprecated in Django 1.5:</span> <p><span>Deprecated since version 1.5: </span>This module has been deprecated.</p>
+</div>
+<p>Django provides template filters that implement the following markup
+languages:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">textile</span></tt> &#8211; implements <a class="reference external" href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29">Textile</a> &#8211; requires <a class="reference external" href="http://loopcore.com/python-textile/">PyTextile</a></li>
+<li><tt class="docutils literal"><span class="pre">markdown</span></tt> &#8211; implements <a class="reference external" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> &#8211; requires <a class="reference external" href="http://pypi.python.org/pypi/Markdown">Python-markdown</a> (&gt;=2.1)</li>
+<li><tt class="docutils literal"><span class="pre">restructuredtext</span></tt> &#8211; implements <a class="reference external" href="http://en.wikipedia.org/wiki/ReStructuredText">reST (reStructured Text)</a>
+&#8211; requires <a class="reference external" href="http://docutils.sf.net/">doc-utils</a></li>
+</ul>
+<p>In each case, the filter expects formatted markup as a string and
+returns a string representing the marked-up text. For example, the
+<tt class="docutils literal"><span class="pre">textile</span></tt> filter converts text that is marked-up in Textile format
+to HTML.</p>
+<p>To activate these filters, add <tt class="docutils literal"><span class="pre">'django.contrib.markup'</span></tt> to your
+<a class="reference internal" href="../settings/index.html#std:setting-INSTALLED_APPS"><tt class="xref std std-setting docutils literal"><span class="pre">INSTALLED_APPS</span></tt></a> setting. Once you&#8217;ve done that, use
+<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">load</span> <span class="pre">markup</span> <span class="pre">%}</span></tt> in a template, and you&#8217;ll have access to these filters.
+For more documentation, read the source code in
+<tt class="file docutils literal"><span class="pre">django/contrib/markup/templatetags/markup.py</span></tt>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The output of markup filters is marked &#8220;safe&#8221; and will not be escaped when
+rendered in a template. Always be careful to sanitize your inputs and make
+sure you are not leaving yourself vulnerable to cross-site scripting or
+other types of attacks.</p>
+</div>
+<div class="section" id="s-restructured-text">
+<span id="restructured-text"></span><h2>reStructured Text<a class="headerlink" href="markup.1#restructured-text" title="Permalink to this headline">¶</a></h2>
+<p>When using the <tt class="docutils literal"><span class="pre">restructuredtext</span></tt> markup filter you can define a
+<a class="reference internal" href="../settings/index.html#std:setting-RESTRUCTUREDTEXT_FILTER_SETTINGS"><tt class="xref std std-setting docutils literal"><span class="pre">RESTRUCTUREDTEXT_FILTER_SETTINGS</span></tt></a> in your django settings to
+override the default writer settings. See the <a class="reference external" href="http://docutils.sourceforge.net/docs/user/config.html#html4css1-writer">restructuredtext writer
+settings</a> for details on what these settings are.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">reStructured Text has features that allow raw HTML to be included, and that
+allow arbitrary files to be included. These can lead to XSS vulnerabilities
+and leaking of private information. It is your responsibility to check the
+features of this library and configure appropriately to avoid this. See the
+<a class="reference external" href="http://docutils.sourceforge.net/docs/howto/security.html">Deploying Docutils Securely</a> documentation.</p>
+</div>
+</div>
+<div class="section" id="s-id1">
+<span id="id1"></span><h2>Markdown<a class="headerlink" href="markup.1#id1" title="Permalink to this headline">¶</a></h2>
+<p>The Python Markdown library supports options named &#8220;safe_mode&#8221; and
+&#8220;enable_attributes&#8221;. Both relate to the security of the output. To enable both
+options in tandem, the markdown filter supports the &#8220;safe&#8221; argument:</p>
+<div class="highlight-python"><pre>{{ markdown_content_var|markdown:"safe" }}</pre>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Versions of the Python-Markdown library prior to 2.1 do not support the
+optional disabling of attributes. This is a security flaw. Therefore,
+<tt class="docutils literal"><span class="pre">django.contrib.markup</span></tt> has dropped support for versions of
+Python-Markdown &lt; 2.1 in Django 1.5.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="localflavor.1">&laquo; The &#8220;local flavor&#8221; add-ons</a></div>
+  
+  
+    <div class="right"><a href="messages.1">The messages framework &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="markup.1#">django.contrib.markup</a><ul>
+<li><a class="reference internal" href="markup.1#restructured-text">reStructured Text</a></li>
+<li><a class="reference internal" href="markup.1#id1">Markdown</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="localflavor.1">The &#8220;local flavor&#8221; add-ons</a></li>
+        
+        
+          <li>Next: <a href="messages.1">The messages framework</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">API Reference</a>
+          
+            <ul><li><a href="index.html"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">contrib</span></tt> packages</a>
+          
+          <ul><li>django.contrib.markup</li></ul>
+          </li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

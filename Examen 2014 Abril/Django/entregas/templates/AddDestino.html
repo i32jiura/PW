@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h2>Añadiendo un Destinatario</h2>
+	<form id='formulario', method='post', enctype='multipart/form-data', action=''>
+	{% csrf_token %}
+	{{formulario.as_p}}
+	<input type='submit', value='Enviar'> </input>
+	</form>
+
+
+
+
+{% endblock %}

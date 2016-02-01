@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Upgrading Django to a newer version | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/howto/upgrade-version/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/howto/upgrade-version/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-upgrading-django-to-a-newer-version">
+<span id="upgrading-django-to-a-newer-version"></span><h1>Upgrading Django to a newer version<a class="headerlink" href="index.html#upgrading-django-to-a-newer-version" title="Permalink to this headline">¶</a></h1>
+<p>While it can be a complex process at times, upgrading to the latest Django
+version has several benefits:</p>
+<ul class="simple">
+<li>New features and improvements are added.</li>
+<li>Bugs are fixed.</li>
+<li>Older version of Django will eventually no longer receive security updates.
+(see <a class="reference internal" href="../../internals/release-process/index.html#backwards-compatibility-policy"><em>Supported versions</em></a>).</li>
+<li>Upgrading as each new Django release is available makes future upgrades less
+painful by keeping your code base up to date.</li>
+</ul>
+<p>Here are some things to consider to help make your upgrade process as smooth as
+possible.</p>
+<div class="section" id="s-required-reading">
+<span id="required-reading"></span><h2>Required Reading<a class="headerlink" href="index.html#required-reading" title="Permalink to this headline">¶</a></h2>
+<p>If it&#8217;s your first time doing an upgrade, it is useful to read the <a class="reference internal" href="../../internals/release-process/index.html"><em>guide
+on the different release processes</em></a>.</p>
+<p>Afterwards, you should familiarize yourself with the changes that were made in
+the new Django version(s):</p>
+<ul class="simple">
+<li>Read the <a class="reference internal" href="../../releases/index.html"><em>release notes</em></a> for each &#8216;final&#8217; release from
+the one after your current Django version, up to and including the version to
+which you plan to upgrade.</li>
+<li>Look at the <a class="reference internal" href="../../internals/deprecation/index.html"><em>deprecation timeline</em></a> for the
+relevant versions.</li>
+</ul>
+<p>Pay particular attention to backwards incompatible changes to get a clear idea
+of what will be needed for a successful upgrade.</p>
+</div>
+<div class="section" id="s-dependencies">
+<span id="dependencies"></span><h2>Dependencies<a class="headerlink" href="index.html#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>In most cases it will be necessary to upgrade to the latest version of your
+Django-related dependencies as well. If the Django version was recently
+released or if some of your dependencies are not well-maintained, some of your
+dependencies may not yet support the new Django version. In these cases you may
+have to wait until new versions of your dependencies are released.</p>
+</div>
+<div class="section" id="s-installation">
+<span id="installation"></span><h2>Installation<a class="headerlink" href="index.html#installation" title="Permalink to this headline">¶</a></h2>
+<p>Once you&#8217;re ready, it is time to <a class="reference internal" href="../../topics/install/index.html"><em>install the new Django version</em></a>. If you are using <a class="reference external" href="http://www.virtualenv.org/">virtualenv</a> and it is a major upgrade, you
+might want to set up a new environment with all the dependencies first.</p>
+<p>Exactly which steps you will need to take depends on your installation process.
+The most convenient way is to use <a class="reference external" href="http://www.pip-installer.org/">pip</a> with the <tt class="docutils literal"><span class="pre">--upgrade</span></tt> or <tt class="docutils literal"><span class="pre">-U</span></tt> flag:</p>
+<div class="highlight-bash"><div class="highlight"><pre>pip install -U Django
+</pre></div>
+</div>
+<p><a class="reference external" href="http://www.pip-installer.org/">pip</a> also automatically uninstalls the previous version of Django.</p>
+<p>If you use some other installation process, you might have to manually
+<a class="reference internal" href="../../topics/install/index.html#removing-old-versions-of-django"><em>uninstall the old Django version</em></a> and
+should look at the complete installation instructions.</p>
+</div>
+<div class="section" id="s-testing">
+<span id="testing"></span><h2>Testing<a class="headerlink" href="index.html#testing" title="Permalink to this headline">¶</a></h2>
+<p>When the new environment is set up, <a class="reference internal" href="../../topics/testing/overview.1"><em>run the full test suite</em></a> for your application. In Python 2.7+, deprecation
+warnings are silenced by default. It is useful to turn the warnings on so they
+are shown in the test output (you can also use the flag if you test your app
+manually using <tt class="docutils literal"><span class="pre">manage.py</span> <span class="pre">runserver</span></tt>):</p>
+<div class="highlight-bash"><div class="highlight"><pre>python -Wall manage.py <span class="nb">test</span>
+</pre></div>
+</div>
+<p>After you have run the tests, fix any failures. While you have the release
+notes fresh in your mind, it may also be a good time to take advantage of new
+features in Django by refactoring your code to eliminate any deprecation
+warnings.</p>
+</div>
+<div class="section" id="s-deployment">
+<span id="deployment"></span><h2>Deployment<a class="headerlink" href="index.html#deployment" title="Permalink to this headline">¶</a></h2>
+<p>When you are sufficiently confident your app works with the new version of
+Django, you&#8217;re ready to go ahead and <a class="reference internal" href="../deployment/index.html"><em>deploy</em></a>
+your upgraded Django project.</p>
+<p>If you are using caching provided by Django, you should consider clearing your
+cache after upgrading. Otherwise you may run into problems, for example, if you
+are caching pickled objects as these objects are not guaranteed to be
+pickle-compatible across Django versions. A past instance of incompatibility
+was caching pickled <a class="reference internal" href="../../ref/request-response.1#django.http.HttpResponse" title="django.http.HttpResponse"><tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt></a> objects, either
+directly or indirectly via the <a class="reference internal" href="../../topics/cache/index.html#django.views.decorators.cache.cache_page" title="django.views.decorators.cache.cache_page"><tt class="xref py py-func docutils literal"><span class="pre">cache_page()</span></tt></a>
+decorator.</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../deployment/fastcgi/index.html">&laquo; How to use Django with FastCGI, SCGI, or AJP</a></div>
+  
+  
+    <div class="right"><a href="../error-reporting/index.html">Error reporting &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Upgrading Django to a newer version</a><ul>
+<li><a class="reference internal" href="index.html#required-reading">Required Reading</a></li>
+<li><a class="reference internal" href="index.html#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="index.html#installation">Installation</a></li>
+<li><a class="reference internal" href="index.html#testing">Testing</a></li>
+<li><a class="reference internal" href="index.html#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../deployment/fastcgi/index.html">How to use Django with FastCGI, SCGI, or AJP</a></li>
+        
+        
+          <li>Next: <a href="../error-reporting/index.html">Error reporting</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">&#8220;How-to&#8221; guides</a>
+          
+          <ul><li>Upgrading Django to a newer version</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

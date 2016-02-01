@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block contest %}
+
+	{% if usuario.is_authenticated %}
+		<a href="Logout">Salir</a>	
+	{% else %}
+		<a href="Login">Loguearse</a>
+		<a href="AddUsuario">Registrarse</a>
+	{% endif %}
+	
+	<h3>Lista de usuarios</h3>
+	{% for user in usuarios %}
+		<li><a href="VerUsuario/{{user.pk}}">{{user.username}}</a></li>
+	{% endfor %}
+
+
+{% endblock %}

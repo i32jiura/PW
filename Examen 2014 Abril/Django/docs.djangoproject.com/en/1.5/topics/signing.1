@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Cryptographic signing | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../1.4/topics/signing.1">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../1.6/topics/signing.1">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../dev/topics/signing.1">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-module-django.core.signing">
+<span id="s-cryptographic-signing"></span><span id="module-django.core.signing"></span><span id="cryptographic-signing"></span><h1>Cryptographic signing<a class="headerlink" href="signing.1#module-django.core.signing" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<span class="title">New in Django 1.4.</span> </div>
+<p>The golden rule of Web application security is to never trust data from
+untrusted sources. Sometimes it can be useful to pass data through an
+untrusted medium. Cryptographically signed values can be passed through an
+untrusted channel safe in the knowledge that any tampering will be detected.</p>
+<p>Django provides both a low-level API for signing values and a high-level API
+for setting and reading signed cookies, one of the most common uses of
+signing in Web applications.</p>
+<p>You may also find signing useful for the following:</p>
+<ul class="simple">
+<li>Generating &#8220;recover my account&#8221; URLs for sending to users who have
+lost their password.</li>
+<li>Ensuring data stored in hidden form fields has not been tampered with.</li>
+<li>Generating one-time secret URLs for allowing temporary access to a
+protected resource, for example a downloadable file that a user has
+paid for.</li>
+</ul>
+<div class="section" id="s-protecting-the-secret-key">
+<span id="protecting-the-secret-key"></span><h2>Protecting the SECRET_KEY<a class="headerlink" href="signing.1#protecting-the-secret-key" title="Permalink to this headline">¶</a></h2>
+<p>When you create a new Django project using <a class="reference internal" href="../ref/django-admin/index.html#django-admin-startproject"><tt class="xref std std-djadmin docutils literal"><span class="pre">startproject</span></tt></a>, the
+<tt class="docutils literal"><span class="pre">settings.py</span></tt> file is generated automatically and gets a random
+<a class="reference internal" href="../ref/settings/index.html#std:setting-SECRET_KEY"><tt class="xref std std-setting docutils literal"><span class="pre">SECRET_KEY</span></tt></a> value. This value is the key to securing signed
+data &#8211; it is vital you keep this secure, or attackers could use it to
+generate their own signed values.</p>
+</div>
+<div class="section" id="s-using-the-low-level-api">
+<span id="using-the-low-level-api"></span><h2>Using the low-level API<a class="headerlink" href="signing.1#using-the-low-level-api" title="Permalink to this headline">¶</a></h2>
+<p>Django&#8217;s signing methods live in the <tt class="docutils literal"><span class="pre">django.core.signing</span></tt> module.
+To sign a value, first instantiate a <tt class="docutils literal"><span class="pre">Signer</span></tt> instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.core.signing</span> <span class="kn">import</span> <span class="n">Signer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span> <span class="o">=</span> <span class="n">Signer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">signer</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="s">&#39;My string&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span>
+<span class="go">&#39;My string:GdMGD6HNQ_qdgxYP8yBZAdAIV1w&#39;</span>
+</pre></div>
+</div>
+<p>The signature is appended to the end of the string, following the colon.
+You can retrieve the original value using the <tt class="docutils literal"><span class="pre">unsign</span></tt> method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">original</span> <span class="o">=</span> <span class="n">signer</span><span class="o">.</span><span class="n">unsign</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">original</span>
+<span class="go">u&#39;My string&#39;</span>
+</pre></div>
+</div>
+<p>If the signature or value have been altered in any way, a
+<tt class="docutils literal"><span class="pre">django.core.signing.BadSignature</span></tt> exception will be raised:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.core</span> <span class="kn">import</span> <span class="n">signing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">+=</span> <span class="s">&#39;m&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">original</span> <span class="o">=</span> <span class="n">signer</span><span class="o">.</span><span class="n">unsign</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">signing</span><span class="o">.</span><span class="n">BadSignature</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">print</span><span class="p">(</span><span class="s">&quot;Tampering detected!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, the <tt class="docutils literal"><span class="pre">Signer</span></tt> class uses the <a class="reference internal" href="../ref/settings/index.html#std:setting-SECRET_KEY"><tt class="xref std std-setting docutils literal"><span class="pre">SECRET_KEY</span></tt></a> setting to
+generate signatures. You can use a different secret by passing it to the
+<tt class="docutils literal"><span class="pre">Signer</span></tt> constructor:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span> <span class="o">=</span> <span class="n">Signer</span><span class="p">(</span><span class="s">&#39;my-other-secret&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">signer</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="s">&#39;My string&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span>
+<span class="go">&#39;My string:EkfQJafvGyiofrdGnuthdxImIJw&#39;</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="django.core.signing.Signer">
+<em class="property">class </em><tt class="descname">Signer</tt>(<em>key=None</em>, <em>sep=':'</em>, <em>salt=None</em>)<a class="headerlink" href="signing.1#django.core.signing.Signer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a signer which uses <tt class="docutils literal"><span class="pre">key</span></tt> to generate signatures and <tt class="docutils literal"><span class="pre">sep</span></tt> to
+separate values. <tt class="docutils literal"><span class="pre">sep</span></tt> cannot be in the <a class="reference external" href="http://tools.ietf.org/html/rfc4648#section-5">URL safe base64 alphabet</a>.  This alphabet contains
+alphanumeric characters, hyphens, and underscores.</p>
+</dd></dl>
+
+<div class="section" id="s-using-the-salt-argument">
+<span id="using-the-salt-argument"></span><h3>Using the salt argument<a class="headerlink" href="signing.1#using-the-salt-argument" title="Permalink to this headline">¶</a></h3>
+<p>If you do not wish for every occurrence of a particular string to have the same
+signature hash, you can use the optional <tt class="docutils literal"><span class="pre">salt</span></tt> argument to the <tt class="docutils literal"><span class="pre">Signer</span></tt>
+class. Using a salt will seed the signing hash function with both the salt and
+your <a class="reference internal" href="../ref/settings/index.html#std:setting-SECRET_KEY"><tt class="xref std std-setting docutils literal"><span class="pre">SECRET_KEY</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span> <span class="o">=</span> <span class="n">Signer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="s">&#39;My string&#39;</span><span class="p">)</span>
+<span class="go">&#39;My string:GdMGD6HNQ_qdgxYP8yBZAdAIV1w&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span> <span class="o">=</span> <span class="n">Signer</span><span class="p">(</span><span class="n">salt</span><span class="o">=</span><span class="s">&#39;extra&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="s">&#39;My string&#39;</span><span class="p">)</span>
+<span class="go">&#39;My string:Ee7vGi-ING6n02gkcJ-QLHg6vFw&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span><span class="o">.</span><span class="n">unsign</span><span class="p">(</span><span class="s">&#39;My string:Ee7vGi-ING6n02gkcJ-QLHg6vFw&#39;</span><span class="p">)</span>
+<span class="go">u&#39;My string&#39;</span>
+</pre></div>
+</div>
+<p>Using salt in this way puts the different signatures into different
+namespaces.  A signature that comes from one namespace (a particular salt
+value) cannot be used to validate the same plaintext string in a different
+namespace that is using a different salt setting. The result is to prevent an
+attacker from using a signed string generated in one place in the code as input
+to another piece of code that is generating (and verifying) signatures using a
+different salt.</p>
+<p>Unlike your <a class="reference internal" href="../ref/settings/index.html#std:setting-SECRET_KEY"><tt class="xref std std-setting docutils literal"><span class="pre">SECRET_KEY</span></tt></a>, your salt argument does not need to stay
+secret.</p>
+</div>
+<div class="section" id="s-verifying-timestamped-values">
+<span id="verifying-timestamped-values"></span><h3>Verifying timestamped values<a class="headerlink" href="signing.1#verifying-timestamped-values" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">TimestampSigner</span></tt> is a subclass of <a class="reference internal" href="signing.1#django.core.signing.Signer" title="django.core.signing.Signer"><tt class="xref py py-class docutils literal"><span class="pre">Signer</span></tt></a> that appends a signed
+timestamp to the value. This allows you to confirm that a signed value was
+created within a specified period of time:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.core.signing</span> <span class="kn">import</span> <span class="n">TimestampSigner</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span> <span class="o">=</span> <span class="n">TimestampSigner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">signer</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="s">&#39;hello&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span>
+<span class="go">&#39;hello:1NMg5H:oPVuCqlJWmChm1rA2lyTUtelC-c&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span><span class="o">.</span><span class="n">unsign</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="go">u&#39;hello&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span><span class="o">.</span><span class="n">unsign</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">SignatureExpired: Signature age 15.5289158821 &gt; 10 seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span><span class="o">.</span><span class="n">unsign</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">u&#39;hello&#39;</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="django.core.signing.TimestampSigner">
+<em class="property">class </em><tt class="descname">TimestampSigner</tt>(<em>key=None</em>, <em>sep=':'</em>, <em>salt=None</em>)<a class="headerlink" href="signing.1#django.core.signing.TimestampSigner" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="django.core.signing.TimestampSigner.sign">
+<tt class="descname">sign</tt>(<em>value</em>)<a class="headerlink" href="signing.1#django.core.signing.TimestampSigner.sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign <tt class="docutils literal"><span class="pre">value</span></tt> and append current timestamp to it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.core.signing.TimestampSigner.unsign">
+<tt class="descname">unsign</tt>(<em>value</em>, <em>max_age=None</em>)<a class="headerlink" href="signing.1#django.core.signing.TimestampSigner.unsign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if <tt class="docutils literal"><span class="pre">value</span></tt> was signed less than <tt class="docutils literal"><span class="pre">max_age</span></tt> seconds ago,
+otherwise raises <tt class="docutils literal"><span class="pre">SignatureExpired</span></tt>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="s-protecting-complex-data-structures">
+<span id="protecting-complex-data-structures"></span><h3>Protecting complex data structures<a class="headerlink" href="signing.1#protecting-complex-data-structures" title="Permalink to this headline">¶</a></h3>
+<p>If you wish to protect a list, tuple or dictionary you can do so using the
+signing module&#8217;s <tt class="docutils literal"><span class="pre">dumps</span></tt> and <tt class="docutils literal"><span class="pre">loads</span></tt> functions. These imitate Python&#8217;s
+pickle module, but use JSON serialization under the hood. JSON ensures that
+even if your <a class="reference internal" href="../ref/settings/index.html#std:setting-SECRET_KEY"><tt class="xref std std-setting docutils literal"><span class="pre">SECRET_KEY</span></tt></a> is stolen an attacker will not be able
+to execute arbitrary commands by exploiting the pickle format.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.core</span> <span class="kn">import</span> <span class="n">signing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">signing</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&quot;foo&quot;</span><span class="p">:</span> <span class="s">&quot;bar&quot;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span>
+<span class="go">&#39;eyJmb28iOiJiYXIifQ:1NMg1b:zGcDE4-TCkaeGzLeW9UQwZesciI&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signing</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="go">{&#39;foo&#39;: &#39;bar&#39;}</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="django.core.signing.dumps">
+<tt class="descname">dumps</tt>(<em>obj</em>, <em>key=None</em>, <em>salt='django.core.signing'</em>, <em>compress=False</em>)<a class="headerlink" href="signing.1#django.core.signing.dumps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns URL-safe, sha1 signed base64 compressed JSON string. Serialized
+object is signed using <a class="reference internal" href="signing.1#django.core.signing.TimestampSigner" title="django.core.signing.TimestampSigner"><tt class="xref py py-class docutils literal"><span class="pre">TimestampSigner</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="django.core.signing.loads">
+<tt class="descname">loads</tt>(<em>string</em>, <em>key=None</em>, <em>salt='django.core.signing'</em>, <em>max_age=None</em>)<a class="headerlink" href="signing.1#django.core.signing.loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse of <tt class="docutils literal"><span class="pre">dumps()</span></tt>, raises <tt class="docutils literal"><span class="pre">BadSignature</span></tt> if signature fails.
+Checks <tt class="docutils literal"><span class="pre">max_age</span></tt> (in seconds) if given.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="conditional-view-processing/index.html">&laquo; Conditional View Processing</a></div>
+  
+  
+    <div class="right"><a href="email.1">Sending email &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="signing.1#">Cryptographic signing</a><ul>
+<li><a class="reference internal" href="signing.1#protecting-the-secret-key">Protecting the SECRET_KEY</a></li>
+<li><a class="reference internal" href="signing.1#using-the-low-level-api">Using the low-level API</a><ul>
+<li><a class="reference internal" href="signing.1#using-the-salt-argument">Using the salt argument</a></li>
+<li><a class="reference internal" href="signing.1#verifying-timestamped-values">Verifying timestamped values</a></li>
+<li><a class="reference internal" href="signing.1#protecting-complex-data-structures">Protecting complex data structures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="conditional-view-processing/index.html">Conditional View Processing</a></li>
+        
+        
+          <li>Next: <a href="email.1">Sending email</a></li>
+        
+        <li><a href="../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="index.html">Using Django</a>
+          
+          <ul><li>Cryptographic signing</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

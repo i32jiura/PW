@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<p>Nombre: {{ruta.nombre}}</p>
+	Destinos: 
+	{% for destino in ruta.destinos.all %}
+	{{destino}}, 
+	{% endfor %}
+	<p>Días: {{ruta.dias}} días</p>
+	<p>Coste: {{ruta.coste}} €</p>
+	<a href="EditarRuta">Editar</a>
+{% endblock %}

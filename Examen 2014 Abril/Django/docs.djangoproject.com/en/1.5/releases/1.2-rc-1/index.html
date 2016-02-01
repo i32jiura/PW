@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Django 1.2 RC 1 release notes | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/releases/1.2-rc-1/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/releases/1.2-rc-1/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/releases/1.2-rc-1/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/releases/1.2-rc-1/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/releases/1.2-rc-1/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-django-1-2-rc-1-release-notes">
+<span id="django-1-2-rc-1-release-notes"></span><h1>Django 1.2 RC 1 release notes<a class="headerlink" href="index.html#django-1-2-rc-1-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>May 5, 2010</p>
+<p>Welcome to the first Django 1.2 release candidate!</p>
+<p>This is the third &#8211; and likely last &#8211; in a series of
+preview/development releases leading up to the eventual release of
+Django 1.2. This release is targeted primarily at developers who are
+interested in trying out new features and testing the Django codebase
+to help identify and resolve any critical bugs prior to the final 1.2
+release.</p>
+<p>As such, this release is not yet intended for production use, and any
+such use is discouraged.</p>
+<p>Django has been feature frozen since the 1.2 beta release, so this
+release candidate contains no new features, only bugfixes; for a
+summary of features new to Django 1.2, consult the <a class="reference internal" href="../1.2-alpha-1/index.html"><em>1.2 alpha</em></a> and <a class="reference internal" href="../1.2-beta-1/index.html"><em>1.2 beta</em></a>
+release notes.</p>
+<div class="section" id="s-python-compatibility">
+<span id="python-compatibility"></span><h2>Python compatibility<a class="headerlink" href="index.html#python-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>While not a new feature, it&#8217;s important to note that Django 1.2
+introduces the first shift in our Python compatibility policy since
+Django&#8217;s initial public debut. Previous Django releases were tested
+and supported on 2.x Python versions from 2.3 up; Django 1.2, however,
+drops official support for Python 2.3. As such, the minimum Python
+version required for Django is now 2.4, and Django is tested and
+supported on Python 2.4, 2.5 and 2.6, and will be supported on the
+as-yet-unreleased Python 2.7.</p>
+<p>This change should affect only a small number of Django users, as most
+operating-system vendors today are shipping Python 2.4 or newer as
+their default version. If you&#8217;re still using Python 2.3, however,
+you&#8217;ll need to stick to Django 1.1 until you can upgrade; per
+<a class="reference internal" href="../../internals/release-process/index.html"><em>our support policy</em></a>, Django 1.1 will
+continue to receive security support until the release of Django 1.3.</p>
+<p>A roadmap for Django&#8217;s overall 2.x Python support, and eventual
+transition to Python 3.x, is currently being developed, and will be
+announced prior to the release of Django 1.3.</p>
+</div>
+<div class="section" id="s-the-django-1-2-roadmap">
+<span id="the-django-1-2-roadmap"></span><h2>The Django 1.2 roadmap<a class="headerlink" href="index.html#the-django-1-2-roadmap" title="Permalink to this headline">¶</a></h2>
+<p>As of this release candidate, Django 1.2 is in both feature freeze and
+&#8220;string freeze&#8221; &#8211; all strings marked for translation in the Django
+codebase will retain their current form in the final Django 1.2
+release. Only critical release-blocking bugs, documentation and
+updated translation files will receive attention between now and the
+final 1.2 release. Note that Django&#8217;s localization infrastructure has
+been expanded for 1.2, and translation packages should now include a
+<tt class="docutils literal"><span class="pre">formats.py</span></tt> file containing data for localized formatting of
+numbers and dates.</p>
+<p>If no critical bugs are discovered, Django 1.2 will be released
+approximately one week after this release candidate, on or about May
+12, 2010.</p>
+</div>
+<div class="section" id="s-what-you-can-do-to-help">
+<span id="what-you-can-do-to-help"></span><h2>What you can do to help<a class="headerlink" href="index.html#what-you-can-do-to-help" title="Permalink to this headline">¶</a></h2>
+<p>In order to provide a high-quality 1.2 release, we need your
+help. Although this release candidate is, again, <em>not</em> intended for
+production use, you can help the Django team by trying out this
+release candidate in a safe testing environment and reporting any bugs
+or issues you encounter. The Django ticket tracker is the central
+place to search for open issues:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://code.djangoproject.com/timeline">https://code.djangoproject.com/timeline</a></li>
+</ul>
+<p>Please open a new ticket only if no existing ticket corresponds to a
+problem you&#8217;re running into.</p>
+<p>Additionally, discussion of Django development, including progress
+toward the 1.2 release, takes place daily on the django-developers
+mailing list:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://groups.google.com/group/django-developers">http://groups.google.com/group/django-developers</a></li>
+</ul>
+<p>... and in the <tt class="docutils literal"><span class="pre">#django-dev</span></tt> IRC channel on <tt class="docutils literal"><span class="pre">irc.freenode.net</span></tt>. If you&#8217;re
+interested in helping out with Django&#8217;s development, feel free to join the
+discussions there.</p>
+<p>Django&#8217;s online documentation also includes pointers on how to contribute to
+Django:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../internals/contributing/index.html"><em>How to contribute to Django</em></a></li>
+</ul>
+<p>Contributions on any level &#8211; developing code, writing documentation or simply
+triaging tickets and helping to test proposed bugfixes &#8211; are always welcome and
+appreciated.</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../1.3-alpha-1/index.html">&laquo; Django 1.3 alpha 1 release notes</a></div>
+  
+  
+    <div class="right"><a href="../1.2-beta-1/index.html">Django 1.2 beta 1 release notes &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Django 1.2 RC 1 release notes</a><ul>
+<li><a class="reference internal" href="index.html#python-compatibility">Python compatibility</a></li>
+<li><a class="reference internal" href="index.html#the-django-1-2-roadmap">The Django 1.2 roadmap</a></li>
+<li><a class="reference internal" href="index.html#what-you-can-do-to-help">What you can do to help</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../1.3-alpha-1/index.html">Django 1.3 alpha 1 release notes</a></li>
+        
+        
+          <li>Next: <a href="../1.2-beta-1/index.html">Django 1.2 beta 1 release notes</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Release notes</a>
+          
+          <ul><li>Django 1.2 RC 1 release notes</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

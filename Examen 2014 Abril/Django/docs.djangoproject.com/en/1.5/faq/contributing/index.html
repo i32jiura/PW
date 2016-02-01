@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>FAQ: Contributing code | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/faq/contributing/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/faq/contributing/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/faq/contributing/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/faq/contributing/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/faq/contributing/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/faq/contributing/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/faq/contributing/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-faq-contributing-code">
+<span id="faq-contributing-code"></span><h1>FAQ: Contributing code<a class="headerlink" href="index.html#faq-contributing-code" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="s-how-can-i-get-started-contributing-code-to-django">
+<span id="how-can-i-get-started-contributing-code-to-django"></span><h2>How can I get started contributing code to Django?<a class="headerlink" href="index.html#how-can-i-get-started-contributing-code-to-django" title="Permalink to this headline">¶</a></h2>
+<p>Thanks for asking! We&#8217;ve written an entire document devoted to this question.
+It&#8217;s titled <a class="reference internal" href="../../internals/contributing/index.html"><em>Contributing to Django</em></a>.</p>
+</div>
+<div class="section" id="s-i-submitted-a-bug-fix-in-the-ticket-system-several-weeks-ago-why-are-you-ignoring-my-patch">
+<span id="i-submitted-a-bug-fix-in-the-ticket-system-several-weeks-ago-why-are-you-ignoring-my-patch"></span><h2>I submitted a bug fix in the ticket system several weeks ago. Why are you ignoring my patch?<a class="headerlink" href="index.html#i-submitted-a-bug-fix-in-the-ticket-system-several-weeks-ago-why-are-you-ignoring-my-patch" title="Permalink to this headline">¶</a></h2>
+<p>Don&#8217;t worry: We&#8217;re not ignoring you!</p>
+<p>It&#8217;s important to understand there is a difference between &#8220;a ticket is being
+ignored&#8221; and &#8220;a ticket has not been attended to yet.&#8221; Django&#8217;s ticket system
+contains hundreds of open tickets, of various degrees of impact on end-user
+functionality, and Django&#8217;s developers have to review and prioritize.</p>
+<p>On top of that: the people who work on Django are all volunteers. As a result,
+the amount of time that we have to work on the framework is limited and will
+vary from week to week depending on our spare time. If we&#8217;re busy, we may not
+be able to spend as much time on Django as we might want.</p>
+<p>The best way to make sure tickets do not get hung up on the way to checkin is
+to make it dead easy, even for someone who may not be intimately familiar with
+that area of the code, to understand the problem and verify the fix:</p>
+<ul class="simple">
+<li>Are there clear instructions on how to reproduce the bug? If this
+touches a dependency (such as PIL), a contrib module, or a specific
+database, are those instructions clear enough even for someone not
+familiar with it?</li>
+<li>If there are several patches attached to the ticket, is it clear what
+each one does, which ones can be ignored and which matter?</li>
+<li>Does the patch include a unit test? If not, is there a very clear
+explanation why not? A test expresses succinctly what the problem is,
+and shows that the patch actually fixes it.</li>
+</ul>
+<p>If your patch stands no chance of inclusion in Django, we won&#8217;t ignore it &#8211;
+we&#8217;ll just close the ticket. So if your ticket is still open, it doesn&#8217;t mean
+we&#8217;re ignoring you; it just means we haven&#8217;t had time to look at it yet.</p>
+</div>
+<div class="section" id="s-when-and-how-might-i-remind-the-core-team-of-a-patch-i-care-about">
+<span id="when-and-how-might-i-remind-the-core-team-of-a-patch-i-care-about"></span><h2>When and how might I remind the core team of a patch I care about?<a class="headerlink" href="index.html#when-and-how-might-i-remind-the-core-team-of-a-patch-i-care-about" title="Permalink to this headline">¶</a></h2>
+<p>A polite, well-timed message to the mailing list is one way to get attention.
+To determine the right time, you need to keep an eye on the schedule. If you
+post your message when the core developers are trying to hit a feature
+deadline or manage a planning phase, you&#8217;re not going to get the sort of
+attention you require. However, if you draw attention to a ticket when the
+core developers are paying particular attention to bugs &#8211; just before a bug
+fixing sprint, or in the lead up to a beta release for example &#8211; you&#8217;re much
+more likely to get a productive response.</p>
+<p>Gentle IRC reminders can also work &#8211; again, strategically timed if possible.
+During a bug sprint would be a very good time, for example.</p>
+<p>Another way to get traction is to pull several related tickets together. When
+the core developers sit down to fix a bug in an area they haven&#8217;t touched for
+a while, it can take a few minutes to remember all the fine details of how
+that area of code works. If you collect several minor bug fixes together into
+a similarly themed group, you make an attractive target, as the cost of coming
+up to speed on an area of code can be spread over multiple tickets.</p>
+<p>Please refrain from emailing core developers personally, or repeatedly raising
+the same issue over and over. This sort of behavior will not gain you any
+additional attention &#8211; certainly not the attention that you need in order to
+get your pet bug addressed.</p>
+</div>
+<div class="section" id="s-but-i-ve-reminded-you-several-times-and-you-keep-ignoring-my-patch">
+<span id="but-i-ve-reminded-you-several-times-and-you-keep-ignoring-my-patch"></span><h2>But I&#8217;ve reminded you several times and you keep ignoring my patch!<a class="headerlink" href="index.html#but-i-ve-reminded-you-several-times-and-you-keep-ignoring-my-patch" title="Permalink to this headline">¶</a></h2>
+<p>Seriously - we&#8217;re not ignoring you. If your patch stands no chance of
+inclusion in Django, we&#8217;ll close the ticket. For all the other tickets, we
+need to prioritize our efforts, which means that some tickets will be
+addressed before others.</p>
+<p>One of the criteria that is used to prioritize bug fixes is the number of
+people that will likely be affected by a given bug. Bugs that have the
+potential to affect many people will generally get priority over those that
+are edge cases.</p>
+<p>Another reason that bugs might be ignored for while is if the bug is a symptom
+of a larger problem. While we can spend time writing, testing and applying
+lots of little patches, sometimes the right solution is to rebuild. If a
+rebuild or refactor of a particular component has been proposed or is
+underway, you may find that bugs affecting that component will not get as much
+attention. Again, this is just a matter of prioritizing scarce resources. By
+concentrating on the rebuild, we can close all the little bugs at once, and
+hopefully prevent other little bugs from appearing in the future.</p>
+<p>Whatever the reason, please keep in mind that while you may hit a particular
+bug regularly, it doesn&#8217;t necessarily follow that every single Django user
+will hit the same bug. Different users use Django in different ways, stressing
+different parts of the code under different conditions. When we evaluate the
+relative priorities, we are generally trying to consider the needs of the
+entire community, not just the severity for one particular user. This doesn&#8217;t
+mean that we think your problem is unimportant &#8211; just that in the limited
+time we have available, we will always err on the side of making 10 people
+happy rather than making 1 person happy.</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../admin/index.html">&laquo; FAQ: The admin</a></div>
+  
+  
+    <div class="right"><a href="../troubleshooting/index.html">Troubleshooting &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">FAQ: Contributing code</a><ul>
+<li><a class="reference internal" href="index.html#how-can-i-get-started-contributing-code-to-django">How can I get started contributing code to Django?</a></li>
+<li><a class="reference internal" href="index.html#i-submitted-a-bug-fix-in-the-ticket-system-several-weeks-ago-why-are-you-ignoring-my-patch">I submitted a bug fix in the ticket system several weeks ago. Why are you ignoring my patch?</a></li>
+<li><a class="reference internal" href="index.html#when-and-how-might-i-remind-the-core-team-of-a-patch-i-care-about">When and how might I remind the core team of a patch I care about?</a></li>
+<li><a class="reference internal" href="index.html#but-i-ve-reminded-you-several-times-and-you-keep-ignoring-my-patch">But I&#8217;ve reminded you several times and you keep ignoring my patch!</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../admin/index.html">FAQ: The admin</a></li>
+        
+        
+          <li>Next: <a href="../troubleshooting/index.html">Troubleshooting</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Django FAQ</a>
+          
+          <ul><li>FAQ: Contributing code</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

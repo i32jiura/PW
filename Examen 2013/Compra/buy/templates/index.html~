@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block contest %}
+
+	<h3>Bienvenido {{usuario.username}}<h3>
+	
+	{% if usuario.is_authenticated %}
+		<a href="Logout">Salir</a>	
+	{% else %}
+		<a href="Login">Loguearse</a>
+	{% endif %}
+	
+	<h3>Lista de usuarios</h3>
+	<p><a href="AddUsuario">Añadir usuarios</a></p>
+	{% for user in usuarios %}
+		<li><a href="VerUsuario/{{user.pk}}">{{user.username}}</a></li>
+	{% endfor %}
+	
+	<h3>Lista de artículos</h3>
+	<p><a href="AddArticulo">Añadir artículo</a></p>
+	{% for articulo in articulos %}
+		<li><a href="VerArticulo/{{articulo.pk}}">{{articulo.nombre}}</a></li>
+	{% endfor %}
+
+
+{% endblock %}

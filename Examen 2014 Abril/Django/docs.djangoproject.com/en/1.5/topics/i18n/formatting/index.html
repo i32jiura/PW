@@ -1,0 +1,422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Format localization | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.4/topics/i18n/formatting/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.6/topics/i18n/formatting/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../dev/topics/i18n/formatting/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-format-localization">
+<span id="s-id1"></span><span id="format-localization"></span><span id="id1"></span><h1>Format localization<a class="headerlink" href="index.html#format-localization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="s-overview">
+<span id="overview"></span><h2>Overview<a class="headerlink" href="index.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>Django&#8217;s formatting system is capable to display dates, times and numbers in templates using the format specified for the current <a class="reference internal" href="../index.html#term-locale-name"><em class="xref std std-term">locale</em></a>. It also handles localized input in forms.</p>
+<p>When it&#8217;s enabled, two users accessing the same content may see dates, times and
+numbers formatted in different ways, depending on the formats for their current
+locale.</p>
+<p>The formatting system is disabled by default. To enable it, it&#8217;s
+necessary to set <a class="reference internal" href="../../../ref/settings/index.html#std:setting-USE_L10N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_L10N</span> <span class="pre">=</span> <span class="pre">True</span></tt></a> in your settings file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The default <tt class="file docutils literal"><span class="pre">settings.py</span></tt> file created by <a class="reference internal" href="../../../ref/django-admin/index.html#django-admin-startproject"><tt class="xref std std-djadmin docutils literal"><span class="pre">django-admin.py</span>
+<span class="pre">startproject</span></tt></a> includes <a class="reference internal" href="../../../ref/settings/index.html#std:setting-USE_L10N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_L10N</span> <span class="pre">=</span> <span class="pre">True</span></tt></a>
+for convenience.  Note, however, that to enable number formatting with
+thousand separators it is necessary to set <a class="reference internal" href="../../../ref/settings/index.html#std:setting-USE_THOUSAND_SEPARATOR"><tt class="xref std std-setting docutils literal"><span class="pre">USE_THOUSAND_SEPARATOR</span>
+<span class="pre">=</span> <span class="pre">True</span></tt></a> in your settings file. Alternatively, you
+could use <a class="reference internal" href="../../../ref/contrib/humanize.1#std:templatefilter-intcomma"><tt class="xref std std-tfilter docutils literal"><span class="pre">intcomma</span></tt></a> to format numbers in your template.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is also an independent but related <a class="reference internal" href="../../../ref/settings/index.html#std:setting-USE_I18N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_I18N</span></tt></a> setting that
+controls if Django should activate translation. See
+<a class="reference internal" href="../translation.1"><em>Translation</em></a> for more details.</p>
+</div>
+</div>
+<div class="section" id="s-locale-aware-input-in-forms">
+<span id="locale-aware-input-in-forms"></span><h2>Locale aware input in forms<a class="headerlink" href="index.html#locale-aware-input-in-forms" title="Permalink to this headline">¶</a></h2>
+<p>When formatting is enabled, Django can use localized formats when parsing dates,
+times and numbers in forms. That means it tries different formats for different
+locales when guessing the format used by the user when inputting data on forms.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Django uses different formats for displaying data to those it uses for
+parsing data. Most notably, the formats for parsing dates can&#8217;t use the
+<tt class="docutils literal"><span class="pre">%a</span></tt> (abbreviated weekday name), <tt class="docutils literal"><span class="pre">%A</span></tt> (full weekday name),
+<tt class="docutils literal"><span class="pre">%b</span></tt> (abbreviated month name), <tt class="docutils literal"><span class="pre">%B</span></tt> (full month name),
+or <tt class="docutils literal"><span class="pre">%p</span></tt> (AM/PM).</p>
+</div>
+<p>To enable a form field to localize input and output data simply use its
+<tt class="docutils literal"><span class="pre">localize</span></tt> argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">CashRegisterForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+   <span class="n">product</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+   <span class="n">revenue</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">localize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-controlling-localization-in-templates">
+<span id="s-topic-l10n-templates"></span><span id="controlling-localization-in-templates"></span><span id="topic-l10n-templates"></span><h2>Controlling localization in templates<a class="headerlink" href="index.html#controlling-localization-in-templates" title="Permalink to this headline">¶</a></h2>
+<p>When you have enabled formatting with <a class="reference internal" href="../../../ref/settings/index.html#std:setting-USE_L10N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_L10N</span></tt></a>, Django
+will try to use a locale specific format whenever it outputs a value
+in a template.</p>
+<p>However, it may not always be appropriate to use localized values &#8211;
+for example, if you&#8217;re outputting Javascript or XML that is designed
+to be machine-readable, you will always want unlocalized values. You
+may also want to use localization in selected templates, rather than
+using localization everywhere.</p>
+<p>To allow for fine control over the use of localization, Django
+provides the <tt class="docutils literal"><span class="pre">l10n</span></tt> template library that contains the following
+tags and filters.</p>
+<div class="section" id="s-template-tags">
+<span id="template-tags"></span><h3>Template tags<a class="headerlink" href="index.html#template-tags" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="s-localize">
+<span id="s-std:templatetag-localize"></span><span id="localize"></span><span id="std:templatetag-localize"></span><h4>localize<a class="headerlink" href="index.html#localize" title="Permalink to this headline">¶</a></h4>
+<p>Enables or disables localization of template variables in the
+contained block.</p>
+<p>This tag allows a more fine grained control of localization than
+<a class="reference internal" href="../../../ref/settings/index.html#std:setting-USE_L10N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_L10N</span></tt></a>.</p>
+<p>To activate or deactivate localization for a template block, use:</p>
+<div class="highlight-python"><pre>{% load l10n %}
+
+{% localize on %}
+    {{ value }}
+{% endlocalize %}
+
+{% localize off %}
+    {{ value }}
+{% endlocalize %}</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The value of <a class="reference internal" href="../../../ref/settings/index.html#std:setting-USE_L10N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_L10N</span></tt></a> isn&#8217;t respected inside of a
+<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">localize</span> <span class="pre">%}</span></tt> block.</p>
+</div>
+<p>See <a class="reference internal" href="index.html#std:templatefilter-localize"><tt class="xref std std-tfilter docutils literal"><span class="pre">localize</span></tt></a> and <a class="reference internal" href="index.html#std:templatefilter-unlocalize"><tt class="xref std std-tfilter docutils literal"><span class="pre">unlocalize</span></tt></a> for template filters that will
+do the same job on a per-variable basis.</p>
+</div>
+</div>
+<div class="section" id="s-template-filters">
+<span id="template-filters"></span><h3>Template filters<a class="headerlink" href="index.html#template-filters" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="s-std:templatefilter-localize">
+<span id="s-id2"></span><span id="std:templatefilter-localize"></span><span id="id2"></span><h4>localize<a class="headerlink" href="index.html#std:templatefilter-localize" title="Permalink to this headline">¶</a></h4>
+<p>Forces localization of a single value.</p>
+<p>For example:</p>
+<div class="highlight-python"><pre>{% load l10n %}
+
+{{ value|localize }}</pre>
+</div>
+<p>To disable localization on a single value, use <a class="reference internal" href="index.html#std:templatefilter-unlocalize"><tt class="xref std std-tfilter docutils literal"><span class="pre">unlocalize</span></tt></a>. To control
+localization over a large section of a template, use the <a class="reference internal" href="index.html#std:templatetag-localize"><tt class="xref std std-ttag docutils literal"><span class="pre">localize</span></tt></a> template
+tag.</p>
+</div>
+<div class="section" id="s-unlocalize">
+<span id="s-std:templatefilter-unlocalize"></span><span id="unlocalize"></span><span id="std:templatefilter-unlocalize"></span><h4>unlocalize<a class="headerlink" href="index.html#unlocalize" title="Permalink to this headline">¶</a></h4>
+<p>Forces a single value to be printed without localization.</p>
+<p>For example:</p>
+<div class="highlight-python"><pre>{% load l10n %}
+
+{{ value|unlocalize }}</pre>
+</div>
+<p>To force localization of a single value, use <a class="reference internal" href="index.html#std:templatefilter-localize"><tt class="xref std std-tfilter docutils literal"><span class="pre">localize</span></tt></a>. To
+control localization over a large section of a template, use the
+<a class="reference internal" href="index.html#std:templatetag-localize"><tt class="xref std std-ttag docutils literal"><span class="pre">localize</span></tt></a> template tag.</p>
+</div>
+</div>
+</div>
+<div class="section" id="s-creating-custom-format-files">
+<span id="s-custom-format-files"></span><span id="creating-custom-format-files"></span><span id="custom-format-files"></span><h2>Creating custom format files<a class="headerlink" href="index.html#creating-custom-format-files" title="Permalink to this headline">¶</a></h2>
+<p>Django provides format definitions for many locales, but sometimes you might
+want to create your own, because a format files doesn&#8217;t exist for your locale,
+or because you want to overwrite some of the values.</p>
+<p>To use custom formats, specify the path where you&#8217;ll place format files first.
+To do that, just set your <a class="reference internal" href="../../../ref/settings/index.html#std:setting-FORMAT_MODULE_PATH"><tt class="xref std std-setting docutils literal"><span class="pre">FORMAT_MODULE_PATH</span></tt></a> setting to the package
+where format files will exist, for instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FORMAT_MODULE_PATH</span> <span class="o">=</span> <span class="s">&#39;mysite.formats&#39;</span>
+</pre></div>
+</div>
+<p>Files are not placed directly in this directory, but in a directory named as
+the locale, and must be named <tt class="docutils literal"><span class="pre">formats.py</span></tt>.</p>
+<p>To customize the English formats, a structure like this would be needed:</p>
+<div class="highlight-python"><pre>mysite/
+    formats/
+        __init__.py
+        en/
+            __init__.py
+            formats.py</pre>
+</div>
+<p>where <tt class="file docutils literal"><span class="pre">formats.py</span></tt> contains custom format definitions. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">THOUSAND_SEPARATOR</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\xa0</span><span class="s">&#39;</span>
+</pre></div>
+</div>
+<p>to use a non-breaking space (Unicode <tt class="docutils literal"><span class="pre">00A0</span></tt>) as a thousand separator,
+instead of the default for English, a comma.</p>
+</div>
+<div class="section" id="s-limitations-of-the-provided-locale-formats">
+<span id="limitations-of-the-provided-locale-formats"></span><h2>Limitations of the provided locale formats<a class="headerlink" href="index.html#limitations-of-the-provided-locale-formats" title="Permalink to this headline">¶</a></h2>
+<p>Some locales use context-sensitive formats for numbers, which Django&#8217;s
+localization system cannot handle automatically.</p>
+<div class="section" id="s-switzerland-german">
+<span id="switzerland-german"></span><h3>Switzerland (German)<a class="headerlink" href="index.html#switzerland-german" title="Permalink to this headline">¶</a></h3>
+<p>The Swiss number formatting depends on the type of number that is being
+formatted. For monetary values, a comma is used as the thousand separator and
+a decimal point for the decimal separator. For all other numbers, a comma is
+used as decimal separator and a space as thousand separator. The locale format
+provided by Django uses the generic separators, a comma for decimal and a space
+for thousand separators.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../translation.1">&laquo; Translation</a></div>
+  
+  
+    <div class="right"><a href="../timezones/index.html">Time zones &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Format localization</a><ul>
+<li><a class="reference internal" href="index.html#overview">Overview</a></li>
+<li><a class="reference internal" href="index.html#locale-aware-input-in-forms">Locale aware input in forms</a></li>
+<li><a class="reference internal" href="index.html#controlling-localization-in-templates">Controlling localization in templates</a><ul>
+<li><a class="reference internal" href="index.html#template-tags">Template tags</a><ul>
+<li><a class="reference internal" href="index.html#localize">localize</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#template-filters">Template filters</a><ul>
+<li><a class="reference internal" href="index.html#std:templatefilter-localize">localize</a></li>
+<li><a class="reference internal" href="index.html#unlocalize">unlocalize</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#creating-custom-format-files">Creating custom format files</a></li>
+<li><a class="reference internal" href="index.html#limitations-of-the-provided-locale-formats">Limitations of the provided locale formats</a><ul>
+<li><a class="reference internal" href="index.html#switzerland-german">Switzerland (German)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../translation.1">Translation</a></li>
+        
+        
+          <li>Next: <a href="../timezones/index.html">Time zones</a></li>
+        
+        <li><a href="../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../index.html">Using Django</a>
+          
+            <ul><li><a href="../index.html">Internationalization and localization</a>
+          
+          <ul><li>Format localization</li></ul>
+          </li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

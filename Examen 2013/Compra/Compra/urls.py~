@@ -1,0 +1,22 @@
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from buy.views import *
+urlpatterns = patterns('',
+    # Examples:
+    # url(r'^$', 'Compra.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', Index),
+    
+    url(r'^AddUsuario/$', Registrarse),
+    url(r'^Login/$', Login),
+    url(r'^Logout/$', Salir),
+    
+    url(r'^VerUsuario/(?P<usuario_id>[0-9]+)/$', VerUsuario),
+    
+    url(r'^AddArticulo/$', AddArticulo),
+    url(r'^VerArticulo/(?P<articulo_id>[0-9]+)/$', VerArticulo),
+    
+    url(r'^Comprar/$', Comprar),
+)

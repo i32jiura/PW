@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h3>Rutas</h3>
+	{% for ruta in rutas %}
+		<a href='{{ruta.id}}'>{{ruta.nombre}}</a>
+	{% endfor %}
+
+
+
+
+{% endblock %}

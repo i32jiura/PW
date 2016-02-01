@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h2>Destinatarios</h2>
+	<a href="Destinatarios">Destinatarios</a>
+
+
+
+
+{% endblock %}

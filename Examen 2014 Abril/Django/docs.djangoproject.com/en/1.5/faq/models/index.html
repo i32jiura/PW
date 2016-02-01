@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>FAQ: Databases and models | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/faq/models/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/faq/models/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/faq/models/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/faq/models/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/faq/models/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/faq/models/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/faq/models/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-faq-databases-and-models">
+<span id="faq-databases-and-models"></span><h1>FAQ: Databases and models<a class="headerlink" href="index.html#faq-databases-and-models" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="s-how-can-i-see-the-raw-sql-queries-django-is-running">
+<span id="s-faq-see-raw-sql-queries"></span><span id="how-can-i-see-the-raw-sql-queries-django-is-running"></span><span id="faq-see-raw-sql-queries"></span><h2>How can I see the raw SQL queries Django is running?<a class="headerlink" href="index.html#how-can-i-see-the-raw-sql-queries-django-is-running" title="Permalink to this headline">¶</a></h2>
+<p>Make sure your Django <a class="reference internal" href="../../ref/settings/index.html#std:setting-DEBUG"><tt class="xref std std-setting docutils literal"><span class="pre">DEBUG</span></tt></a> setting is set to <tt class="docutils literal"><span class="pre">True</span></tt>.
+Then, just do this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connection</span><span class="o">.</span><span class="n">queries</span>
+<span class="go">[{&#39;sql&#39;: &#39;SELECT polls_polls.id, polls_polls.question, polls_polls.pub_date FROM polls_polls&#39;,</span>
+<span class="go">&#39;time&#39;: &#39;0.002&#39;}]</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">connection.queries</span></tt> is only available if <a class="reference internal" href="../../ref/settings/index.html#std:setting-DEBUG"><tt class="xref std std-setting docutils literal"><span class="pre">DEBUG</span></tt></a> is <tt class="docutils literal"><span class="pre">True</span></tt>.
+It&#8217;s a list of dictionaries in order of query execution. Each dictionary has
+the following:</p>
+<div class="highlight-python"><pre>``sql`` -- The raw SQL statement
+``time`` -- How long the statement took to execute, in seconds.</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">connection.queries</span></tt> includes all SQL statements &#8211; INSERTs, UPDATES,
+SELECTs, etc. Each time your app hits the database, the query will be recorded.
+Note that the SQL recorded here may be <a class="reference internal" href="../../ref/databases/index.html#sqlite-connection-queries"><em>incorrectly quoted under SQLite</em></a>.</p>
+<p>If you are using <a class="reference internal" href="../../topics/db/multi-db/index.html"><em>multiple databases</em></a>, you can use the
+same interface on each member of the <tt class="docutils literal"><span class="pre">connections</span></tt> dictionary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connections</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connections</span><span class="p">[</span><span class="s">&#39;my_db_alias&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">queries</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-can-i-use-django-with-a-pre-existing-database">
+<span id="can-i-use-django-with-a-pre-existing-database"></span><h2>Can I use Django with a pre-existing database?<a class="headerlink" href="index.html#can-i-use-django-with-a-pre-existing-database" title="Permalink to this headline">¶</a></h2>
+<p>Yes. See <a class="reference internal" href="../../howto/legacy-databases/index.html"><em>Integrating with a legacy database</em></a>.</p>
+</div>
+<div class="section" id="s-if-i-make-changes-to-a-model-how-do-i-update-the-database">
+<span id="if-i-make-changes-to-a-model-how-do-i-update-the-database"></span><h2>If I make changes to a model, how do I update the database?<a class="headerlink" href="index.html#if-i-make-changes-to-a-model-how-do-i-update-the-database" title="Permalink to this headline">¶</a></h2>
+<p>If you don&#8217;t mind clearing data, your project&#8217;s <tt class="docutils literal"><span class="pre">manage.py</span></tt> utility has a
+<a class="reference internal" href="../../ref/django-admin/index.html#django-admin-flush"><tt class="xref std std-djadmin docutils literal"><span class="pre">flush</span></tt></a> option to reset the database to the state it was in
+immediately after <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-syncdb"><tt class="xref std std-djadmin docutils literal"><span class="pre">syncdb</span></tt></a> was executed.</p>
+<p>If you do care about deleting data, you&#8217;ll have to execute the <tt class="docutils literal"><span class="pre">ALTER</span> <span class="pre">TABLE</span></tt>
+statements manually in your database.</p>
+<p>There are <a class="reference external" href="http://www.djangopackages.com/grids/g/database-migration/">external projects which handle schema updates</a>, of which the current
+defacto standard is <a class="reference external" href="http://south.aeracode.org/">south</a>.</p>
+</div>
+<div class="section" id="s-do-django-models-support-multiple-column-primary-keys">
+<span id="do-django-models-support-multiple-column-primary-keys"></span><h2>Do Django models support multiple-column primary keys?<a class="headerlink" href="index.html#do-django-models-support-multiple-column-primary-keys" title="Permalink to this headline">¶</a></h2>
+<p>No. Only single-column primary keys are supported.</p>
+<p>But this isn&#8217;t an issue in practice, because there&#8217;s nothing stopping you from
+adding other constraints (using the <tt class="docutils literal"><span class="pre">unique_together</span></tt> model option or
+creating the constraint directly in your database), and enforcing the
+uniqueness at that level. Single-column primary keys are needed for things such
+as the admin interface to work; e.g., you need a simple way of being able to
+specify an object to edit or delete.</p>
+</div>
+<div class="section" id="s-how-do-i-add-database-specific-options-to-my-create-table-statements-such-as-specifying-myisam-as-the-table-type">
+<span id="how-do-i-add-database-specific-options-to-my-create-table-statements-such-as-specifying-myisam-as-the-table-type"></span><h2>How do I add database-specific options to my CREATE TABLE statements, such as specifying MyISAM as the table type?<a class="headerlink" href="index.html#how-do-i-add-database-specific-options-to-my-create-table-statements-such-as-specifying-myisam-as-the-table-type" title="Permalink to this headline">¶</a></h2>
+<p>We try to avoid adding special cases in the Django code to accommodate all the
+database-specific options such as table type, etc. If you&#8217;d like to use any of
+these options, create an <a class="reference internal" href="../../howto/initial-data/index.html#initial-sql"><em>SQL initial data file</em></a> that
+contains <tt class="docutils literal"><span class="pre">ALTER</span> <span class="pre">TABLE</span></tt> statements that do what you want to do. The initial
+data files are executed in your database after the <tt class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TABLE</span></tt> statements.</p>
+<p>For example, if you&#8217;re using MySQL and want your tables to use the MyISAM table
+type, create an initial data file and put something like this in it:</p>
+<div class="highlight-python"><pre>ALTER TABLE myapp_mytable ENGINE=MyISAM;</pre>
+</div>
+<p>As explained in the <a class="reference internal" href="../../howto/initial-data/index.html#initial-sql"><em>SQL initial data file</em></a> documentation,
+this SQL file can contain arbitrary SQL, so you can make any sorts of changes
+you need to make.</p>
+</div>
+<div class="section" id="s-why-is-django-leaking-memory">
+<span id="why-is-django-leaking-memory"></span><h2>Why is Django leaking memory?<a class="headerlink" href="index.html#why-is-django-leaking-memory" title="Permalink to this headline">¶</a></h2>
+<p>Django isn&#8217;t known to leak memory. If you find your Django processes are
+allocating more and more memory, with no sign of releasing it, check to make
+sure your <a class="reference internal" href="../../ref/settings/index.html#std:setting-DEBUG"><tt class="xref std std-setting docutils literal"><span class="pre">DEBUG</span></tt></a> setting is set to <tt class="docutils literal"><span class="pre">False</span></tt>. If <a class="reference internal" href="../../ref/settings/index.html#std:setting-DEBUG"><tt class="xref std std-setting docutils literal"><span class="pre">DEBUG</span></tt></a>
+is <tt class="docutils literal"><span class="pre">True</span></tt>, then Django saves a copy of every SQL statement it has executed.</p>
+<p>(The queries are saved in <tt class="docutils literal"><span class="pre">django.db.connection.queries</span></tt>. See
+<a class="reference internal" href="index.html#how-can-i-see-the-raw-sql-queries-django-is-running">How can I see the raw SQL queries Django is running?</a>.)</p>
+<p>To fix the problem, set <a class="reference internal" href="../../ref/settings/index.html#std:setting-DEBUG"><tt class="xref std std-setting docutils literal"><span class="pre">DEBUG</span></tt></a> to <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p>If you need to clear the query list manually at any point in your functions,
+just call <tt class="docutils literal"><span class="pre">reset_queries()</span></tt>, like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">db</span>
+<span class="n">db</span><span class="o">.</span><span class="n">reset_queries</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../help/index.html">&laquo; FAQ: Getting Help</a></div>
+  
+  
+    <div class="right"><a href="../admin/index.html">FAQ: The admin &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">FAQ: Databases and models</a><ul>
+<li><a class="reference internal" href="index.html#how-can-i-see-the-raw-sql-queries-django-is-running">How can I see the raw SQL queries Django is running?</a></li>
+<li><a class="reference internal" href="index.html#can-i-use-django-with-a-pre-existing-database">Can I use Django with a pre-existing database?</a></li>
+<li><a class="reference internal" href="index.html#if-i-make-changes-to-a-model-how-do-i-update-the-database">If I make changes to a model, how do I update the database?</a></li>
+<li><a class="reference internal" href="index.html#do-django-models-support-multiple-column-primary-keys">Do Django models support multiple-column primary keys?</a></li>
+<li><a class="reference internal" href="index.html#how-do-i-add-database-specific-options-to-my-create-table-statements-such-as-specifying-myisam-as-the-table-type">How do I add database-specific options to my CREATE TABLE statements, such as specifying MyISAM as the table type?</a></li>
+<li><a class="reference internal" href="index.html#why-is-django-leaking-memory">Why is Django leaking memory?</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../help/index.html">FAQ: Getting Help</a></li>
+        
+        
+          <li>Next: <a href="../admin/index.html">FAQ: The admin</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Django FAQ</a>
+          
+          <ul><li>FAQ: Databases and models</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

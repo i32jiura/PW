@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	{% for ruta in rutas %}
+		<li>
+		<a href="Ruta/{{ruta.pk}}">{{ruta.nombre}}</a>
+		</li>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Django 1.5.2 release notes | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/releases/1.5.2/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/releases/1.5.2/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-django-1-5-2-release-notes">
+<span id="django-1-5-2-release-notes"></span><h1>Django 1.5.2 release notes<a class="headerlink" href="index.html#django-1-5-2-release-notes" title="Permalink to this headline">¶</a></h1>
+<p><em>August 13, 2013</em></p>
+<p>This is Django 1.5.2, a bugfix and security release for Django 1.5.</p>
+<div class="section" id="s-mitigated-possible-xss-attack-via-user-supplied-redirect-urls">
+<span id="mitigated-possible-xss-attack-via-user-supplied-redirect-urls"></span><h2>Mitigated possible XSS attack via user-supplied redirect URLs<a class="headerlink" href="index.html#mitigated-possible-xss-attack-via-user-supplied-redirect-urls" title="Permalink to this headline">¶</a></h2>
+<p>Django relies on user input in some cases (e.g.
+<a class="reference internal" href="../../topics/auth/default.1#django.contrib.auth.views.login" title="django.contrib.auth.views.login"><tt class="xref py py-func docutils literal"><span class="pre">django.contrib.auth.views.login()</span></tt></a>, <a class="reference internal" href="../../ref/contrib/comments/index#module-django.contrib.comments" title="django.contrib.comments: Django's comment framework"><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.comments</span></tt></a>, and
+<a class="reference internal" href="../../topics/i18n/index.html"><em>i18n</em></a>) to redirect the user to an &#8220;on success&#8221; URL.
+The security checks for these redirects (namely
+<tt class="docutils literal"><span class="pre">django.util.http.is_safe_url()</span></tt>) didn&#8217;t check if the scheme is <tt class="docutils literal"><span class="pre">http(s)</span></tt>
+and as such allowed <tt class="docutils literal"><span class="pre">javascript:...</span></tt> URLs to be entered. If a developer
+relied on <tt class="docutils literal"><span class="pre">is_safe_url()</span></tt> to provide safe redirect targets and put such a
+URL into a link, he could suffer from a XSS attack. This bug doesn&#8217;t affect
+Django currently, since we only put this URL into the <tt class="docutils literal"><span class="pre">Location</span></tt> response
+header and browsers seem to ignore JavaScript there.</p>
+</div>
+<div class="section" id="s-xss-vulnerability-in-django-contrib-admin">
+<span id="xss-vulnerability-in-django-contrib-admin"></span><h2>XSS vulnerability in <a class="reference internal" href="../../ref/contrib/admin/index#module-django.contrib.admin" title="django.contrib.admin: Django's admin site."><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.admin</span></tt></a><a class="headerlink" href="index.html#xss-vulnerability-in-django-contrib-admin" title="Permalink to this headline">¶</a></h2>
+<p>If a <a class="reference internal" href="../../ref/models/fields.1#django.db.models.URLField" title="django.db.models.URLField"><tt class="xref py py-class docutils literal"><span class="pre">URLField</span></tt></a> is used in Django 1.5, it displays the
+current value of the field and a link to the target on the admin change page.
+The display routine of this widget was flawed and allowed for XSS.</p>
+<div class="section" id="s-bugfixes">
+<span id="bugfixes"></span><h3>Bugfixes<a class="headerlink" href="index.html#bugfixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Fixed a crash with <a class="reference internal" href="../../ref/models/querysets/index.html#django.db.models.query.QuerySet.prefetch_related" title="django.db.models.query.QuerySet.prefetch_related"><tt class="xref py py-meth docutils literal"><span class="pre">prefetch_related()</span></tt></a>
+(#19607) as well as some <tt class="docutils literal"><span class="pre">pickle</span></tt> regressions with <tt class="docutils literal"><span class="pre">prefetch_related</span></tt>
+(#20157 and #20257).</li>
+<li>Fixed a regression in <a class="reference internal" href="../../ref/contrib/gis/index#module-django.contrib.gis" title="django.contrib.gis: Geographic Information System (GIS) extensions for Django"><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.gis</span></tt></a> in the Google Map output on
+Python 3 (#20773).</li>
+<li>Made <tt class="docutils literal"><span class="pre">DjangoTestSuiteRunner.setup_databases</span></tt> properly handle aliases for
+the default database (#19940) and prevented <tt class="docutils literal"><span class="pre">teardown_databases</span></tt> from
+attempting to tear down aliases (#20681).</li>
+<li>Fixed the <tt class="docutils literal"><span class="pre">django.core.cache.backends.memcached.MemcachedCache</span></tt> backend&#8217;s
+<tt class="docutils literal"><span class="pre">get_many()</span></tt> method on Python 3 (#20722).</li>
+<li>Fixed <a class="reference internal" href="../../ref/contrib/humanize.1#module-django.contrib.humanize" title="django.contrib.humanize: A set of Django template filters useful for adding a &quot;human touch&quot; to data."><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.humanize</span></tt></a> translation syntax errors. Affected
+languages: Mexican Spanish, Mongolian, Romanian, Turkish (#20695).</li>
+<li>Added support for wheel packages (#19252).</li>
+<li>The CSRF token now rotates when a user logs in.</li>
+<li>Some Python 3 compatibility fixes including #20212 and #20025.</li>
+<li>Fixed some rare cases where <a class="reference internal" href="../../ref/models/querysets/index.html#django.db.models.query.QuerySet.get" title="django.db.models.query.QuerySet.get"><tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt></a>
+exceptions recursed infinitely (#20278).</li>
+<li><a class="reference internal" href="../../ref/django-admin/index.html#django-admin-makemessages"><tt class="xref std std-djadmin docutils literal"><span class="pre">makemessages</span></tt></a> no longer crashes with <tt class="docutils literal"><span class="pre">UnicodeDecodeError</span></tt>
+(#20354).</li>
+<li>Fixed <tt class="docutils literal"><span class="pre">geojson</span></tt> detection with Spatialite.</li>
+<li><a class="reference internal" href="../../topics/testing/overview.1#django.test.TestCase.assertContains" title="django.test.TestCase.assertContains"><tt class="xref py py-meth docutils literal"><span class="pre">assertContains()</span></tt></a> once again works with
+binary content (#20237).</li>
+<li>Fixed <a class="reference internal" href="../../ref/models/fields.1#django.db.models.ManyToManyField" title="django.db.models.ManyToManyField"><tt class="xref py py-class docutils literal"><span class="pre">ManyToManyField</span></tt></a> if it has a unicode <tt class="docutils literal"><span class="pre">name</span></tt>
+parameter (#20207).</li>
+<li>Ensured that the WSGI request&#8217;s path is correctly based on the
+<tt class="docutils literal"><span class="pre">SCRIPT_NAME</span></tt> environment variable or the <a class="reference internal" href="../../ref/settings/index.html#std:setting-FORCE_SCRIPT_NAME"><tt class="xref std std-setting docutils literal"><span class="pre">FORCE_SCRIPT_NAME</span></tt></a>
+setting, regardless of whether or not either has a trailing slash (#20169).</li>
+<li>Fixed an obscure bug with the <a class="reference internal" href="../../topics/testing/overview.1#django.test.utils.override_settings" title="django.test.utils.override_settings"><tt class="xref py py-func docutils literal"><span class="pre">override_settings()</span></tt></a>
+decorator. If you hit an <tt class="docutils literal"><span class="pre">AttributeError:</span> <span class="pre">'Settings'</span> <span class="pre">object</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">attribute</span>
+<span class="pre">'_original_allowed_hosts'</span></tt> exception, it&#8217;s probably fixed (#20636).</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../1.5.3/index.html">&laquo; Django 1.5.3 release notes</a></div>
+  
+  
+    <div class="right"><a href="../1.5.1/index.html">Django 1.5.1 release notes &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Django 1.5.2 release notes</a><ul>
+<li><a class="reference internal" href="index.html#mitigated-possible-xss-attack-via-user-supplied-redirect-urls">Mitigated possible XSS attack via user-supplied redirect URLs</a></li>
+<li><a class="reference internal" href="index.html#xss-vulnerability-in-django-contrib-admin">XSS vulnerability in <tt class="docutils literal"><span class="pre">django.contrib.admin</span></tt></a><ul>
+<li><a class="reference internal" href="index.html#bugfixes">Bugfixes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../1.5.3/index.html">Django 1.5.3 release notes</a></li>
+        
+        
+          <li>Next: <a href="../1.5.1/index.html">Django 1.5.1 release notes</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Release notes</a>
+          
+          <ul><li>Django 1.5.2 release notes</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

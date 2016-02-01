@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	{% if usuario.is_authenticated %}
+	<h2>Añadir Ruta</h2>
+	
+	<form id=formulario, method='post', enctype='multipart/form-data' action=''>
+	{%csrf_token%}
+	{{formulario.as_p}}
+	<input type="submit" value="Enviar">
+	</form>
+	{% else %}
+		<h2>No esta registrado</h2>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Running Django on Jython | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/howto/jython/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/howto/jython/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/howto/jython/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/howto/jython/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/howto/jython/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/howto/jython/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/howto/jython/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-running-django-on-jython">
+<span id="running-django-on-jython"></span><h1>Running Django on Jython<a class="headerlink" href="index.html#running-django-on-jython" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-python-2-6-support admonition" id="index-0">
+<p class="first admonition-title">Python 2.6 support</p>
+<p class="last">Django 1.5 has dropped support for Python 2.5. Therefore, you have to use
+a Jython 2.7 alpha release if you want to use Django 1.5 with Jython.
+Please use Django 1.4 if you want to keep using Django on a stable Jython
+version.</p>
+</div>
+<p><a class="reference external" href="http://www.jython.org/">Jython</a> is an implementation of Python that runs on the Java platform (JVM).
+Django runs cleanly on Jython version 2.5 or later, which means you can deploy
+Django on any Java platform.</p>
+<p>This document will get you up and running with Django on top of Jython.</p>
+<div class="section" id="s-installing-jython">
+<span id="installing-jython"></span><h2>Installing Jython<a class="headerlink" href="index.html#installing-jython" title="Permalink to this headline">¶</a></h2>
+<p>Django works with Jython versions 2.5b3 and higher. Download Jython at
+<a class="reference external" href="http://www.jython.org/">http://www.jython.org/</a>.</p>
+</div>
+<div class="section" id="s-creating-a-servlet-container">
+<span id="creating-a-servlet-container"></span><h2>Creating a servlet container<a class="headerlink" href="index.html#creating-a-servlet-container" title="Permalink to this headline">¶</a></h2>
+<p>If you just want to experiment with Django, skip ahead to the next section;
+Django includes a lightweight Web server you can use for testing, so you won&#8217;t
+need to set up anything else until you&#8217;re ready to deploy Django in production.</p>
+<p>If you want to use Django on a production site, use a Java servlet container,
+such as <a class="reference external" href="http://tomcat.apache.org/">Apache Tomcat</a>. Full JavaEE applications servers such as <a class="reference external" href="http://glassfish.java.net/">GlassFish</a>
+or <a class="reference external" href="http://www.jboss.org/">JBoss</a> are also OK, if you need the extra features they include.</p>
+</div>
+<div class="section" id="s-installing-django">
+<span id="installing-django"></span><h2>Installing Django<a class="headerlink" href="index.html#installing-django" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to install Django itself. This is exactly the same as
+installing Django on standard Python, so see
+<a class="reference internal" href="../../topics/install/index.html#removing-old-versions-of-django"><em>Remove any old versions of Django</em></a> and <a class="reference internal" href="../../topics/install/index.html#install-django-code"><em>Install the Django code</em></a> for
+instructions.</p>
+</div>
+<div class="section" id="s-installing-jython-platform-support-libraries">
+<span id="installing-jython-platform-support-libraries"></span><h2>Installing Jython platform support libraries<a class="headerlink" href="index.html#installing-jython-platform-support-libraries" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="http://code.google.com/p/django-jython/">django-jython</a> project contains database backends and management commands
+for Django/Jython development. Note that the builtin Django backends won&#8217;t work
+on top of Jython.</p>
+<p>To install it, follow the <a class="reference external" href="http://code.google.com/p/django-jython/wiki/Install">installation instructions</a> detailed on the project
+Web site. Also, read the <a class="reference external" href="http://code.google.com/p/django-jython/wiki/DatabaseBackends">database backends</a> documentation there.</p>
+</div>
+<div class="section" id="s-differences-with-django-on-jython">
+<span id="differences-with-django-on-jython"></span><h2>Differences with Django on Jython<a class="headerlink" href="index.html#differences-with-django-on-jython" title="Permalink to this headline">¶</a></h2>
+<p id="index-1">At this point, Django on Jython should behave nearly identically to Django
+running on standard Python. However, are a few differences to keep in mind:</p>
+<ul class="simple">
+<li>Remember to use the <tt class="docutils literal"><span class="pre">jython</span></tt> command instead of <tt class="docutils literal"><span class="pre">python</span></tt>. The
+documentation uses <tt class="docutils literal"><span class="pre">python</span></tt> for consistency, but if you&#8217;re using Jython
+you&#8217;ll want to mentally replace <tt class="docutils literal"><span class="pre">python</span></tt> with <tt class="docutils literal"><span class="pre">jython</span></tt> every time it
+occurs.</li>
+<li>Similarly, you&#8217;ll need to use the <tt class="docutils literal"><span class="pre">JYTHONPATH</span></tt> environment variable
+instead of <tt class="docutils literal"><span class="pre">PYTHONPATH</span></tt>.</li>
+</ul>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../initial-data/index.html">&laquo; Providing initial data for models</a></div>
+  
+  
+    <div class="right"><a href="../legacy-databases/index.html">Integrating Django with a legacy database &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Running Django on Jython</a><ul>
+<li><a class="reference internal" href="index.html#installing-jython">Installing Jython</a></li>
+<li><a class="reference internal" href="index.html#creating-a-servlet-container">Creating a servlet container</a></li>
+<li><a class="reference internal" href="index.html#installing-django">Installing Django</a></li>
+<li><a class="reference internal" href="index.html#installing-jython-platform-support-libraries">Installing Jython platform support libraries</a></li>
+<li><a class="reference internal" href="index.html#differences-with-django-on-jython">Differences with Django on Jython</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../initial-data/index.html">Providing initial data for models</a></li>
+        
+        
+          <li>Next: <a href="../legacy-databases/index.html">Integrating Django with a legacy database</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">&#8220;How-to&#8221; guides</a>
+          
+          <ul><li>Running Django on Jython</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

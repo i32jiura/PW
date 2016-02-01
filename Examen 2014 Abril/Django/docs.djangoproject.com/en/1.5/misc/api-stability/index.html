@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>API stability | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/misc/api-stability/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/misc/api-stability/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/misc/api-stability/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/misc/api-stability/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/misc/api-stability/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/misc/api-stability/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/misc/api-stability/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-api-stability">
+<span id="api-stability"></span><h1>API stability<a class="headerlink" href="index.html#api-stability" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../../releases/1.0/index.html"><em>The release of Django 1.0</em></a> comes with a promise of API
+stability and forwards-compatibility. In a nutshell, this means that code you
+develop against a 1.X version of Django will continue to work with future
+1.X releases. You may need to make minor changes when upgrading the version of
+Django your project uses: see the &#8220;Backwards incompatible changes&#8221; section of
+the <a class="reference internal" href="../../releases/index.html"><em>release note</em></a> for the version or versions to which
+you are upgrading.</p>
+<div class="section" id="s-what-stable-means">
+<span id="what-stable-means"></span><h2>What &#8220;stable&#8221; means<a class="headerlink" href="index.html#what-stable-means" title="Permalink to this headline">¶</a></h2>
+<p>In this context, stable means:</p>
+<ul>
+<li><p class="first">All the public APIs (everything in this documentation) will not be moved
+or renamed without providing backwards-compatible aliases.</p>
+</li>
+<li><p class="first">If new features are added to these APIs &#8211; which is quite possible &#8211;
+they will not break or change the meaning of existing methods. In other
+words, &#8220;stable&#8221; does not (necessarily) mean &#8220;complete.&#8221;</p>
+</li>
+<li><p class="first">If, for some reason, an API declared stable must be removed or replaced, it
+will be declared deprecated but will remain in the API for at least two
+minor version releases. Warnings will be issued when the deprecated method
+is called.</p>
+<p>See <a class="reference internal" href="../../internals/release-process/index.html#official-releases"><em>Official releases</em></a> for more details on how Django&#8217;s version
+numbering scheme works, and how features will be deprecated.</p>
+</li>
+<li><p class="first">We&#8217;ll only break backwards compatibility of these APIs if a bug or
+security hole makes it completely unavoidable.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="s-stable-apis">
+<span id="stable-apis"></span><h2>Stable APIs<a class="headerlink" href="index.html#stable-apis" title="Permalink to this headline">¶</a></h2>
+<p>In general, everything covered in the documentation &#8211; with the exception of
+anything in the <a class="reference internal" href="../../internals/index.html"><em>internals area</em></a> is considered stable.</p>
+</div>
+<div class="section" id="s-exceptions">
+<span id="exceptions"></span><h2>Exceptions<a class="headerlink" href="index.html#exceptions" title="Permalink to this headline">¶</a></h2>
+<p>There are a few exceptions to this stability and backwards-compatibility
+promise.</p>
+<div class="section" id="s-security-fixes">
+<span id="security-fixes"></span><h3>Security fixes<a class="headerlink" href="index.html#security-fixes" title="Permalink to this headline">¶</a></h3>
+<p>If we become aware of a security problem &#8211; hopefully by someone following our
+<a class="reference internal" href="../../internals/security/index.html#reporting-security-issues"><em>security reporting policy</em></a> &#8211; we&#8217;ll do
+everything necessary to fix it. This might mean breaking backwards
+compatibility; security trumps the compatibility guarantee.</p>
+</div>
+<div class="section" id="s-apis-marked-as-internal">
+<span id="apis-marked-as-internal"></span><h3>APIs marked as internal<a class="headerlink" href="index.html#apis-marked-as-internal" title="Permalink to this headline">¶</a></h3>
+<p>Certain APIs are explicitly marked as &#8220;internal&#8221; in a couple of ways:</p>
+<ul class="simple">
+<li>Some documentation refers to internals and mentions them as such. If the
+documentation says that something is internal, we reserve the right to
+change it.</li>
+<li>Functions, methods, and other objects prefixed by a leading underscore
+(<tt class="docutils literal"><span class="pre">_</span></tt>). This is the standard Python way of indicating that something is
+private; if any method starts with a single <tt class="docutils literal"><span class="pre">_</span></tt>, it&#8217;s an internal API.</li>
+</ul>
+</div>
+<div class="section" id="s-local-flavors">
+<span id="s-misc-api-stability-localflavor"></span><span id="local-flavors"></span><span id="misc-api-stability-localflavor"></span><h3>Local flavors<a class="headerlink" href="index.html#local-flavors" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="../../ref/contrib/localflavor.1#module-django.contrib.localflavor" title="django.contrib.localflavor: A collection of various Django snippets that are useful only for a particular country or culture."><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.localflavor</span></tt></a> contains assorted pieces of code
+that are useful for particular countries or cultures. This data is
+local in nature, and is subject to change on timelines that will
+almost never correlate with Django&#8217;s own release schedules. For
+example, a common change is to split a province into two new
+provinces, or to rename an existing province.</p>
+<p>These changes present two competing compatibility issues. Moving
+forward, displaying the names of deprecated, renamed and dissolved
+provinces in a selection widget is bad from a user interface
+perspective. However, maintaining full backwards compatibility
+requires that we support historical values that may be stored in a
+database &#8211; including values that may no longer be valid.</p>
+<p>Therefore, Django has the following policy with respect to changes in
+local flavor:</p>
+<ul class="simple">
+<li>At the time of a Django release, the data and algorithms
+contained in <a class="reference internal" href="../../ref/contrib/localflavor.1#module-django.contrib.localflavor" title="django.contrib.localflavor: A collection of various Django snippets that are useful only for a particular country or culture."><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.localflavor</span></tt></a> will, to the best
+of our ability, reflect the officially gazetted policies of the
+appropriate local government authority. If a province has been
+added, altered, or removed, that change will be reflected in
+Django&#8217;s localflavor.</li>
+<li>These changes will <em>not</em> be backported to the previous stable
+release. Upgrading a minor version of Django should not require
+any data migration or audits for UI changes; therefore, if you
+want to get the latest province list, you will either need to
+upgrade your Django install, or backport the province list you
+need.</li>
+<li>For one release, the affected localflavor module will raise a
+<tt class="docutils literal"><span class="pre">RuntimeWarning</span></tt> when it is imported.</li>
+<li>The change will be announced in the release notes as a backwards
+incompatible change requiring attention. The change will also be
+annotated in the documentation for the localflavor module.</li>
+<li>Where necessary and feasible, a migration script will be provided
+to aid the migration process.</li>
+</ul>
+<p>For example, Django 1.2 contains an Indonesian localflavor. It has a
+province list that includes &#8220;Nanggroe Aceh Darussalam (NAD)&#8221; as a
+province. The Indonesian government has changed the official name of
+the province to &#8220;Aceh (ACE)&#8221;. As a result, Django 1.3 does <em>not</em>
+contain &#8220;Nanggroe Aceh Darussalam (NAD)&#8221; in the province list, but
+<em>does</em> contain &#8220;Aceh (ACE)&#8221;.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../index.html">&laquo; Meta-documentation and miscellany</a></div>
+  
+  
+    <div class="right"><a href="../design-philosophies/index.html">Design philosophies &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">API stability</a><ul>
+<li><a class="reference internal" href="index.html#what-stable-means">What &#8220;stable&#8221; means</a></li>
+<li><a class="reference internal" href="index.html#stable-apis">Stable APIs</a></li>
+<li><a class="reference internal" href="index.html#exceptions">Exceptions</a><ul>
+<li><a class="reference internal" href="index.html#security-fixes">Security fixes</a></li>
+<li><a class="reference internal" href="index.html#apis-marked-as-internal">APIs marked as internal</a></li>
+<li><a class="reference internal" href="index.html#local-flavors">Local flavors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../index.html">Meta-documentation and miscellany</a></li>
+        
+        
+          <li>Next: <a href="../design-philosophies/index.html">Design philosophies</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Meta-documentation and miscellany</a>
+          
+          <ul><li>API stability</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

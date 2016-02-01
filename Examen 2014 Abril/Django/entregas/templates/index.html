@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+
+	{% if not usuario.is_authenticated %}
+	<h1><a href='Iniciar-Sesion'>Iniciar sesión</h1></a>
+	{% endif %}
+	
+	{% if usuario.is_authenticated %}
+	<h1><a href='Salir'>Salir</h1></a>
+	<h2>Bienvenido {{usuario.username}}</h2>
+	{% endif %}
+
+	<h2>Destinatarios</h2>
+	<li><a href="Destinatarios">Destinatarios</a></li>
+	<li><a href="AddDestinatario">Añadir Destinatario</a></li>
+	
+	<h2>Paquetes</h2>
+	<li><a href="Paquetes">Paquetes</a></li>
+	<li><a href="AddPaquete">Añadir Paquete</a></li>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h3>Detalles del paquete</h3>
+	<li>
+	Destinatario: {{paquete.destinatario}}
+	</li>
+	<li>
+	Contenido: {{paquete.contenido}}
+	</li>
+	<li>
+	Valor: {{paquete.valor}}
+	</li>
+	
+	<li><a href="EditPaquete">Editar Paquete</a></li>
+	
+
+
+
+
+{% endblock %}

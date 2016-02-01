@@ -1,0 +1,498 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Django 1.0 release notes | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/releases/1.0/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/releases/1.0/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/releases/1.0/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/releases/1.0/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/releases/1.0/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/releases/1.0/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/releases/1.0/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-django-1-0-release-notes">
+<span id="django-1-0-release-notes"></span><h1>Django 1.0 release notes<a class="headerlink" href="index.html#django-1-0-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to Django 1.0!</p>
+<p>We&#8217;ve been looking forward to this moment for over three years, and it&#8217;s finally
+here. Django 1.0 represents a the largest milestone in Django&#8217;s development to
+date: a Web framework that a group of perfectionists can truly be proud of.</p>
+<p>Django 1.0 represents over three years of community development as an Open
+Source project. Django&#8217;s received contributions from hundreds of developers,
+been translated into fifty languages, and today is used by developers on every
+continent and in every kind of job.</p>
+<p>An interesting historical note: when Django was first released in July 2005, the
+initial released version of Django came from an internal repository at revision
+number 8825. Django 1.0 represents revision 8961 of our public repository. It
+seems fitting that our 1.0 release comes at the moment where community
+contributions overtake those made privately.</p>
+<div class="section" id="s-stability-and-forwards-compatibility">
+<span id="stability-and-forwards-compatibility"></span><h2>Stability and forwards-compatibility<a class="headerlink" href="index.html#stability-and-forwards-compatibility" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="index.html"><em>The release of Django 1.0</em></a> comes with a promise of API
+stability and forwards-compatibility. In a nutshell, this means that code you
+develop against Django 1.0 will continue to work against 1.1 unchanged, and you
+should need to make only minor changes for any 1.X release.</p>
+<p>See the <a class="reference internal" href="../../misc/api-stability/index.html"><em>API stability guide</em></a> for full details.</p>
+</div>
+<div class="section" id="s-backwards-incompatible-changes">
+<span id="backwards-incompatible-changes"></span><h2>Backwards-incompatible changes<a class="headerlink" href="index.html#backwards-incompatible-changes" title="Permalink to this headline">¶</a></h2>
+<p>Django 1.0 has a number of backwards-incompatible changes from Django 0.96. If
+you have apps written against Django 0.96 that you need to port, see our
+detailed porting guide:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1.0-porting-guide/index.html">Porting your apps from Django 0.96 to 1.0</a></li>
+</ul>
+</div>
+<p>A complete list of backwards-incompatible changes can be found at
+<a class="reference external" href="https://code.djangoproject.com/wiki/BackwardsIncompatibleChanges">https://code.djangoproject.com/wiki/BackwardsIncompatibleChanges</a>.</p>
+</div>
+<div class="section" id="s-what-s-new-in-django-1-0">
+<span id="what-s-new-in-django-1-0"></span><h2>What&#8217;s new in Django 1.0<a class="headerlink" href="index.html#what-s-new-in-django-1-0" title="Permalink to this headline">¶</a></h2>
+<p>A <em>lot</em>!</p>
+<p>Since Django 0.96, we&#8217;ve made over 4,000 code commits, fixed more than 2,000
+bugs, and edited, added, or removed around 350,000 lines of code. We&#8217;ve also
+added 40,000 lines of new documentation, and greatly improved what was already
+there.</p>
+<p>In fact, new documentation is one of our favorite features of Django 1.0, so we
+might as well start there. First, there&#8217;s a new documentation site:</p>
+<ul class="simple">
+<li><a class="reference external" href="../../../../index.html">https://docs.djangoproject.com/</a></li>
+</ul>
+<p>The documentation has been greatly improved, cleaned up, and generally made
+awesome. There&#8217;s now dedicated search, indexes, and more.</p>
+<p>We can&#8217;t possibly document everything that&#8217;s new in 1.0, but the documentation
+will be your definitive guide. Anywhere you see something like:</p>
+<p>You&#8217;ll know that you&#8217;re looking at something new or changed.</p>
+<p>The other major highlights of Django 1.0 are:</p>
+<div class="section" id="s-re-factored-admin-application">
+<span id="re-factored-admin-application"></span><h3>Re-factored admin application<a class="headerlink" href="index.html#re-factored-admin-application" title="Permalink to this headline">¶</a></h3>
+<p>The Django administrative interface (<tt class="docutils literal"><span class="pre">django.contrib.admin</span></tt>) has been
+completely refactored; admin definitions are now completely decoupled from model
+definitions (no more <tt class="docutils literal"><span class="pre">class</span> <span class="pre">Admin</span></tt> declaration in models!), rewritten to use
+Django&#8217;s new form-handling library (introduced in the 0.96 release as
+<tt class="docutils literal"><span class="pre">django.newforms</span></tt>, and now available as simply <tt class="docutils literal"><span class="pre">django.forms</span></tt>) and
+redesigned with extensibility and customization in mind. Full documentation for
+the admin application is available online in the official Django documentation:</p>
+<p>See the <a class="reference internal" href="../../ref/contrib/admin/index"><em>admin reference</em></a> for details</p>
+</div>
+<div class="section" id="s-improved-unicode-handling">
+<span id="improved-unicode-handling"></span><h3>Improved Unicode handling<a class="headerlink" href="index.html#improved-unicode-handling" title="Permalink to this headline">¶</a></h3>
+<p>Django&#8217;s internals have been refactored to use Unicode throughout; this
+drastically simplifies the task of dealing with non-Western-European content and
+data in Django. Additionally, utility functions have been provided to ease
+interoperability with third-party libraries and systems which may or may not
+handle Unicode gracefully. Details are available in Django&#8217;s Unicode-handling
+documentation.</p>
+<p>See <a class="reference internal" href="../../ref/unicode/index.html"><em>Unicode data</em></a>.</p>
+</div>
+<div class="section" id="s-an-improved-orm">
+<span id="an-improved-orm"></span><h3>An improved ORM<a class="headerlink" href="index.html#an-improved-orm" title="Permalink to this headline">¶</a></h3>
+<p>Django&#8217;s object-relational mapper &#8211; the component which provides the mapping
+between Django model classes and your database, and which mediates your database
+queries &#8211; has been dramatically improved by a massive refactoring. For most
+users of Django this is backwards-compatible; the public-facing API for database
+querying underwent a few minor changes, but most of the updates took place in
+the ORM&#8217;s internals. A guide to the changes, including backwards-incompatible
+modifications and mentions of new features opened up by this refactoring, is
+<a class="reference external" href="https://code.djangoproject.com/wiki/QuerysetRefactorBranch">available on the Django wiki</a>.</p>
+</div>
+<div class="section" id="s-automatic-escaping-of-template-variables">
+<span id="automatic-escaping-of-template-variables"></span><h3>Automatic escaping of template variables<a class="headerlink" href="index.html#automatic-escaping-of-template-variables" title="Permalink to this headline">¶</a></h3>
+<p>To provide improved security against cross-site scripting (XSS) vulnerabilities,
+Django&#8217;s template system now automatically escapes the output of variables. This
+behavior is configurable, and allows both variables and larger template
+constructs to be marked as safe (requiring no escaping) or unsafe (requiring
+escaping). A full guide to this feature is in the documentation for the
+<a class="reference internal" href="../../ref/templates/builtins/index.html#std:templatetag-autoescape"><tt class="xref std std-ttag docutils literal"><span class="pre">autoescape</span></tt></a> tag.</p>
+</div>
+<div class="section" id="s-django-contrib-gis-geodjango">
+<span id="django-contrib-gis-geodjango"></span><h3><tt class="docutils literal"><span class="pre">django.contrib.gis</span></tt> (GeoDjango)<a class="headerlink" href="index.html#django-contrib-gis-geodjango" title="Permalink to this headline">¶</a></h3>
+<p>A project over a year in the making, this adds world-class GIS (<a class="reference external" href="http://en.wikipedia.org/wiki/Geographic_information_system">Geographic
+Information Systems</a>) support to Django, in the form of a <tt class="docutils literal"><span class="pre">contrib</span></tt>
+application. Its documentation is currently being maintained externally, and
+will be merged into the main Django documentation shortly. Huge thanks go to
+Justin Bronn, Jeremy Dunck, Brett Hoerner and Travis Pinney for their efforts in
+creating and completing this feature.</p>
+<p>See <a class="reference external" href="http://geodjango.org/">http://geodjango.org/</a> for details.</p>
+</div>
+<div class="section" id="s-pluggable-file-storage">
+<span id="pluggable-file-storage"></span><h3>Pluggable file storage<a class="headerlink" href="index.html#pluggable-file-storage" title="Permalink to this headline">¶</a></h3>
+<p>Django&#8217;s built-in <tt class="docutils literal"><span class="pre">FileField</span></tt> and <tt class="docutils literal"><span class="pre">ImageField</span></tt> now can take advantage of
+pluggable file-storage backends, allowing extensive customization of where and
+how uploaded files get stored by Django. For details, see <a class="reference internal" href="../../topics/files/index.html"><em>the files
+documentation</em></a>; big thanks go to Marty Alchin for putting in the
+hard work to get this completed.</p>
+</div>
+<div class="section" id="s-jython-compatibility">
+<span id="jython-compatibility"></span><h3>Jython compatibility<a class="headerlink" href="index.html#jython-compatibility" title="Permalink to this headline">¶</a></h3>
+<p>Thanks to a lot of work from Leo Soto during a Google Summer of Code project,
+Django&#8217;s codebase has been refactored to remove incompatibilities with
+<a class="reference external" href="http://www.jython.org/">Jython</a>, an implementation of Python written in Java, which runs Python code
+on the Java Virtual Machine. Django is now compatible with the forthcoming
+Jython 2.5 release.</p>
+<p>See <a class="reference internal" href="../../howto/jython/index.html"><em>Running Django on Jython</em></a>.</p>
+</div>
+<div class="section" id="s-generic-relations-in-forms-and-admin">
+<span id="generic-relations-in-forms-and-admin"></span><h3>Generic relations in forms and admin<a class="headerlink" href="index.html#generic-relations-in-forms-and-admin" title="Permalink to this headline">¶</a></h3>
+<p>Classes are now included in <tt class="docutils literal"><span class="pre">django.contrib.contenttypes</span></tt> which can be used to
+support generic relations in both the admin interface and in end-user forms. See
+<a class="reference internal" href="../../ref/contrib/contenttypes.1#generic-relations"><em>the documentation for generic relations</em></a> for details.</p>
+</div>
+<div class="section" id="s-insert-update-distinction">
+<span id="insert-update-distinction"></span><h3><tt class="docutils literal"><span class="pre">INSERT</span></tt>/<tt class="docutils literal"><span class="pre">UPDATE</span></tt> distinction<a class="headerlink" href="index.html#insert-update-distinction" title="Permalink to this headline">¶</a></h3>
+<p>Although Django&#8217;s default behavior of having a model&#8217;s <tt class="docutils literal"><span class="pre">save()</span></tt> method
+automatically determine whether to perform an <tt class="docutils literal"><span class="pre">INSERT</span></tt> or an <tt class="docutils literal"><span class="pre">UPDATE</span></tt> at the
+SQL level is suitable for the majority of cases, there are occasional situations
+where forcing one or the other is useful. As a result, models can now support an
+additional parameter to <tt class="docutils literal"><span class="pre">save()</span></tt> which can force a specific operation.</p>
+<p>See <a class="reference internal" href="../../ref/models/instances/index.html#ref-models-force-insert"><em>Forcing an INSERT or UPDATE</em></a> for details.</p>
+</div>
+<div class="section" id="s-split-cachemiddleware">
+<span id="split-cachemiddleware"></span><h3>Split <tt class="docutils literal"><span class="pre">CacheMiddleware</span></tt><a class="headerlink" href="index.html#split-cachemiddleware" title="Permalink to this headline">¶</a></h3>
+<p>Django&#8217;s <tt class="docutils literal"><span class="pre">CacheMiddleware</span></tt> has been split into three classes:
+<tt class="docutils literal"><span class="pre">CacheMiddleware</span></tt> itself still exists and retains all of its previous
+functionality, but it is now built from two separate middleware classes which
+handle the two parts of caching (inserting into and reading from the cache)
+separately, offering additional flexibility for situations where combining these
+functions into a single middleware posed problems.</p>
+<p>Full details, including updated notes on appropriate use, are in <a class="reference internal" href="../../topics/cache/index.html"><em>the
+caching documentation</em></a>.</p>
+</div>
+<div class="section" id="s-refactored-django-contrib-comments">
+<span id="refactored-django-contrib-comments"></span><h3>Refactored <tt class="docutils literal"><span class="pre">django.contrib.comments</span></tt><a class="headerlink" href="index.html#refactored-django-contrib-comments" title="Permalink to this headline">¶</a></h3>
+<p>As part of a Google Summer of Code project, Thejaswi Puthraya carried out a
+major rewrite and refactoring of Django&#8217;s bundled comment system, greatly
+increasing its flexibility and customizability. <a class="reference internal" href="../../ref/contrib/comments/index"><em>Full documentation</em></a> is available, as well as an upgrade guide
+if you were using the previous incarnation of
+the comments application.</p>
+</div>
+<div class="section" id="s-removal-of-deprecated-features">
+<span id="removal-of-deprecated-features"></span><h3>Removal of deprecated features<a class="headerlink" href="index.html#removal-of-deprecated-features" title="Permalink to this headline">¶</a></h3>
+<p>A number of features and methods which had previously been marked as deprecated,
+and which were scheduled for removal prior to the 1.0 release, are no longer
+present in Django. These include imports of the form library from
+<tt class="docutils literal"><span class="pre">django.newforms</span></tt> (now located simply at <tt class="docutils literal"><span class="pre">django.forms</span></tt>), the
+<tt class="docutils literal"><span class="pre">form_for_model</span></tt> and <tt class="docutils literal"><span class="pre">form_for_instance</span></tt> helper functions (which have been
+replaced by <tt class="docutils literal"><span class="pre">ModelForm</span></tt>) and a number of deprecated features which were
+replaced by the dispatcher, file-uploading and file-storage refactorings
+introduced in the Django 1.0 alpha releases.</p>
+</div>
+</div>
+<div class="section" id="s-known-issues">
+<span id="known-issues"></span><h2>Known issues<a class="headerlink" href="index.html#known-issues" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve done our best to make Django 1.0 as solid as possible, but unfortunately
+there are a couple of issues that we know about in the release.</p>
+<div class="section" id="s-multi-table-model-inheritance-with-to-field">
+<span id="multi-table-model-inheritance-with-to-field"></span><h3>Multi-table model inheritance with <tt class="docutils literal"><span class="pre">to_field</span></tt><a class="headerlink" href="index.html#multi-table-model-inheritance-with-to-field" title="Permalink to this headline">¶</a></h3>
+<p>If you&#8217;re using <a class="reference internal" href="../../topics/db/models.1#multi-table-inheritance"><em>multiple table model inheritance</em></a>, be aware of this caveat: child models using a custom
+<tt class="docutils literal"><span class="pre">parent_link</span></tt> and <tt class="docutils literal"><span class="pre">to_field</span></tt> will cause database integrity errors. A set of
+models like the following are <strong>not valid</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">other_value</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
+    <span class="n">father</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">to_field</span><span class="o">=</span><span class="s">&quot;other_value&quot;</span><span class="p">,</span> <span class="n">parent_link</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This bug will be fixed in the next release of Django.</p>
+</div>
+<div class="section" id="s-caveats-with-support-of-certain-databases">
+<span id="caveats-with-support-of-certain-databases"></span><h3>Caveats with support of certain databases<a class="headerlink" href="index.html#caveats-with-support-of-certain-databases" title="Permalink to this headline">¶</a></h3>
+<p>Django attempts to support as many features as possible on all database
+backends. However, not all database backends are alike, and in particular many of the supported database differ greatly from version to version. It&#8217;s a good idea to checkout our <a class="reference internal" href="../../ref/databases/index.html"><em>notes on supported database</em></a>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../ref/databases/index.html#mysql-notes"><em>MySQL notes</em></a></li>
+<li><a class="reference internal" href="../../ref/databases/index.html#sqlite-notes"><em>SQLite notes</em></a></li>
+<li><a class="reference internal" href="../../ref/databases/index.html#oracle-notes"><em>Oracle notes</em></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../1.0.1/index.html">&laquo; Django 1.0.1 release notes</a></div>
+  
+  
+    <div class="right"><a href="../1.0-porting-guide/index.html">Porting your apps from Django 0.96 to 1.0 &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Django 1.0 release notes</a><ul>
+<li><a class="reference internal" href="index.html#stability-and-forwards-compatibility">Stability and forwards-compatibility</a></li>
+<li><a class="reference internal" href="index.html#backwards-incompatible-changes">Backwards-incompatible changes</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#what-s-new-in-django-1-0">What&#8217;s new in Django 1.0</a><ul>
+<li><a class="reference internal" href="index.html#re-factored-admin-application">Re-factored admin application</a></li>
+<li><a class="reference internal" href="index.html#improved-unicode-handling">Improved Unicode handling</a></li>
+<li><a class="reference internal" href="index.html#an-improved-orm">An improved ORM</a></li>
+<li><a class="reference internal" href="index.html#automatic-escaping-of-template-variables">Automatic escaping of template variables</a></li>
+<li><a class="reference internal" href="index.html#django-contrib-gis-geodjango"><tt class="docutils literal"><span class="pre">django.contrib.gis</span></tt> (GeoDjango)</a></li>
+<li><a class="reference internal" href="index.html#pluggable-file-storage">Pluggable file storage</a></li>
+<li><a class="reference internal" href="index.html#jython-compatibility">Jython compatibility</a></li>
+<li><a class="reference internal" href="index.html#generic-relations-in-forms-and-admin">Generic relations in forms and admin</a></li>
+<li><a class="reference internal" href="index.html#insert-update-distinction"><tt class="docutils literal"><span class="pre">INSERT</span></tt>/<tt class="docutils literal"><span class="pre">UPDATE</span></tt> distinction</a></li>
+<li><a class="reference internal" href="index.html#split-cachemiddleware">Split <tt class="docutils literal"><span class="pre">CacheMiddleware</span></tt></a></li>
+<li><a class="reference internal" href="index.html#refactored-django-contrib-comments">Refactored <tt class="docutils literal"><span class="pre">django.contrib.comments</span></tt></a></li>
+<li><a class="reference internal" href="index.html#removal-of-deprecated-features">Removal of deprecated features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#known-issues">Known issues</a><ul>
+<li><a class="reference internal" href="index.html#multi-table-model-inheritance-with-to-field">Multi-table model inheritance with <tt class="docutils literal"><span class="pre">to_field</span></tt></a></li>
+<li><a class="reference internal" href="index.html#caveats-with-support-of-certain-databases">Caveats with support of certain databases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../1.0.1/index.html">Django 1.0.1 release notes</a></li>
+        
+        
+          <li>Next: <a href="../1.0-porting-guide/index.html">Porting your apps from Django 0.96 to 1.0</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Release notes</a>
+          
+          <ul><li>Django 1.0 release notes</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

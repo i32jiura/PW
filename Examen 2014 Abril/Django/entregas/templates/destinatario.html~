@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h3>Detalles del destinatario</h3>
+	<li>
+	Nombre -> {{destinatario.nombre}}
+	</li>
+	<li>
+	Dirección -> {{destinatario.direccion}}
+	</li>
+	<li>
+	Ciudad -> {{destinatario.ciudad}}
+	</li>
+	<li>
+	Código Postal -> {{destinatario.codigo_postal}}
+	</li>
+	
+
+
+
+
+{% endblock %}
