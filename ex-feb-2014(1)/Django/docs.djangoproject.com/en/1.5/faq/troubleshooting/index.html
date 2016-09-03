@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Troubleshooting | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/faq/troubleshooting/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/faq/troubleshooting/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-troubleshooting">
+<span id="troubleshooting"></span><h1>Troubleshooting<a class="headerlink" href="index.html#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<p>This page contains some advice about errors and problems commonly encountered
+during the development of Django applications.</p>
+<div class="section" id="s-problems-running-django-admin-py">
+<span id="s-troubleshooting-django-admin-py"></span><span id="problems-running-django-admin-py"></span><span id="troubleshooting-django-admin-py"></span><h2>Problems running django-admin.py<a class="headerlink" href="index.html#problems-running-django-admin-py" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="s-command-not-found-django-admin-py">
+<span id="command-not-found-django-admin-py"></span><h3>&#8220;command not found: django-admin.py&#8221;<a class="headerlink" href="index.html#command-not-found-django-admin-py" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="../../ref/django-admin/index.html"><em>django-admin.py</em></a> should be on your system path if you
+installed Django via <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span></tt>. If it&#8217;s not on your path, you can
+find it in <tt class="docutils literal"><span class="pre">site-packages/django/bin</span></tt>, where <tt class="docutils literal"><span class="pre">site-packages</span></tt> is a directory
+within your Python installation. Consider symlinking to <a class="reference internal" href="../../ref/django-admin/index.html"><em>django-admin.py</em></a> from some place on your path, such as
+<tt class="file docutils literal"><span class="pre">/usr/local/bin</span></tt>.</p>
+</div>
+<div class="section" id="s-script-name-may-differ-in-distribution-packages">
+<span id="script-name-may-differ-in-distribution-packages"></span><h3>Script name may differ in distribution packages<a class="headerlink" href="index.html#script-name-may-differ-in-distribution-packages" title="Permalink to this headline">¶</a></h3>
+<p>If you installed Django using a Linux distribution&#8217;s package manager
+(e.g. <tt class="docutils literal"><span class="pre">apt-get</span></tt> or <tt class="docutils literal"><span class="pre">yum</span></tt>) <tt class="docutils literal"><span class="pre">django-admin.py</span></tt> may have been renamed to
+<tt class="docutils literal"><span class="pre">django-admin</span></tt>; use that instead.</p>
+</div>
+<div class="section" id="s-mac-os-x-permissions">
+<span id="mac-os-x-permissions"></span><h3>Mac OS X permissions<a class="headerlink" href="index.html#mac-os-x-permissions" title="Permalink to this headline">¶</a></h3>
+<p>If you&#8217;re using Mac OS X, you may see the message &#8220;permission denied&#8221; when
+you try to run <tt class="docutils literal"><span class="pre">django-admin.py</span></tt>. This is because, on Unix-based systems like
+OS X, a file must be marked as &#8220;executable&#8221; before it can be run as a program.
+To do this, open Terminal.app and navigate (using the <tt class="docutils literal"><span class="pre">cd</span></tt> command) to the
+directory where <a class="reference internal" href="../../ref/django-admin/index.html"><em>django-admin.py</em></a> is installed, then
+run the command <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">django-admin.py</span></tt>.</p>
+</div>
+<div class="section" id="s-running-virtualenv-on-windows">
+<span id="running-virtualenv-on-windows"></span><h3>Running virtualenv on Windows<a class="headerlink" href="index.html#running-virtualenv-on-windows" title="Permalink to this headline">¶</a></h3>
+<p>If you used <a class="reference external" href="http://www.virtualenv.org/">virtualenv</a> to <a class="reference internal" href="../../topics/install/index.html#installing-official-release"><em>install Django</em></a>
+on Windows, you may get an <tt class="docutils literal"><span class="pre">ImportError</span></tt> when you try to run
+<tt class="docutils literal"><span class="pre">django-admin.py</span></tt>. This is because Windows does not run the
+Python interpreter from your virtual environment unless you invoke it
+directly. Instead, prefix all commands that use .py files with <tt class="docutils literal"><span class="pre">python</span></tt> and
+use the full path to the file, like so:
+<tt class="docutils literal"><span class="pre">python</span> <span class="pre">C:\pythonXY\Scripts\django-admin.py</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../contributing/index.html">&laquo; FAQ: Contributing code</a></div>
+  
+  
+    <div class="right"><a href="../../ref/index.html">API Reference &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Troubleshooting</a><ul>
+<li><a class="reference internal" href="index.html#problems-running-django-admin-py">Problems running django-admin.py</a><ul>
+<li><a class="reference internal" href="index.html#command-not-found-django-admin-py">&#8220;command not found: django-admin.py&#8221;</a></li>
+<li><a class="reference internal" href="index.html#script-name-may-differ-in-distribution-packages">Script name may differ in distribution packages</a></li>
+<li><a class="reference internal" href="index.html#mac-os-x-permissions">Mac OS X permissions</a></li>
+<li><a class="reference internal" href="index.html#running-virtualenv-on-windows">Running virtualenv on Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../contributing/index.html">FAQ: Contributing code</a></li>
+        
+        
+          <li>Next: <a href="../../ref/index.html">API Reference</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Django FAQ</a>
+          
+          <ul><li>Troubleshooting</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

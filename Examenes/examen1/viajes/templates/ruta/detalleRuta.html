@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  <h2> Detalles de la ruta {{rutaEspecifica.nombre}}:</h2>
+{% endblock %}
+
+{% block body %}
+  <ul>
+      <p><li>Nombre: {{ rutaEspecifica.nombre }}</li></p>
+      <p>
+      Ruta: [
+      {% for destino in rutaEspecifica.destinos.all %}
+                {{ destino }}
+      {% endfor %}
+      ]</p>
+      <p>Días: {{ rutaEspecifica.getDias }}</p>
+      <p>Precio: {{ rutaEspecifica.getPrecio }}</p>
+    <input type="button" value="Atrás" onclick="location.reload();location.href='/ruta'"/>
+  </ul>
+{% endblock %}

@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Outputting PDFs with Django | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/howto/outputting-pdf/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/howto/outputting-pdf/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/howto/outputting-pdf/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/howto/outputting-pdf/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/howto/outputting-pdf/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/howto/outputting-pdf/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/howto/outputting-pdf/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-outputting-pdfs-with-django">
+<span id="outputting-pdfs-with-django"></span><h1>Outputting PDFs with Django<a class="headerlink" href="index.html#outputting-pdfs-with-django" title="Permalink to this headline">¶</a></h1>
+<p>This document explains how to output PDF files dynamically using Django views.
+This is made possible by the excellent, open-source <a class="reference external" href="http://www.reportlab.com/software/opensource/rl-toolkit/">ReportLab</a> Python PDF
+library.</p>
+<p>The advantage of generating PDF files dynamically is that you can create
+customized PDFs for different purposes &#8211; say, for different users or different
+pieces of content.</p>
+<p>For example, Django was used at <a class="reference external" href="http://www.kusports.com/">kusports.com</a> to generate customized,
+printer-friendly NCAA tournament brackets, as PDF files, for people
+participating in a March Madness contest.</p>
+<div class="section" id="s-install-reportlab">
+<span id="install-reportlab"></span><h2>Install ReportLab<a class="headerlink" href="index.html#install-reportlab" title="Permalink to this headline">¶</a></h2>
+<p>Download and install the ReportLab library from
+<a class="reference external" href="http://www.reportlab.com/software/opensource/rl-toolkit/download/">http://www.reportlab.com/software/opensource/rl-toolkit/download/</a>.
+The <a class="reference external" href="http://www.reportlab.com/docs/reportlab-userguide.pdf">user guide</a> (not coincidentally, a PDF file) explains how to install it.
+Alternatively, you can also install it with <tt class="docutils literal"><span class="pre">pip</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo pip install reportlab
+</pre></div>
+</div>
+<p>Test your installation by importing it in the Python interactive interpreter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">reportlab</span>
+</pre></div>
+</div>
+<p>If that command doesn&#8217;t raise any errors, the installation worked.</p>
+</div>
+<div class="section" id="s-write-your-view">
+<span id="write-your-view"></span><h2>Write your view<a class="headerlink" href="index.html#write-your-view" title="Permalink to this headline">¶</a></h2>
+<p>The key to generating PDFs dynamically with Django is that the ReportLab API
+acts on file-like objects, and Django&#8217;s <a class="reference internal" href="../../ref/request-response.1#django.http.HttpResponse" title="django.http.HttpResponse"><tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt></a>
+objects are file-like objects.</p>
+<p>Here&#8217;s a &#8220;Hello World&#8221; example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">reportlab.pdfgen</span> <span class="kn">import</span> <span class="n">canvas</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">some_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c"># Create the HttpResponse object with the appropriate PDF headers.</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="s">&#39;application/pdf&#39;</span><span class="p">)</span>
+    <span class="n">response</span><span class="p">[</span><span class="s">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;attachment; filename=&quot;somefilename.pdf&quot;&#39;</span>
+
+    <span class="c"># Create the PDF object, using the response object as its &quot;file.&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+    <span class="c"># Draw things on the PDF. Here&#39;s where the PDF generation happens.</span>
+    <span class="c"># See the ReportLab documentation for the full list of functionality.</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&quot;Hello world.&quot;</span><span class="p">)</span>
+
+    <span class="c"># Close the PDF object cleanly, and we&#39;re done.</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">showPage</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div>
+</div>
+<p>The code and comments should be self-explanatory, but a few things deserve a
+mention:</p>
+<ul>
+<li><p class="first">The response gets a special MIME type, <em class="mimetype">application/pdf</em>. This
+tells browsers that the document is a PDF file, rather than an HTML file.
+If you leave this off, browsers will probably interpret the output as
+HTML, which would result in ugly, scary gobbledygook in the browser
+window.</p>
+</li>
+<li><p class="first">The response gets an additional <tt class="docutils literal"><span class="pre">Content-Disposition</span></tt> header, which
+contains the name of the PDF file. This filename is arbitrary: Call it
+whatever you want. It&#8217;ll be used by browsers in the &#8220;Save as...&#8221;
+dialogue, etc.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">Content-Disposition</span></tt> header starts with <tt class="docutils literal"><span class="pre">'attachment;</span> <span class="pre">'</span></tt> in this
+example. This forces Web browsers to pop-up a dialog box
+prompting/confirming how to handle the document even if a default is set
+on the machine. If you leave off <tt class="docutils literal"><span class="pre">'attachment;'</span></tt>, browsers will handle
+the PDF using whatever program/plugin they&#8217;ve been configured to use for
+PDFs. Here&#8217;s what that code would look like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">response</span><span class="p">[</span><span class="s">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;filename=&quot;somefilename.pdf&quot;&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Hooking into the ReportLab API is easy: Just pass <tt class="docutils literal"><span class="pre">response</span></tt> as the
+first argument to <tt class="docutils literal"><span class="pre">canvas.Canvas</span></tt>. The <tt class="docutils literal"><span class="pre">Canvas</span></tt> class expects a
+file-like object, and <a class="reference internal" href="../../ref/request-response.1#django.http.HttpResponse" title="django.http.HttpResponse"><tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt></a> objects fit the
+bill.</p>
+</li>
+<li><p class="first">Note that all subsequent PDF-generation methods are called on the PDF
+object (in this case, <tt class="docutils literal"><span class="pre">p</span></tt>) &#8211; not on <tt class="docutils literal"><span class="pre">response</span></tt>.</p>
+</li>
+<li><p class="first">Finally, it&#8217;s important to call <tt class="docutils literal"><span class="pre">showPage()</span></tt> and <tt class="docutils literal"><span class="pre">save()</span></tt> on the PDF
+file.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ReportLab is not thread-safe. Some of our users have reported odd issues
+with building PDF-generating Django views that are accessed by many people
+at the same time.</p>
+</div>
+</div>
+<div class="section" id="s-complex-pdfs">
+<span id="complex-pdfs"></span><h2>Complex PDFs<a class="headerlink" href="index.html#complex-pdfs" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;re creating a complex PDF document with ReportLab, consider using the
+<a class="reference external" href="http://docs.python.org/2.7/library/io.html#module-io" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">io</span></tt></a> library as a temporary holding place for your PDF file. This
+library provides a file-like object interface that is particularly efficient.
+Here&#8217;s the above &#8220;Hello World&#8221; example rewritten to use <a class="reference external" href="http://docs.python.org/2.7/library/io.html#module-io" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">io</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">reportlab.pdfgen</span> <span class="kn">import</span> <span class="n">canvas</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">some_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c"># Create the HttpResponse object with the appropriate PDF headers.</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="s">&#39;application/pdf&#39;</span><span class="p">)</span>
+    <span class="n">response</span><span class="p">[</span><span class="s">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;attachment; filename=&quot;somefilename.pdf&quot;&#39;</span>
+
+    <span class="nb">buffer</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+
+    <span class="c"># Create the PDF object, using the BytesIO object as its &quot;file.&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
+
+    <span class="c"># Draw things on the PDF. Here&#39;s where the PDF generation happens.</span>
+    <span class="c"># See the ReportLab documentation for the full list of functionality.</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&quot;Hello world.&quot;</span><span class="p">)</span>
+
+    <span class="c"># Close the PDF object cleanly.</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">showPage</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c"># Get the value of the BytesIO buffer and write it to the response.</span>
+    <span class="n">pdf</span> <span class="o">=</span> <span class="nb">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="nb">buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-further-resources">
+<span id="further-resources"></span><h2>Further resources<a class="headerlink" href="index.html#further-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.pdflib.org/">PDFlib</a> is another PDF-generation library that has Python bindings. To
+use it with Django, just use the same concepts explained in this article.</li>
+<li><a class="reference external" href="http://www.xhtml2pdf.com/">Pisa XHTML2PDF</a> is yet another PDF-generation library. Pisa ships with
+an example of how to integrate Pisa with Django.</li>
+<li><a class="reference external" href="http://www.htmldoc.org/">HTMLdoc</a> is a command-line script that can convert HTML to PDF. It
+doesn&#8217;t have a Python interface, but you can escape out to the shell
+using <tt class="docutils literal"><span class="pre">system</span></tt> or <tt class="docutils literal"><span class="pre">popen</span></tt> and retrieve the output in Python.</li>
+</ul>
+</div>
+<div class="section" id="s-other-formats">
+<span id="other-formats"></span><h2>Other formats<a class="headerlink" href="index.html#other-formats" title="Permalink to this headline">¶</a></h2>
+<p>Notice that there isn&#8217;t a lot in these examples that&#8217;s PDF-specific &#8211; just the
+bits using <tt class="docutils literal"><span class="pre">reportlab</span></tt>. You can use a similar technique to generate any
+arbitrary format that you can find a Python library for. Also see
+<a class="reference internal" href="../outputting-csv/index.html"><em>Outputting CSV with Django</em></a> for another example and some techniques you can use
+when generated text-based formats.</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../outputting-csv/index.html">&laquo; Outputting CSV with Django</a></div>
+  
+  
+    <div class="right"><a href="../static-files/index.html">Managing static files (CSS, images) &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Outputting PDFs with Django</a><ul>
+<li><a class="reference internal" href="index.html#install-reportlab">Install ReportLab</a></li>
+<li><a class="reference internal" href="index.html#write-your-view">Write your view</a></li>
+<li><a class="reference internal" href="index.html#complex-pdfs">Complex PDFs</a></li>
+<li><a class="reference internal" href="index.html#further-resources">Further resources</a></li>
+<li><a class="reference internal" href="index.html#other-formats">Other formats</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../outputting-csv/index.html">Outputting CSV with Django</a></li>
+        
+        
+          <li>Next: <a href="../static-files/index.html">Managing static files (CSS, images)</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">&#8220;How-to&#8221; guides</a>
+          
+          <ul><li>Outputting PDFs with Django</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

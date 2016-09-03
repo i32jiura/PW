@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Installing PostGIS | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../../1.6/ref/contrib/gis/install/postgis/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../../dev/ref/contrib/gis/install/postgis/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-installing-postgis">
+<span id="s-postgis"></span><span id="installing-postgis"></span><span id="postgis"></span><h1>Installing PostGIS<a class="headerlink" href="index.html#installing-postgis" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://postgis.refractions.net/">PostGIS</a> adds geographic object support to PostgreSQL, turning it
+into a spatial database. <a class="reference internal" href="../geolibs/index.html#geosbuild"><em>GEOS</em></a>, <a class="reference internal" href="../geolibs/index.html#proj4"><em>PROJ.4</em></a> and
+<a class="reference internal" href="../geolibs/index.html#gdalbuild"><em>GDAL</em></a> should be installed prior to building PostGIS. You
+might also need additional libraries, see <a class="reference external" href="http://www.postgis.org/documentation/manual-2.0/postgis_installation.html#id2711662">PostGIS requirements</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference external" href="http://initd.org/psycopg/">psycopg2</a> module is required for use as the database adaptor
+when using GeoDjango with PostGIS.</p>
+</div>
+<p>On Debian/Ubuntu, you are advised to install the following packages:
+postgresql-x.x, postgresql-x.x-postgis, postgresql-server-dev-x.x,
+python-psycopg2 (x.x matching the PostgreSQL version you want to install).
+Please also consult platform-specific instructions if you are on <a class="reference internal" href="../index.html#macosx"><em>Mac OS X</em></a>
+or <a class="reference internal" href="../index.html#windows"><em>Windows</em></a>.</p>
+<div class="section" id="s-building-from-source">
+<span id="building-from-source"></span><h2>Building from source<a class="headerlink" href="index.html#building-from-source" title="Permalink to this headline">¶</a></h2>
+<p>First download the source archive, and extract:</p>
+<div class="highlight-python"><pre>$ wget http://postgis.refractions.net/download/postgis-2.0.1.tar.gz
+$ tar xzf postgis-2.0.1.tar.gz
+$ cd postgis-2.0.1</pre>
+</div>
+<p>Next, configure, make and install PostGIS:</p>
+<div class="highlight-python"><pre>$ ./configure</pre>
+</div>
+<p>Finally, make and install:</p>
+<div class="highlight-python"><pre>$ make
+$ sudo make install
+$ cd ..</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">GeoDjango does not automatically create a spatial database.  Please consult
+the section on <a class="reference internal" href="index.html#spatialdb-template91"><em>Creating a spatial database with PostGIS 2.0 and PostgreSQL 9.1+</em></a> or
+<a class="reference internal" href="index.html#spatialdb-template-earlier"><em>Creating a spatial database template for earlier versions</em></a> for more information.</p>
+</div>
+</div>
+<div class="section" id="s-post-installation">
+<span id="post-installation"></span><h2>Post-installation<a class="headerlink" href="index.html#post-installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="s-creating-a-spatial-database-with-postgis-2-0-and-postgresql-9-1">
+<span id="s-spatialdb-template91"></span><span id="s-spatialdb-template"></span><span id="creating-a-spatial-database-with-postgis-2-0-and-postgresql-9-1"></span><span id="spatialdb-template91"></span><span id="spatialdb-template"></span><h3>Creating a spatial database with PostGIS 2.0 and PostgreSQL 9.1+<a class="headerlink" href="index.html#creating-a-spatial-database-with-postgis-2-0-and-postgresql-9-1" title="Permalink to this headline">¶</a></h3>
+<p>PostGIS 2 includes an extension for Postgres 9.1+ that can be used to enable
+spatial functionality:</p>
+<div class="highlight-python"><pre>$ createdb  &lt;db name&gt;
+$ psql &lt;db name&gt;
+&gt; CREATE EXTENSION postgis;
+&gt; CREATE EXTENSION postgis_topology;</pre>
+</div>
+<p>No PostGIS topology functionalities are yet available from GeoDjango, so the
+creation of the <tt class="docutils literal"><span class="pre">postgis_topology</span></tt> extension is entirely optional.</p>
+</div>
+<div class="section" id="s-creating-a-spatial-database-template-for-earlier-versions">
+<span id="s-spatialdb-template-earlier"></span><span id="creating-a-spatial-database-template-for-earlier-versions"></span><span id="spatialdb-template-earlier"></span><h3>Creating a spatial database template for earlier versions<a class="headerlink" href="index.html#creating-a-spatial-database-template-for-earlier-versions" title="Permalink to this headline">¶</a></h3>
+<p>If you have an earlier version of PostGIS or PostgreSQL, the CREATE
+EXTENSION isn&#8217;t available and you need to create the spatial database
+using the following instructions.</p>
+<p>Creating a spatial database with PostGIS is different than normal because
+additional SQL must be loaded to enable spatial functionality.  Because of
+the steps in this process, it&#8217;s better to create a database template that
+can be reused later.</p>
+<p>First, you need to be able to execute the commands as a privileged database
+user.  For example, you can use the following to become the <tt class="docutils literal"><span class="pre">postgres</span></tt> user:</p>
+<div class="highlight-python"><pre>$ sudo su - postgres</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The location <em>and</em> name of the PostGIS SQL files (e.g., from
+<tt class="docutils literal"><span class="pre">POSTGIS_SQL_PATH</span></tt> below) depends on the version of PostGIS.
+PostGIS versions 1.3 and below use <tt class="docutils literal"><span class="pre">&lt;pg_sharedir&gt;/contrib/lwpostgis.sql</span></tt>;
+whereas version 1.4 uses <tt class="docutils literal"><span class="pre">&lt;sharedir&gt;/contrib/postgis.sql</span></tt> and
+version 1.5 uses <tt class="docutils literal"><span class="pre">&lt;sharedir&gt;/contrib/postgis-1.5/postgis.sql</span></tt>.</p>
+<p>To complicate matters, Debian/Ubuntu distributions have their own separate
+directory naming system that might change with time. In this case, use the
+<a class="reference download internal" href="../../../../../_downloads/create_template_postgis-debian.sh"><tt class="xref download docutils literal"><span class="pre">create_template_postgis-debian.sh</span></tt></a> script.</p>
+<p class="last">The example below assumes PostGIS 1.5, thus you may need to modify
+<tt class="docutils literal"><span class="pre">POSTGIS_SQL_PATH</span></tt> and the name of the SQL file for the specific
+version of PostGIS you are using.</p>
+</div>
+<p>Once you&#8217;re a database super user, then you may execute the following commands
+to create a PostGIS spatial database template:</p>
+<div class="highlight-python"><pre>$ POSTGIS_SQL_PATH=`pg_config --sharedir`/contrib/postgis-2.0
+# Creating the template spatial database.
+$ createdb -E UTF8 template_postgis
+$ createlang -d template_postgis plpgsql # Adding PLPGSQL language support.
+# Allows non-superusers the ability to create from this template
+$ psql -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
+# Loading the PostGIS SQL routines
+$ psql -d template_postgis -f $POSTGIS_SQL_PATH/postgis.sql
+$ psql -d template_postgis -f $POSTGIS_SQL_PATH/spatial_ref_sys.sql
+# Enabling users to alter spatial tables.
+$ psql -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"
+$ psql -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"
+$ psql -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"</pre>
+</div>
+<p>These commands may be placed in a shell script for later use; for convenience
+the following scripts are available:</p>
+<table class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">PostGIS version</th>
+<th class="head">Bash shell script</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.3</td>
+<td><a class="reference download internal" href="../../../../../_downloads/create_template_postgis-1.3.sh"><tt class="xref download docutils literal"><span class="pre">create_template_postgis-1.3.sh</span></tt></a></td>
+</tr>
+<tr class="row-odd"><td>1.4</td>
+<td><a class="reference download internal" href="../../../../../_downloads/create_template_postgis-1.4.sh"><tt class="xref download docutils literal"><span class="pre">create_template_postgis-1.4.sh</span></tt></a></td>
+</tr>
+<tr class="row-even"><td>1.5</td>
+<td><a class="reference download internal" href="../../../../../_downloads/create_template_postgis-1.5.sh"><tt class="xref download docutils literal"><span class="pre">create_template_postgis-1.5.sh</span></tt></a></td>
+</tr>
+<tr class="row-odd"><td>Debian/Ubuntu</td>
+<td><a class="reference download internal" href="../../../../../_downloads/create_template_postgis-debian.sh"><tt class="xref download docutils literal"><span class="pre">create_template_postgis-debian.sh</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>Afterwards, you may create a spatial database by simply specifying
+<tt class="docutils literal"><span class="pre">template_postgis</span></tt> as the template to use (via the <tt class="docutils literal"><span class="pre">-T</span></tt> option):</p>
+<div class="highlight-python"><pre>$ createdb -T template_postgis &lt;db name&gt;</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>While the <tt class="docutils literal"><span class="pre">createdb</span></tt> command does not require database super-user privileges,
+it must be executed by a database user that has permissions to create databases.
+You can create such a user with the following command:</p>
+<div class="last highlight-python"><pre>$ createuser --createdb &lt;user&gt;</pre>
+</div>
+</div>
+</div>
+<div class="section" id="s-postgresql-s-createdb-fails">
+<span id="postgresql-s-createdb-fails"></span><h3>PostgreSQL&#8217;s createdb fails<a class="headerlink" href="index.html#postgresql-s-createdb-fails" title="Permalink to this headline">¶</a></h3>
+<p>When the PostgreSQL cluster uses a non-UTF8 encoding, the
+<tt class="file docutils literal"><span class="pre">create_template_postgis-*.sh</span></tt> script will fail when executing
+<tt class="docutils literal"><span class="pre">createdb</span></tt>:</p>
+<div class="highlight-python"><pre>createdb: database creation failed: ERROR:  new encoding (UTF8) is incompatible
+  with the encoding of the template database (SQL_ASCII)</pre>
+</div>
+<p>The <a class="reference external" href="http://jacobian.org/writing/pg-encoding-ubuntu/">current workaround</a> is to re-create the cluster using UTF8 (back up any
+databases before dropping the cluster).</p>
+</div>
+<div class="section" id="s-managing-the-database">
+<span id="managing-the-database"></span><h3>Managing the database<a class="headerlink" href="index.html#managing-the-database" title="Permalink to this headline">¶</a></h3>
+<p>To administer the database, you can either use the pgAdmin III program
+(<em class="menuselection">Start ‣ PostgreSQL 9.x ‣ pgAdmin III</em>) or the
+SQL Shell (<em class="menuselection">Start ‣ PostgreSQL 9.x ‣ SQL Shell</em>).
+For example, to create a <tt class="docutils literal"><span class="pre">geodjango</span></tt> spatial database and user, the following
+may be executed from the SQL Shell as the <tt class="docutils literal"><span class="pre">postgres</span></tt> user:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">postgres</span><span class="c"># CREATE USER geodjango PASSWORD &#39;my_passwd&#39;;</span>
+<span class="n">postgres</span><span class="c"># CREATE DATABASE geodjango OWNER geodjango TEMPLATE template_postgis ENCODING &#39;utf8&#39;;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../geolibs/index.html">&laquo; Installing Geospatial libraries</a></div>
+  
+  
+    <div class="right"><a href="../spatialite/index.html">Installing Spatialite &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Installing PostGIS</a><ul>
+<li><a class="reference internal" href="index.html#building-from-source">Building from source</a></li>
+<li><a class="reference internal" href="index.html#post-installation">Post-installation</a><ul>
+<li><a class="reference internal" href="index.html#creating-a-spatial-database-with-postgis-2-0-and-postgresql-9-1">Creating a spatial database with PostGIS 2.0 and PostgreSQL 9.1+</a></li>
+<li><a class="reference internal" href="index.html#creating-a-spatial-database-template-for-earlier-versions">Creating a spatial database template for earlier versions</a></li>
+<li><a class="reference internal" href="index.html#postgresql-s-createdb-fails">PostgreSQL&#8217;s createdb fails</a></li>
+<li><a class="reference internal" href="index.html#managing-the-database">Managing the database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../geolibs/index.html">Installing Geospatial libraries</a></li>
+        
+        
+          <li>Next: <a href="../spatialite/index.html">Installing Spatialite</a></li>
+        
+        <li><a href="../../../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../../../index.html">API Reference</a>
+          
+            <ul><li><a href="../../../index.html"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">contrib</span></tt> packages</a>
+          
+            <ul><li><a href="../../index">GeoDjango</a>
+          
+            <ul><li><a href="../index.html">GeoDjango Installation</a>
+          
+          <ul><li>Installing PostGIS</li></ul>
+          </li></ul></li></ul></li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

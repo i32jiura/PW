@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  <h2> Añadir circunscrito:</h2>
+{% endblock %}
+
+{% block contents %}
+  <form id=formulario, method=post enctype=multipart/data-form action=''>
+    {% csrf_token %}
+    {{ formulario.as_p }}
+    <input type="submit" value="aceptar"/>
+  </form>
+     <td><a href='/'>Inicio</a></td>
+{% endblock %}

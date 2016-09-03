@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+  <h2> Viajes disponibles:</h2>
+  {% if viajes %}
+  <ul>
+      {% for elemento in viajes %}
+        <li><p><b><a href="/verViaje/{{elemento.id}}">{{ elemento.destino }} [{{ elemento.desplazamiento }}]</a></b></p></li>
+      {% endfor %}
+    {% else %}
+      <h4> No hay viajes premo </h4>
+    {% endif %}
+  </ul>
+{% endblock %}

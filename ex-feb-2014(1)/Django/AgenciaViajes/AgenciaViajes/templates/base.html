@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<title>Snooker Base Project</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel='stylesheet' href='{{STATIC_URL}}css/jquery.kwicks.css'/>
+	<style> {% block style %}{% endblock %} </style>
+	
+	<!-- modernizr enables HTML5 elements and feature detects -->
+  	<script type="text/javascript" src="{{STATIC_URL}}js/modernizr-1.5.min.js"></script>
+  	<!-- JQuery -->
+  	<script type="text/javascript" src="{{STATIC_URL}}js/jquery.js"></script>
+  	<!-- Dynamically sort tables -->
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.tablesorter.js"></script>
+
+    {% block localscripts %}{% endblock %}
+</head>
+
+<body>
+<div id="container">
+	<div id="header">
+		<h1>{% block title %}Snooker Base{% endblock %}</h1>
+		{% if user.is_authenticated %}
+		   	 <h3>{{user.first_name}} {{user.last_name}} ({{user.username}}) logged</h3>
+		{% endif %}
+	</div>
+	<div id="navigation">
+		{% block sidebar %}
+		<ul>
+		    <li><a href="/">Home</a></li>
+		    <li><a href="/players/list">Players</a></li>
+		    <li><a href="/tournaments/list">Tournaments</a></li>
+		    <li><a href="/players/maximums">Maximum breaks</a></li>
+		    <li><a href="/tournaments/moments/list">Great moments</a></li>
+		    <li><a href="/users/list">Users</a></li>
+		    {% if not user.is_authenticated %}
+		    	<li><a href="/users/login">Login</a></li>
+		    {% endif %}
+		  	{% if user.is_authenticated %}
+		   	 <li><a href="/users/logout">Logout</a></li>
+		    {% endif %}
+		    <li><a href="/about">About</a></li>
+		    <li><a href="/rules">Rules</a></li>
+		</ul>
+		{% endblock %}
+	</div>
+	<div id="content-container">
+		<div id="section-navigation">
+			{% block section-navigation %}
+			<h3>Sections</h3>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/players/list">Players</a></li>
+				<li><a href="/tournaments/list">Tournaments</a></li>
+				<li><a href="/players/maximums">Maximum breaks</a></li>
+				<li><a href="/tournaments/moments/list">Great moments</a></li>
+				<li><a href="/users/list">Users</a></li>
+				{% if not user.is_authenticated %}
+		    		<li><a href="/users/login">Login</a></li>
+		    	{% endif %}
+		    	{% if user.is_authenticated %}
+		    		<li><a href="/users/logout">Logout</a></li>
+		    	{% endif %}
+		    	<li><a href="/about">About</a></li>
+		    	<li><a href="/rules">Rules</a></li>
+			</ul>
+			{% endblock %}
+		</div>
+		<div id="content">
+			{% block content %}
+			<h2>Welcome to Snooker Base</h2>			
+			{% endblock %}
+		</div>
+		<div id="aside">
+			{% block aside %}
+			<h3>Latest events</h3>
+			{% endblock %}
+		</div>
+		<div id="footer">
+			{% block footer %}
+			Copyright © Nico García-Pedrajas, 2013
+			{% endblock %}
+		</div>
+	</div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,674 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Serializing Django objects | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/topics/serialization/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/topics/serialization/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/topics/serialization/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/topics/serialization/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/topics/serialization/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/topics/serialization/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/topics/serialization/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-serializing-django-objects">
+<span id="serializing-django-objects"></span><h1>Serializing Django objects<a class="headerlink" href="index.html#serializing-django-objects" title="Permalink to this headline">¶</a></h1>
+<p>Django&#8217;s serialization framework provides a mechanism for &#8220;translating&#8221; Django
+models into other formats. Usually these other formats will be text-based and
+used for sending Django data over a wire, but it&#8217;s possible for a
+serializer to handle any format (text-based or not).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">If you just want to get some data from your tables into a serialized
+form, you could use the <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-dumpdata"><tt class="xref std std-djadmin docutils literal"><span class="pre">dumpdata</span></tt></a> management command.</p>
+</div>
+<div class="section" id="s-serializing-data">
+<span id="serializing-data"></span><h2>Serializing data<a class="headerlink" href="index.html#serializing-data" title="Permalink to this headline">¶</a></h2>
+<p>At the highest level, serializing data is a very simple operation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.core</span> <span class="kn">import</span> <span class="n">serializers</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;xml&quot;</span><span class="p">,</span> <span class="n">SomeModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The arguments to the <tt class="docutils literal"><span class="pre">serialize</span></tt> function are the format to serialize the data
+to (see <a class="reference internal" href="index.html#id1">Serialization formats</a>) and a
+<a class="reference internal" href="../../ref/models/querysets/index.html#django.db.models.query.QuerySet" title="django.db.models.query.QuerySet"><tt class="xref py py-class docutils literal"><span class="pre">QuerySet</span></tt></a> to serialize. (Actually, the second
+argument can be any iterator that yields Django model instances, but it&#8217;ll
+almost always be a QuerySet).</p>
+<dl class="function">
+<dt id="django.core.serializers.get_serializer">
+<tt class="descclassname">django.core.serializers.</tt><tt class="descname">get_serializer</tt>(<em>format</em>)<a class="headerlink" href="index.html#django.core.serializers.get_serializer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>You can also use a serializer object directly:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">XMLSerializer</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">get_serializer</span><span class="p">(</span><span class="s">&quot;xml&quot;</span><span class="p">)</span>
+<span class="n">xml_serializer</span> <span class="o">=</span> <span class="n">XMLSerializer</span><span class="p">()</span>
+<span class="n">xml_serializer</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">xml_serializer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This is useful if you want to serialize data directly to a file-like object
+(which includes an <a class="reference internal" href="../../ref/request-response.1#django.http.HttpResponse" title="django.http.HttpResponse"><tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt></a>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;file.xml&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
+    <span class="n">xml_serializer</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">SomeModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">stream</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Calling <a class="reference internal" href="index.html#django.core.serializers.get_serializer" title="django.core.serializers.get_serializer"><tt class="xref py py-func docutils literal"><span class="pre">get_serializer()</span></tt></a> with an unknown
+<a class="reference internal" href="index.html#serialization-formats"><em>format</em></a> will raise a
+<tt class="docutils literal"><span class="pre">django.core.serializers.SerializerDoesNotExist</span></tt> exception.</p>
+</div>
+<div class="section" id="s-subset-of-fields">
+<span id="subset-of-fields"></span><h3>Subset of fields<a class="headerlink" href="index.html#subset-of-fields" title="Permalink to this headline">¶</a></h3>
+<p>If you only want a subset of fields to be serialized, you can
+specify a <tt class="docutils literal"><span class="pre">fields</span></tt> argument to the serializer:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.core</span> <span class="kn">import</span> <span class="n">serializers</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;xml&#39;</span><span class="p">,</span> <span class="n">SomeModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">fields</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;size&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In this example, only the <tt class="docutils literal"><span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">size</span></tt> attributes of each model will
+be serialized.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Depending on your model, you may find that it is not possible to
+deserialize a model that only serializes a subset of its fields. If a
+serialized object doesn&#8217;t specify all the fields that are required by a
+model, the deserializer will not be able to save deserialized instances.</p>
+</div>
+</div>
+<div class="section" id="s-inherited-models">
+<span id="inherited-models"></span><h3>Inherited Models<a class="headerlink" href="index.html#inherited-models" title="Permalink to this headline">¶</a></h3>
+<p>If you have a model that is defined using an <a class="reference internal" href="../db/models.1#abstract-base-classes"><em>abstract base class</em></a>, you don&#8217;t have to do anything special to serialize
+that model. Just call the serializer on the object (or objects) that you want to
+serialize, and the output will be a complete representation of the serialized
+object.</p>
+<p>However, if you have a model that uses <a class="reference internal" href="../db/models.1#multi-table-inheritance"><em>multi-table inheritance</em></a>, you also need to serialize all of the base classes
+for the model. This is because only the fields that are locally defined on the
+model will be serialized. For example, consider the following models:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Place</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Place</span><span class="p">):</span>
+    <span class="n">serves_hot_dogs</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If you only serialize the Restaurant model:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;xml&#39;</span><span class="p">,</span> <span class="n">Restaurant</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>the fields on the serialized output will only contain the <tt class="docutils literal"><span class="pre">serves_hot_dogs</span></tt>
+attribute. The <tt class="docutils literal"><span class="pre">name</span></tt> attribute of the base class will be ignored.</p>
+<p>In order to fully serialize your <tt class="docutils literal"><span class="pre">Restaurant</span></tt> instances, you will need to
+serialize the <tt class="docutils literal"><span class="pre">Place</span></tt> models as well:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">all_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Restaurant</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">Place</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;xml&#39;</span><span class="p">,</span> <span class="n">all_objects</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-deserializing-data">
+<span id="deserializing-data"></span><h2>Deserializing data<a class="headerlink" href="index.html#deserializing-data" title="Permalink to this headline">¶</a></h2>
+<p>Deserializing data is also a fairly simple operation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">serializers</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="s">&quot;xml&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">do_something_with</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see, the <tt class="docutils literal"><span class="pre">deserialize</span></tt> function takes the same format argument as
+<tt class="docutils literal"><span class="pre">serialize</span></tt>, a string or stream of data, and returns an iterator.</p>
+<p>However, here it gets slightly complicated. The objects returned by the
+<tt class="docutils literal"><span class="pre">deserialize</span></tt> iterator <em>aren&#8217;t</em> simple Django objects. Instead, they are
+special <tt class="docutils literal"><span class="pre">DeserializedObject</span></tt> instances that wrap a created &#8211; but unsaved &#8211;
+object and any associated relationship data.</p>
+<p>Calling <tt class="docutils literal"><span class="pre">DeserializedObject.save()</span></tt> saves the object to the database.</p>
+<p>This ensures that deserializing is a non-destructive operation even if the
+data in your serialized representation doesn&#8217;t match what&#8217;s currently in the
+database. Usually, working with these <tt class="docutils literal"><span class="pre">DeserializedObject</span></tt> instances looks
+something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">deserialized_object</span> <span class="ow">in</span> <span class="n">serializers</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="s">&quot;xml&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">object_should_be_saved</span><span class="p">(</span><span class="n">deserialized_object</span><span class="p">):</span>
+        <span class="n">deserialized_object</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In other words, the usual use is to examine the deserialized objects to make
+sure that they are &#8220;appropriate&#8221; for saving before doing so.  Of course, if you
+trust your data source you could just save the object and move on.</p>
+<p>The Django object itself can be inspected as <tt class="docutils literal"><span class="pre">deserialized_object.object</span></tt>.</p>
+<div class="versionadded">
+<span class="title">New in Django 1.5.</span> </div>
+<p>If fields in the serialized data do not exist on a model,
+a <tt class="docutils literal"><span class="pre">DeserializationError</span></tt> will be raised unless the <tt class="docutils literal"><span class="pre">ignorenonexistent</span></tt>
+argument is passed in as True:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">serializers</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="s">&quot;xml&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">ignorenonexistent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-serialization-formats">
+<span id="s-id1"></span><span id="serialization-formats"></span><span id="id1"></span><h2>Serialization formats<a class="headerlink" href="index.html#serialization-formats" title="Permalink to this headline">¶</a></h2>
+<p>Django supports a number of serialization formats, some of which require you
+to install third-party Python modules:</p>
+<table class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Identifier</th>
+<th class="head">Information</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">xml</span></tt></td>
+<td>Serializes to and from a simple XML dialect.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">json</span></tt></td>
+<td>Serializes to and from <a class="reference external" href="http://json.org/">JSON</a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">yaml</span></tt></td>
+<td>Serializes to YAML (YAML Ain&#8217;t a Markup Language). This
+serializer is only available if <a class="reference external" href="http://www.pyyaml.org/">PyYAML</a> is installed.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="s-notes-for-specific-serialization-formats">
+<span id="notes-for-specific-serialization-formats"></span><h3>Notes for specific serialization formats<a class="headerlink" href="index.html#notes-for-specific-serialization-formats" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="s-id2">
+<span id="id2"></span><h4>json<a class="headerlink" href="index.html#id2" title="Permalink to this headline">¶</a></h4>
+<p>Be aware that not all Django output can be passed unmodified to <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>.
+In particular, <a class="reference internal" href="../i18n/translation.1#lazy-translations"><em>lazy translation objects</em></a> need a
+<a class="reference external" href="http://docs.python.org/library/json.html#encoders-and-decoders">special encoder</a> written for them. Something like this will work:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">django.utils.functional</span> <span class="kn">import</span> <span class="n">Promise</span>
+<span class="kn">from</span> <span class="nn">django.utils.encoding</span> <span class="kn">import</span> <span class="n">force_text</span>
+
+<span class="k">class</span> <span class="nc">LazyEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Promise</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">force_text</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyEncoder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="s-natural-keys">
+<span id="s-topics-serialization-natural-keys"></span><span id="natural-keys"></span><span id="topics-serialization-natural-keys"></span><h2>Natural keys<a class="headerlink" href="index.html#natural-keys" title="Permalink to this headline">¶</a></h2>
+<p>The default serialization strategy for foreign keys and many-to-many relations
+is to serialize the value of the primary key(s) of the objects in the relation.
+This strategy works well for most objects, but it can cause difficulty in some
+circumstances.</p>
+<p>Consider the case of a list of objects that have a foreign key referencing
+<a class="reference internal" href="../../ref/contrib/contenttypes.1#django.contrib.contenttypes.models.ContentType" title="django.contrib.contenttypes.models.ContentType"><tt class="xref py py-class docutils literal"><span class="pre">ContentType</span></tt></a>. If you&#8217;re going to
+serialize an object that refers to a content type, then you need to have a way
+to refer to that content type to begin with. Since <tt class="docutils literal"><span class="pre">ContentType</span></tt> objects are
+automatically created by Django during the database synchronization process,
+the primary key of a given content type isn&#8217;t easy to predict; it will
+depend on how and when <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-syncdb"><tt class="xref std std-djadmin docutils literal"><span class="pre">syncdb</span></tt></a> was executed. This is true for all
+models which automatically generate objects, notably including
+<a class="reference internal" href="../../ref/contrib/auth.1#django.contrib.auth.models.Permission" title="django.contrib.auth.models.Permission"><tt class="xref py py-class docutils literal"><span class="pre">Permission</span></tt></a>,
+<a class="reference internal" href="../../ref/contrib/auth.1#django.contrib.auth.models.Group" title="django.contrib.auth.models.Group"><tt class="xref py py-class docutils literal"><span class="pre">Group</span></tt></a>, and
+<a class="reference internal" href="../../ref/contrib/auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You should never include automatically generated objects in a fixture or
+other serialized data. By chance, the primary keys in the fixture
+may match those in the database and loading the fixture will
+have no effect. In the more likely case that they don&#8217;t match, the fixture
+loading will fail with an <a class="reference internal" href="../../ref/exceptions.1#django.db.IntegrityError" title="django.db.IntegrityError"><tt class="xref py py-class docutils literal"><span class="pre">IntegrityError</span></tt></a>.</p>
+</div>
+<p>There is also the matter of convenience. An integer id isn&#8217;t always
+the most convenient way to refer to an object; sometimes, a
+more natural reference would be helpful.</p>
+<p>It is for these reasons that Django provides <em>natural keys</em>. A natural
+key is a tuple of values that can be used to uniquely identify an
+object instance without using the primary key value.</p>
+<div class="section" id="s-deserialization-of-natural-keys">
+<span id="deserialization-of-natural-keys"></span><h3>Deserialization of natural keys<a class="headerlink" href="index.html#deserialization-of-natural-keys" title="Permalink to this headline">¶</a></h3>
+<p>Consider the following two models:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">birthdate</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">unique_together</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">),)</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Person</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ordinarily, serialized data for <tt class="docutils literal"><span class="pre">Book</span></tt> would use an integer to refer to
+the author. For example, in JSON, a Book might be serialized as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...</span>
+<span class="p">{</span>
+    <span class="s">&quot;pk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">&quot;model&quot;</span><span class="p">:</span> <span class="s">&quot;store.book&quot;</span><span class="p">,</span>
+    <span class="s">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;Mostly Harmless&quot;</span><span class="p">,</span>
+        <span class="s">&quot;author&quot;</span><span class="p">:</span> <span class="mi">42</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>This isn&#8217;t a particularly natural way to refer to an author. It
+requires that you know the primary key value for the author; it also
+requires that this primary key value is stable and predictable.</p>
+<p>However, if we add natural key handling to Person, the fixture becomes
+much more humane. To add natural key handling, you define a default
+Manager for Person with a <tt class="docutils literal"><span class="pre">get_by_natural_key()</span></tt> method. In the case
+of a Person, a good natural key might be the pair of first and last
+name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">PersonManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_by_natural_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">first_name</span><span class="o">=</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="n">last_name</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">PersonManager</span><span class="p">()</span>
+
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">birthdate</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">unique_together</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">),)</span>
+</pre></div>
+</div>
+<p>Now books can use that natural key to refer to <tt class="docutils literal"><span class="pre">Person</span></tt> objects:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...</span>
+<span class="p">{</span>
+    <span class="s">&quot;pk&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">&quot;model&quot;</span><span class="p">:</span> <span class="s">&quot;store.book&quot;</span><span class="p">,</span>
+    <span class="s">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;Mostly Harmless&quot;</span><span class="p">,</span>
+        <span class="s">&quot;author&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s">&quot;Douglas&quot;</span><span class="p">,</span> <span class="s">&quot;Adams&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>When you try to load this serialized data, Django will use the
+<tt class="docutils literal"><span class="pre">get_by_natural_key()</span></tt> method to resolve <tt class="docutils literal"><span class="pre">[&quot;Douglas&quot;,</span> <span class="pre">&quot;Adams&quot;]</span></tt>
+into the primary key of an actual <tt class="docutils literal"><span class="pre">Person</span></tt> object.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Whatever fields you use for a natural key must be able to uniquely
+identify an object. This will usually mean that your model will
+have a uniqueness clause (either unique=True on a single field, or
+<tt class="docutils literal"><span class="pre">unique_together</span></tt> over multiple fields) for the field or fields
+in your natural key. However, uniqueness doesn&#8217;t need to be
+enforced at the database level. If you are certain that a set of
+fields will be effectively unique, you can still use those fields
+as a natural key.</p>
+</div>
+</div>
+<div class="section" id="s-serialization-of-natural-keys">
+<span id="serialization-of-natural-keys"></span><h3>Serialization of natural keys<a class="headerlink" href="index.html#serialization-of-natural-keys" title="Permalink to this headline">¶</a></h3>
+<p>So how do you get Django to emit a natural key when serializing an object?
+Firstly, you need to add another method &#8211; this time to the model itself:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">PersonManager</span><span class="p">()</span>
+
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">birthdate</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">natural_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_name</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">unique_together</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">),)</span>
+</pre></div>
+</div>
+<p>That method should always return a natural key tuple &#8211; in this
+example, <tt class="docutils literal"><span class="pre">(first</span> <span class="pre">name,</span> <span class="pre">last</span> <span class="pre">name)</span></tt>. Then, when you call
+<tt class="docutils literal"><span class="pre">serializers.serialize()</span></tt>, you provide a <tt class="docutils literal"><span class="pre">use_natural_keys=True</span></tt>
+argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">serializers</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">book1</span><span class="p">,</span> <span class="n">book2</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">use_natural_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When <tt class="docutils literal"><span class="pre">use_natural_keys=True</span></tt> is specified, Django will use the
+<tt class="docutils literal"><span class="pre">natural_key()</span></tt> method to serialize any reference to objects of the
+type that defines the method.</p>
+<p>If you are using <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-dumpdata"><tt class="xref std std-djadmin docutils literal"><span class="pre">dumpdata</span></tt></a> to generate serialized data, you
+use the <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-option---natural"><tt class="xref std std-djadminopt docutils literal"><span class="pre">--natural</span></tt></a> command line flag to generate natural keys.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You don&#8217;t need to define both <tt class="docutils literal"><span class="pre">natural_key()</span></tt> and
+<tt class="docutils literal"><span class="pre">get_by_natural_key()</span></tt>. If you don&#8217;t want Django to output
+natural keys during serialization, but you want to retain the
+ability to load natural keys, then you can opt to not implement
+the <tt class="docutils literal"><span class="pre">natural_key()</span></tt> method.</p>
+<p class="last">Conversely, if (for some strange reason) you want Django to output
+natural keys during serialization, but <em>not</em> be able to load those
+key values, just don&#8217;t define the <tt class="docutils literal"><span class="pre">get_by_natural_key()</span></tt> method.</p>
+</div>
+</div>
+<div class="section" id="s-dependencies-during-serialization">
+<span id="dependencies-during-serialization"></span><h3>Dependencies during serialization<a class="headerlink" href="index.html#dependencies-during-serialization" title="Permalink to this headline">¶</a></h3>
+<p>Since natural keys rely on database lookups to resolve references, it
+is important that the data exists before it is referenced. You can&#8217;t make
+a &#8220;forward reference&#8221; with natural keys &#8211; the data you&#8217;re referencing
+must exist before you include a natural key reference to that data.</p>
+<p>To accommodate this limitation, calls to <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-dumpdata"><tt class="xref std std-djadmin docutils literal"><span class="pre">dumpdata</span></tt></a> that use
+the <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-option---natural"><tt class="xref std std-djadminopt docutils literal"><span class="pre">--natural</span></tt></a> option will serialize any model with a
+<tt class="docutils literal"><span class="pre">natural_key()</span></tt> method before serializing standard primary key objects.</p>
+<p>However, this may not always be enough. If your natural key refers to
+another object (by using a foreign key or natural key to another object
+as part of a natural key), then you need to be able to ensure that
+the objects on which a natural key depends occur in the serialized data
+before the natural key requires them.</p>
+<p>To control this ordering, you can define dependencies on your
+<tt class="docutils literal"><span class="pre">natural_key()</span></tt> methods. You do this by setting a <tt class="docutils literal"><span class="pre">dependencies</span></tt>
+attribute on the <tt class="docutils literal"><span class="pre">natural_key()</span></tt> method itself.</p>
+<p>For example, let&#8217;s add a natural key to the <tt class="docutils literal"><span class="pre">Book</span></tt> model from the
+example above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Person</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">natural_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">natural_key</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The natural key for a <tt class="docutils literal"><span class="pre">Book</span></tt> is a combination of its name and its
+author. This means that <tt class="docutils literal"><span class="pre">Person</span></tt> must be serialized before <tt class="docutils literal"><span class="pre">Book</span></tt>.
+To define this dependency, we add one extra line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">natural_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">natural_key</span><span class="p">()</span>
+<span class="n">natural_key</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;example_app.person&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This definition ensures that all <tt class="docutils literal"><span class="pre">Person</span></tt> objects are serialized before
+any <tt class="docutils literal"><span class="pre">Book</span></tt> objects. In turn, any object referencing <tt class="docutils literal"><span class="pre">Book</span></tt> will be
+serialized after both <tt class="docutils literal"><span class="pre">Person</span></tt> and <tt class="docutils literal"><span class="pre">Book</span></tt> have been serialized.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../security/index.html">&laquo; Security in Django</a></div>
+  
+  
+    <div class="right"><a href="../settings/index.html">Django settings &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Serializing Django objects</a><ul>
+<li><a class="reference internal" href="index.html#serializing-data">Serializing data</a><ul>
+<li><a class="reference internal" href="index.html#subset-of-fields">Subset of fields</a></li>
+<li><a class="reference internal" href="index.html#inherited-models">Inherited Models</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#deserializing-data">Deserializing data</a></li>
+<li><a class="reference internal" href="index.html#serialization-formats">Serialization formats</a><ul>
+<li><a class="reference internal" href="index.html#notes-for-specific-serialization-formats">Notes for specific serialization formats</a><ul>
+<li><a class="reference internal" href="index.html#id2">json</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#natural-keys">Natural keys</a><ul>
+<li><a class="reference internal" href="index.html#deserialization-of-natural-keys">Deserialization of natural keys</a></li>
+<li><a class="reference internal" href="index.html#serialization-of-natural-keys">Serialization of natural keys</a></li>
+<li><a class="reference internal" href="index.html#dependencies-during-serialization">Dependencies during serialization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../security/index.html">Security in Django</a></li>
+        
+        
+          <li>Next: <a href="../settings/index.html">Django settings</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Using Django</a>
+          
+          <ul><li>Serializing Django objects</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	{% if not usuario.is_authenticated %}
+	<h2><a href='Login'>Iniciar Sesión</a></h2>
+	{% endif %}
+	
+	{% if usuario.is_authenticated %}
+	<h2><a href='Logout'>Salir</a></h2>
+	{% endif %}
+	<h2>Destinos</h2>
+	<li>
+	<a href="Listar">Listar Destinos</a>
+	<a href="AddDestino">Añadir Destino</a>
+	</li>
+	
+	<h2>Viajes</h2>
+	<li>
+	<a href="ListarV">Listar Viajes</a>
+	<a href="AddViaje">Añadir Viaje</a>
+	</li>
+	
+	<h2>Rutas</h2>
+	<li>
+	<a href="ListarR">Listar Rutas</a>
+	<a href="AddRuta">Añadir Ruta</a>
+	</li>
+	
+{% endblock %}

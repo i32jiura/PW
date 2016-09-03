@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block contest %}
+
+	<a href="AddUsuario">Registrarse</a>
+
+
+
+{% endblock %}

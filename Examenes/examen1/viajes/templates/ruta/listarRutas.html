@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  <h2> Rutas disponibles:</h2>
+{% endblock %}
+
+{% block body %}
+  <input type="button" value="Volver a Inicio" onclick="location.reload();location.href='/'"/>
+  <input type="button" value="Añadir Ruta" onclick="location.reload();location.href='/crearRuta'"/>
+  <ul>
+    {% if rutas %}
+      {% for ruta in rutas %}
+        <b><li><a href="/verRuta/{{ruta.id}}">
+            Ruta {{ ruta.nombre }} [
+            {% for destino in ruta.destinos.all %}
+                {{ destino }}
+            {% endfor %}
+        ]</a></li></b>
+      {% endfor %}
+    {% else %}
+      <h4> No hay ninguna ruta :( </h4>
+    {% endif %}
+  </ul>
+{% endblock %}

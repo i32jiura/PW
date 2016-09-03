@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  <h2> Circunscritos Registrados:</h2>
+{% endblock %}
+
+{% block contents %}
+  <ul>
+    {% if circunscritos %}
+      {% for circunscrito in circunscritos %}
+        <b><li><a href="/verCircunscrito/{{circunscrito.id}}">
+            nombre: {{ circunscrito.nombre }}</a></li></b>
+      {% endfor %}
+    {% else %}
+      <h4> No hay ninguna ruta :( </h4>
+    {% endif %}
+  </ul>
+  <td><a href='/'>Inicio</a></td>
+{% endblock %}

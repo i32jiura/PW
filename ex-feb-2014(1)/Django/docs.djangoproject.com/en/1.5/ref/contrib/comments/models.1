@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>The built-in comment models | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.0/ref/contrib/comments/models.1">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.1/ref/contrib/comments/models.1">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.2/ref/contrib/comments/models.1">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.3/ref/contrib/comments/models.1">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.4/ref/contrib/comments/models.1">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.6/ref/contrib/comments/models.1">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../dev/ref/contrib/comments/models.1">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-module-django.contrib.comments.models">
+<span id="s-the-built-in-comment-models"></span><span id="module-django.contrib.comments.models"></span><span id="the-built-in-comment-models"></span><h1>The built-in comment models<a class="headerlink" href="models.1#module-django.contrib.comments.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="django.contrib.comments.models.Comment">
+<em class="property">class </em><tt class="descname">Comment</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Django&#8217;s built-in comment model. Has the following fields:</p>
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.content_object">
+<tt class="descname">content_object</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.content_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../contenttypes.1#django.contrib.contenttypes.generic.GenericForeignKey" title="django.contrib.contenttypes.generic.GenericForeignKey"><tt class="xref py py-class docutils literal"><span class="pre">GenericForeignKey</span></tt></a>
+attribute pointing to the object the comment is attached to. You can use
+this to get at the related object (i.e. <tt class="docutils literal"><span class="pre">my_comment.content_object</span></tt>).</p>
+<p>Since this field is a
+<a class="reference internal" href="../contenttypes.1#django.contrib.contenttypes.generic.GenericForeignKey" title="django.contrib.contenttypes.generic.GenericForeignKey"><tt class="xref py py-class docutils literal"><span class="pre">GenericForeignKey</span></tt></a>, it&#8217;s
+actually syntactic sugar on top of two underlying attributes, described
+below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.content_type">
+<tt class="descname">content_type</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.content_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../../models/fields.1#django.db.models.ForeignKey" title="django.db.models.ForeignKey"><tt class="xref py py-class docutils literal"><span class="pre">ForeignKey</span></tt></a> to
+<a class="reference internal" href="../contenttypes.1#django.contrib.contenttypes.models.ContentType" title="django.contrib.contenttypes.models.ContentType"><tt class="xref py py-class docutils literal"><span class="pre">ContentType</span></tt></a>; this is the
+type of the object the comment is attached to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.object_pk">
+<tt class="descname">object_pk</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.object_pk" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../../models/fields.1#django.db.models.TextField" title="django.db.models.TextField"><tt class="xref py py-class docutils literal"><span class="pre">TextField</span></tt></a> containing the primary
+key of the object the comment is attached to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.site">
+<tt class="descname">site</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.site" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../../models/fields.1#django.db.models.ForeignKey" title="django.db.models.ForeignKey"><tt class="xref py py-class docutils literal"><span class="pre">ForeignKey</span></tt></a> to the
+<a class="reference internal" href="../sites.1#django.contrib.sites.models.Site" title="django.contrib.sites.models.Site"><tt class="xref py py-class docutils literal"><span class="pre">Site</span></tt></a> on which the comment was
+posted.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.user">
+<tt class="descname">user</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="../../models/fields.1#django.db.models.ForeignKey" title="django.db.models.ForeignKey"><tt class="xref py py-class docutils literal"><span class="pre">ForeignKey</span></tt></a> to the
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> who posted the comment.
+May be blank if the comment was posted by an unauthenticated user.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.user_name">
+<tt class="descname">user_name</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.user_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the user who posted the comment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.user_email">
+<tt class="descname">user_email</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.user_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>The email of the user who posted the comment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.user_url">
+<tt class="descname">user_url</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.user_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL entered by the person who posted the comment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.comment">
+<tt class="descname">comment</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual content of the comment itself.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.submit_date">
+<tt class="descname">submit_date</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.submit_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date the comment was submitted.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.ip_address">
+<tt class="descname">ip_address</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.ip_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>The IP address of the user posting the comment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.is_public">
+<tt class="descname">is_public</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.is_public" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">False</span></tt> if the comment is in moderation (see
+<a class="reference internal" href="moderation.1"><em>Generic comment moderation</em></a>); If <tt class="docutils literal"><span class="pre">True</span></tt>, the comment will
+be displayed on the site.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.comments.models.Comment.is_removed">
+<tt class="descname">is_removed</tt><a class="headerlink" href="models.1#django.contrib.comments.models.Comment.is_removed" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">True</span></tt> if the comment was removed. Used to keep track of removed
+comments instead of just deleting them.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="index">&laquo; Django&#8217;s comments framework</a></div>
+  
+  
+    <div class="right"><a href="settings/index.html">Comment settings &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="models.1#">The built-in comment models</a></li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="index">Django&#8217;s comments framework</a></li>
+        
+        
+          <li>Next: <a href="settings/index.html">Comment settings</a></li>
+        
+        <li><a href="../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../index.html">API Reference</a>
+          
+            <ul><li><a href="../index.html"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">contrib</span></tt> packages</a>
+          
+            <ul><li><a href="index">Django&#8217;s comments framework</a>
+          
+          <ul><li>The built-in comment models</li></ul>
+          </li></ul></li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

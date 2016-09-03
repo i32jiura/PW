@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block contest %}
+
+	<p>Proveedor: {{articulo.usuario}} con saldo {{articulo.usuario.saldo}} y horas {{articulo.usuario.horas}}</p>
+	<p>Nombre: {{articulo.nombre}}</p>
+	<p>Coste: {{articulo.objeto}} €</p>
+	<p>Horas: {{articulo.servicio}} h</p>
+	
+	<a href="">Comprar artículo</a>
+
+
+{% endblock %}

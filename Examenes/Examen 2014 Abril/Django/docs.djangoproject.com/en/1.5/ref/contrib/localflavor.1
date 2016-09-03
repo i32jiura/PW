@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>The &#8220;local flavor&#8221; add-ons | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/ref/contrib/localflavor.1">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/ref/contrib/localflavor.1">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/ref/contrib/localflavor.1">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/ref/contrib/localflavor.1">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/ref/contrib/localflavor.1">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-module-django.contrib.localflavor">
+<span id="s-the-local-flavor-add-ons"></span><span id="module-django.contrib.localflavor"></span><span id="the-local-flavor-add-ons"></span><h1>The &#8220;local flavor&#8221; add-ons<a class="headerlink" href="localflavor.1#module-django.contrib.localflavor" title="Permalink to this headline">¶</a></h1>
+<p>Historically, Django has shipped with <tt class="docutils literal"><span class="pre">django.contrib.localflavor</span></tt> &#8211;
+assorted pieces of code that are useful for particular countries or cultures.
+Starting with Django 1.5, we&#8217;ve started the process of moving the code to an
+external package (i.e., a package distributed separately from Django), for
+easier maintenance and to trim the size of Django&#8217;s codebase.</p>
+<p>The new localflavor package is named <tt class="docutils literal"><span class="pre">django-localflavor</span></tt>, with a main
+module called <tt class="docutils literal"><span class="pre">localflavor</span></tt> and many subpackages using an
+<a class="reference external" href="http://www.iso.org/iso/country_codes.htm">ISO 3166 country code</a>. For example: <tt class="docutils literal"><span class="pre">localflavor.us</span></tt> is the
+localflavor package for the U.S.A.</p>
+<p>Most of these <tt class="docutils literal"><span class="pre">localflavor</span></tt> add-ons are country-specific fields for the
+<a class="reference internal" href="../../topics/forms/index.html"><em>forms</em></a> framework &#8211; for example, a
+<tt class="docutils literal"><span class="pre">USStateField</span></tt> that knows how to validate U.S. state abbreviations and a
+<tt class="docutils literal"><span class="pre">FISocialSecurityNumber</span></tt> that knows how to validate Finnish social security
+numbers.</p>
+<p>To use one of these localized components, just import the relevant subpackage.
+For example, here&#8217;s how you can create a form with a field representing a
+French telephone number:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">localflavor.fr.forms</span> <span class="kn">import</span> <span class="n">FRPhoneNumberField</span>
+
+<span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">my_french_phone_no</span> <span class="o">=</span> <span class="n">FRPhoneNumberField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For documentation on a given country&#8217;s localflavor helpers, see its README
+file.</p>
+<div class="section" id="s-how-to-migrate">
+<span id="s-localflavor-how-to-migrate"></span><span id="how-to-migrate"></span><span id="localflavor-how-to-migrate"></span><h2>How to migrate<a class="headerlink" href="localflavor.1#how-to-migrate" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;ve used the old <tt class="docutils literal"><span class="pre">django.contrib.localflavor</span></tt> package or one of the
+temporary <tt class="docutils literal"><span class="pre">django-localflavor-*</span></tt> releases, follow these two easy steps to
+update your code:</p>
+<ol class="arabic">
+<li><p class="first">Install the third-party <tt class="docutils literal"><span class="pre">django-localflavor</span></tt> package from PyPI.</p>
+</li>
+<li><p class="first">Change your app&#8217;s import statements to reference the new package.</p>
+<p>For example, change this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib.localflavor.fr.forms</span> <span class="kn">import</span> <span class="n">FRPhoneNumberField</span>
+</pre></div>
+</div>
+<p>...to this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">localflavor.fr.forms</span> <span class="kn">import</span> <span class="n">FRPhoneNumberField</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The code in the new package is the same (it was copied directly from Django),
+so you don&#8217;t have to worry about backwards compatibility in terms of
+functionality. Only the imports have changed.</p>
+</div>
+<div class="section" id="s-deprecation-policy">
+<span id="s-localflavor-deprecation-policy"></span><span id="deprecation-policy"></span><span id="localflavor-deprecation-policy"></span><h2>Deprecation policy<a class="headerlink" href="localflavor.1#deprecation-policy" title="Permalink to this headline">¶</a></h2>
+<p>In Django 1.5, importing from <tt class="docutils literal"><span class="pre">django.contrib.localflavor</span></tt> will result in a
+<tt class="docutils literal"><span class="pre">DeprecationWarning</span></tt>. This means your code will still work, but you should
+change it as soon as possible.</p>
+<p>In Django 1.6, importing from <tt class="docutils literal"><span class="pre">django.contrib.localflavor</span></tt> will no longer
+work.</p>
+</div>
+<div class="section" id="s-supported-countries">
+<span id="s-localflavor-packages"></span><span id="supported-countries"></span><span id="localflavor-packages"></span><h2>Supported countries<a class="headerlink" href="localflavor.1#supported-countries" title="Permalink to this headline">¶</a></h2>
+<p>See the official documentation for more information:</p>
+<blockquote>
+<div><a class="reference external" href="https://django-localflavor.readthedocs.org/">https://django-localflavor.readthedocs.org/</a></div></blockquote>
+</div>
+<div class="section" id="s-django-contrib-localflavor-generic">
+<span id="django-contrib-localflavor-generic"></span><h2>django.contrib.localflavor.generic<a class="headerlink" href="localflavor.1#django-contrib-localflavor-generic" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">django.contrib.localflavor.generic</span></tt> package, which hasn&#8217;t been removed from
+Django 1.5 yet, contains useful code that is not specific to one particular country
+or culture. Currently, it defines date, datetime and split datetime input
+fields based on those from <a class="reference internal" href="../../topics/forms/index.html"><em>forms</em></a>, but with non-US
+default formats. Here&#8217;s an example of how to use them:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.contrib.localflavor</span> <span class="kn">import</span> <span class="n">generic</span>
+
+<span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">my_date_field</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Of course the same package can also be found in the <tt class="docutils literal"><span class="pre">django-localflavor</span></tt>
+packages and it&#8217;s recommended to use that instead.</p>
+</div>
+<div class="section" id="s-internationalization-of-localflavors">
+<span id="internationalization-of-localflavors"></span><h2>Internationalization of localflavors<a class="headerlink" href="localflavor.1#internationalization-of-localflavors" title="Permalink to this headline">¶</a></h2>
+<p>To activate translations for the <tt class="docutils literal"><span class="pre">localflavor</span></tt> application, you must include
+the application&#8217;s name in the <a class="reference internal" href="../settings/index.html#std:setting-INSTALLED_APPS"><tt class="xref std std-setting docutils literal"><span class="pre">INSTALLED_APPS</span></tt></a> setting, so the
+internationalization system can find the catalog, as explained in
+<a class="reference internal" href="../../topics/i18n/translation.1#how-django-discovers-translations"><em>How Django discovers translations</em></a>.</p>
+<p>If you&#8217;re still using the legacy <tt class="docutils literal"><span class="pre">localflavor</span></tt> application, you must include
+<a class="reference internal" href="localflavor.1#module-django.contrib.localflavor" title="django.contrib.localflavor: A collection of various Django snippets that are useful only for a particular country or culture."><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.localflavor</span></tt></a> in <a class="reference internal" href="../settings/index.html#std:setting-INSTALLED_APPS"><tt class="xref std std-setting docutils literal"><span class="pre">INSTALLED_APPS</span></tt></a> (that will
+raise a <tt class="docutils literal"><span class="pre">DeprecationWarning</span></tt>).</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="humanize.1">&laquo; django.contrib.humanize</a></div>
+  
+  
+    <div class="right"><a href="markup.1">django.contrib.markup &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="localflavor.1#">The &#8220;local flavor&#8221; add-ons</a><ul>
+<li><a class="reference internal" href="localflavor.1#how-to-migrate">How to migrate</a></li>
+<li><a class="reference internal" href="localflavor.1#deprecation-policy">Deprecation policy</a></li>
+<li><a class="reference internal" href="localflavor.1#supported-countries">Supported countries</a></li>
+<li><a class="reference internal" href="localflavor.1#django-contrib-localflavor-generic">django.contrib.localflavor.generic</a></li>
+<li><a class="reference internal" href="localflavor.1#internationalization-of-localflavors">Internationalization of localflavors</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="humanize.1">django.contrib.humanize</a></li>
+        
+        
+          <li>Next: <a href="markup.1">django.contrib.markup</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">API Reference</a>
+          
+            <ul><li><a href="index.html"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">contrib</span></tt> packages</a>
+          
+          <ul><li>The &#8220;local flavor&#8221; add-ons</li></ul>
+          </li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+  {% block body %}
+  <ul>
+  {%if destinos%}
+    {% for elemento in destinos %}
+    
+      <li><p><b><a href="/verDestino/{{elemento.id}}">{{ elemento.lugar }}</a></b></p></li>
+    
+    {% endfor %}
+  {%else%}
+    <h4> No hay ningún destino miarma </h4>
+    {% endif %}
+  </ul>
+{% endblock %}

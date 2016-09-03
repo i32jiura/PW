@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+
+{% block body %}
+	 <h2> Detalles del destino {{destinoEspecifico.lugar}}:</h2>
+  <ul>
+    <p>Lugar: {{ destinoEspecifico.lugar }}</p>
+    <p>Descripción: {{ destinoEspecifico.descripcion }}</p>
+    <p>Distancia: {{ destinoEspecifico.distancia }}</p>
+    <input type="button" value="Atrás" onclick="location.reload();location.href='/destinos'"/>
+  </ul>
+{% endblock %}

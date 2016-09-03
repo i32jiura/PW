@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Geographic Sitemaps | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../1.2/ref/contrib/gis/sitemaps/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../1.3/ref/contrib/gis/sitemaps/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../1.4/ref/contrib/gis/sitemaps/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../1.6/ref/contrib/gis/sitemaps/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../dev/ref/contrib/gis/sitemaps/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-geographic-sitemaps">
+<span id="geographic-sitemaps"></span><h1>Geographic Sitemaps<a class="headerlink" href="index.html#geographic-sitemaps" title="Permalink to this headline">¶</a></h1>
+<p>Google&#8217;s sitemap protocol used to include geospatial content support. <a class="footnote-reference" href="index.html#id2" id="id1">[1]</a>
+This included the addition of the <tt class="docutils literal"><span class="pre">&lt;url&gt;</span></tt> child element
+<tt class="docutils literal"><span class="pre">&lt;geo:geo&gt;</span></tt>, which tells Google that the content located at the URL is
+geographic in nature. This is now obsolete.</p>
+<div class="section" id="s-example">
+<span id="example"></span><h2>Example<a class="headerlink" href="index.html#example" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="s-reference">
+<span id="reference"></span><h2>Reference<a class="headerlink" href="index.html#reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="s-kmlsitemap">
+<span id="kmlsitemap"></span><h3><tt class="docutils literal"><span class="pre">KMLSitemap</span></tt><a class="headerlink" href="index.html#kmlsitemap" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="s-kmzsitemap">
+<span id="kmzsitemap"></span><h3><tt class="docutils literal"><span class="pre">KMZSitemap</span></tt><a class="headerlink" href="index.html#kmzsitemap" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="s-georsssitemap">
+<span id="georsssitemap"></span><h3><tt class="docutils literal"><span class="pre">GeoRSSSitemap</span></tt><a class="headerlink" href="index.html#georsssitemap" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id1">[1]</a></td><td>Google, Inc., <a class="reference external" href="http://support.google.com/webmasters/bin/answer.py?answer=94555">What is a Geo Sitemap?</a>.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../feeds.1">&laquo; Geographic Feeds</a></div>
+  
+  
+    <div class="right"><a href="../testing/index.html">Testing GeoDjango apps &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Geographic Sitemaps</a><ul>
+<li><a class="reference internal" href="index.html#example">Example</a></li>
+<li><a class="reference internal" href="index.html#reference">Reference</a><ul>
+<li><a class="reference internal" href="index.html#kmlsitemap"><tt class="docutils literal"><span class="pre">KMLSitemap</span></tt></a></li>
+<li><a class="reference internal" href="index.html#kmzsitemap"><tt class="docutils literal"><span class="pre">KMZSitemap</span></tt></a></li>
+<li><a class="reference internal" href="index.html#georsssitemap"><tt class="docutils literal"><span class="pre">GeoRSSSitemap</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../feeds.1">Geographic Feeds</a></li>
+        
+        
+          <li>Next: <a href="../testing/index.html">Testing GeoDjango apps</a></li>
+        
+        <li><a href="../../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../../index.html">API Reference</a>
+          
+            <ul><li><a href="../../index.html"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">contrib</span></tt> packages</a>
+          
+            <ul><li><a href="../index">GeoDjango</a>
+          
+          <ul><li>Geographic Sitemaps</li></ul>
+          </li></ul></li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

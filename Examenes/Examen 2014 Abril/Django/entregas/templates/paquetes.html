@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h3>Paquetes</h3>
+	{% for paquete in paquetes %}
+		<a href='{{paquete.id}}'>{{paquete.contenido}}</a>
+	{% endfor %}
+
+
+
+
+{% endblock %}

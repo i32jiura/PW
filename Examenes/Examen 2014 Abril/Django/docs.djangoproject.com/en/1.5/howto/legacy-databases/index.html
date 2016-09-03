@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Integrating Django with a legacy database | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/howto/legacy-databases/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/howto/legacy-databases/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/howto/legacy-databases/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/howto/legacy-databases/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/howto/legacy-databases/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/howto/legacy-databases/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/howto/legacy-databases/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-integrating-django-with-a-legacy-database">
+<span id="integrating-django-with-a-legacy-database"></span><h1>Integrating Django with a legacy database<a class="headerlink" href="index.html#integrating-django-with-a-legacy-database" title="Permalink to this headline">¶</a></h1>
+<p>While Django is best suited for developing new applications, it&#8217;s quite
+possible to integrate it into legacy databases. Django includes a couple of
+utilities to automate as much of this process as possible.</p>
+<p>This document assumes you know the Django basics, as covered in the
+<a class="reference internal" href="../../intro/tutorial01/index.html"><em>tutorial</em></a>.</p>
+<p>Once you&#8217;ve got Django set up, you&#8217;ll follow this general process to integrate
+with an existing database.</p>
+<div class="section" id="s-give-django-your-database-parameters">
+<span id="give-django-your-database-parameters"></span><h2>Give Django your database parameters<a class="headerlink" href="index.html#give-django-your-database-parameters" title="Permalink to this headline">¶</a></h2>
+<p>You&#8217;ll need to tell Django what your database connection parameters are, and
+what the name of the database is. Do that by editing the <a class="reference internal" href="../../ref/settings/index.html#std:setting-DATABASES"><tt class="xref std std-setting docutils literal"><span class="pre">DATABASES</span></tt></a>
+setting and assigning values to the following keys for the <tt class="docutils literal"><span class="pre">'default'</span></tt>
+connection:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../ref/settings/index.html#std:setting-NAME"><tt class="xref std std-setting docutils literal"><span class="pre">NAME</span></tt></a></li>
+<li><a class="reference internal" href="../../ref/settings/index.html#std:setting-DATABASE-ENGINE"><tt class="xref std std-setting docutils literal"><span class="pre">ENGINE</span></tt></a></li>
+<li><a class="reference internal" href="../../ref/settings/index.html#std:setting-USER"><tt class="xref std std-setting docutils literal"><span class="pre">USER</span></tt></a></li>
+<li><a class="reference internal" href="../../ref/settings/index.html#std:setting-PASSWORD"><tt class="xref std std-setting docutils literal"><span class="pre">PASSWORD</span></tt></a></li>
+<li><a class="reference internal" href="../../ref/settings/index.html#std:setting-HOST"><tt class="xref std std-setting docutils literal"><span class="pre">HOST</span></tt></a></li>
+<li><a class="reference internal" href="../../ref/settings/index.html#std:setting-PORT"><tt class="xref std std-setting docutils literal"><span class="pre">PORT</span></tt></a></li>
+</ul>
+</div>
+<div class="section" id="s-auto-generate-the-models">
+<span id="auto-generate-the-models"></span><h2>Auto-generate the models<a class="headerlink" href="index.html#auto-generate-the-models" title="Permalink to this headline">¶</a></h2>
+<p>Django comes with a utility called <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-inspectdb"><tt class="xref std std-djadmin docutils literal"><span class="pre">inspectdb</span></tt></a> that can create models
+by introspecting an existing database. You can view the output by running this
+command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>python manage.py inspectdb
+</pre></div>
+</div>
+<p>Save this as a file by using standard Unix output redirection:</p>
+<div class="highlight-bash"><div class="highlight"><pre>python manage.py inspectdb &gt; models.py
+</pre></div>
+</div>
+<p>This feature is meant as a shortcut, not as definitive model generation. See the
+<a class="reference internal" href="../../ref/django-admin/index.html#django-admin-inspectdb"><tt class="xref std std-djadmin docutils literal"><span class="pre">documentation</span> <span class="pre">of</span> <span class="pre">inspectdb</span></tt></a> for more information.</p>
+<p>Once you&#8217;ve cleaned up your models, name the file <tt class="docutils literal"><span class="pre">models.py</span></tt> and put it in
+the Python package that holds your app. Then add the app to your
+<a class="reference internal" href="../../ref/settings/index.html#std:setting-INSTALLED_APPS"><tt class="xref std std-setting docutils literal"><span class="pre">INSTALLED_APPS</span></tt></a> setting.</p>
+</div>
+<div class="section" id="s-install-the-core-django-tables">
+<span id="install-the-core-django-tables"></span><h2>Install the core Django tables<a class="headerlink" href="index.html#install-the-core-django-tables" title="Permalink to this headline">¶</a></h2>
+<p>Next, run the <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-syncdb"><tt class="xref std std-djadmin docutils literal"><span class="pre">syncdb</span></tt></a> command to install any extra needed database
+records such as admin permissions and content types:</p>
+<div class="highlight-bash"><div class="highlight"><pre>python manage.py syncdb
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-test-and-tweak">
+<span id="test-and-tweak"></span><h2>Test and tweak<a class="headerlink" href="index.html#test-and-tweak" title="Permalink to this headline">¶</a></h2>
+<p>Those are the basic steps &#8211; from here you&#8217;ll want to tweak the models Django
+generated until they work the way you&#8217;d like. Try accessing your data via the
+Django database API, and try editing objects via Django&#8217;s admin site, and edit
+the models file accordingly.</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../jython/index.html">&laquo; Running Django on Jython</a></div>
+  
+  
+    <div class="right"><a href="../outputting-csv/index.html">Outputting CSV with Django &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Integrating Django with a legacy database</a><ul>
+<li><a class="reference internal" href="index.html#give-django-your-database-parameters">Give Django your database parameters</a></li>
+<li><a class="reference internal" href="index.html#auto-generate-the-models">Auto-generate the models</a></li>
+<li><a class="reference internal" href="index.html#install-the-core-django-tables">Install the core Django tables</a></li>
+<li><a class="reference internal" href="index.html#test-and-tweak">Test and tweak</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../jython/index.html">Running Django on Jython</a></li>
+        
+        
+          <li>Next: <a href="../outputting-csv/index.html">Outputting CSV with Django</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">&#8220;How-to&#8221; guides</a>
+          
+          <ul><li>Integrating Django with a legacy database</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

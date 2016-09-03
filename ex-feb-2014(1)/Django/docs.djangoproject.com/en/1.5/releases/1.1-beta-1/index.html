@@ -1,0 +1,457 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Django 1.1 beta 1 release notes | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/releases/1.1-beta-1/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/releases/1.1-beta-1/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/releases/1.1-beta-1/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/releases/1.1-beta-1/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/releases/1.1-beta-1/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/releases/1.1-beta-1/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-django-1-1-beta-1-release-notes">
+<span id="django-1-1-beta-1-release-notes"></span><h1>Django 1.1 beta 1 release notes<a class="headerlink" href="index.html#django-1-1-beta-1-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>March 23, 2009</p>
+<p>Welcome to Django 1.1 beta 1!</p>
+<p>This is the second in a series of preview/development releases leading up to
+the eventual release of Django 1.1, currently scheduled to take place in April
+2009. This release is primarily targeted at developers who are interested in
+trying out new features and testing the Django codebase to help identify and
+resolve bugs prior to the final 1.1 release.</p>
+<p>As such, this release is <em>not</em> intended for production use, and any such use
+is discouraged.</p>
+<div class="section" id="s-what-s-new-in-django-1-1-beta-1">
+<span id="what-s-new-in-django-1-1-beta-1"></span><h2>What&#8217;s new in Django 1.1 beta 1<a class="headerlink" href="index.html#what-s-new-in-django-1-1-beta-1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">The <a class="reference internal" href="../1.1-alpha-1/index.html"><em>1.1 alpha release notes</em></a>, which has a
+list of everything new between Django 1.0 and Django 1.1 alpha.</p>
+</div>
+<div class="section" id="s-model-improvements">
+<span id="model-improvements"></span><h3>Model improvements<a class="headerlink" href="index.html#model-improvements" title="Permalink to this headline">¶</a></h3>
+<p>A number of features have been added to Django&#8217;s model layer:</p>
+<div class="section" id="s-unmanaged-models">
+<span id="unmanaged-models"></span><h4>&#8220;Unmanaged&#8221; models<a class="headerlink" href="index.html#unmanaged-models" title="Permalink to this headline">¶</a></h4>
+<p>You can now control whether or not Django creates database tables for a model
+using the <a class="reference internal" href="../../ref/models/options/index.html#django.db.models.Options.managed" title="django.db.models.Options.managed"><tt class="xref py py-attr docutils literal"><span class="pre">managed</span></tt></a> model option. This defaults to <tt class="docutils literal"><span class="pre">True</span></tt>,
+meaning that Django will create the appropriate database tables in
+<a class="reference internal" href="../../ref/django-admin/index.html#django-admin-syncdb"><tt class="xref std std-djadmin docutils literal"><span class="pre">syncdb</span></tt></a> and remove them as part of <tt class="docutils literal"><span class="pre">reset</span></tt> command. That
+is, Django <em>manages</em> the database table&#8217;s lifecycle.</p>
+<p>If you set this to <tt class="docutils literal"><span class="pre">False</span></tt>, however, no database table creating or deletion
+will be automatically performed for this model. This is useful if the model
+represents an existing table or a database view that has been created by some
+other means.</p>
+<p>For more details, see the documentation for the <a class="reference internal" href="../../ref/models/options/index.html#django.db.models.Options.managed" title="django.db.models.Options.managed"><tt class="xref py py-attr docutils literal"><span class="pre">managed</span></tt></a>
+option.</p>
+</div>
+<div class="section" id="s-proxy-models">
+<span id="proxy-models"></span><h4>Proxy models<a class="headerlink" href="index.html#proxy-models" title="Permalink to this headline">¶</a></h4>
+<p>You can now create <a class="reference internal" href="../../topics/db/models.1#proxy-models"><em>proxy models</em></a>: subclasses of existing
+models that only add Python behavior and aren&#8217;t represented by a new table.
+That is, the new model is a <em>proxy</em> for some underlying model, which stores
+all the real data.</p>
+<p>All the details can be found in the <a class="reference internal" href="../../topics/db/models.1#proxy-models"><em>proxy models documentation</em></a>. This feature is similar on the surface to unmanaged models,
+so the documentation has an explanation of <a class="reference internal" href="../../topics/db/models.1#proxy-vs-unmanaged-models"><em>how proxy models differ from
+unmanaged models</em></a>.</p>
+</div>
+<div class="section" id="s-deferred-fields">
+<span id="deferred-fields"></span><h4>Deferred fields<a class="headerlink" href="index.html#deferred-fields" title="Permalink to this headline">¶</a></h4>
+<p>In some complex situations, your models might contain fields which could
+contain a lot of data (for example, large text fields), or require expensive
+processing to convert them to Python objects. If you know you don&#8217;t need those
+particular fields, you can now tell Django not to retrieve them from the
+database.</p>
+<p>You&#8217;ll do this with the new queryset methods
+<a class="reference internal" href="../../ref/models/querysets/index.html#django.db.models.query.QuerySet.defer" title="django.db.models.query.QuerySet.defer"><tt class="xref py py-meth docutils literal"><span class="pre">defer()</span></tt></a> and
+<a class="reference internal" href="../../ref/models/querysets/index.html#django.db.models.query.QuerySet.only" title="django.db.models.query.QuerySet.only"><tt class="xref py py-meth docutils literal"><span class="pre">only()</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="s-new-admin-features">
+<span id="new-admin-features"></span><h3>New admin features<a class="headerlink" href="index.html#new-admin-features" title="Permalink to this headline">¶</a></h3>
+<p>Since 1.1 alpha, a couple of new features have been added to Django&#8217;s admin
+application:</p>
+<div class="section" id="s-editable-fields-on-the-change-list">
+<span id="editable-fields-on-the-change-list"></span><h4>Editable fields on the change list<a class="headerlink" href="index.html#editable-fields-on-the-change-list" title="Permalink to this headline">¶</a></h4>
+<p>You can now make fields editable on the admin list views via the new
+<a class="reference internal" href="../../ref/contrib/admin/index#admin-list-editable"><em>list_editable</em></a> admin option. These fields will show
+up as form widgets on the list pages, and can be edited and saved in bulk.</p>
+</div>
+<div class="section" id="s-admin-actions">
+<span id="admin-actions"></span><h4>Admin &#8220;actions&#8221;<a class="headerlink" href="index.html#admin-actions" title="Permalink to this headline">¶</a></h4>
+<p>You can now define <a class="reference internal" href="../../ref/contrib/admin/actions/index.html"><em>admin actions</em></a> that can perform
+some action to a group of models in bulk. Users will be able to select objects on
+the change list page and then apply these bulk actions to all selected objects.</p>
+<p>Django ships with one pre-defined admin action to delete a group of objects in
+one fell swoop.</p>
+</div>
+</div>
+<div class="section" id="s-testing-improvements">
+<span id="testing-improvements"></span><h3>Testing improvements<a class="headerlink" href="index.html#testing-improvements" title="Permalink to this headline">¶</a></h3>
+<p>A couple of small but very useful improvements have been made to the
+<a class="reference internal" href="../../topics/testing/index.html"><em>testing framework</em></a>:</p>
+<ul class="simple">
+<li>The test <a class="reference internal" href="../../topics/testing/overview.1#django.test.client.Client" title="django.test.client.Client"><tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt></a> now can automatically follow redirects with the
+<tt class="docutils literal"><span class="pre">follow</span></tt> argument to <a class="reference internal" href="../../topics/testing/overview.1#django.test.client.Client.get" title="django.test.client.Client.get"><tt class="xref py py-meth docutils literal"><span class="pre">Client.get()</span></tt></a> and <a class="reference internal" href="../../topics/testing/overview.1#django.test.client.Client.post" title="django.test.client.Client.post"><tt class="xref py py-meth docutils literal"><span class="pre">Client.post()</span></tt></a>. This
+makes testing views that issue redirects simpler.</li>
+<li>It&#8217;s now easier to get at the template context in the response returned
+the test client: you&#8217;ll simply access the context as
+<tt class="docutils literal"><span class="pre">request.context[key]</span></tt>. The old way, which treats <tt class="docutils literal"><span class="pre">request.context</span></tt>
+as a list of contexts, one for each rendered template, is still
+available if you need it.</li>
+</ul>
+</div>
+<div class="section" id="s-conditional-view-processing">
+<span id="conditional-view-processing"></span><h3>Conditional view processing<a class="headerlink" href="index.html#conditional-view-processing" title="Permalink to this headline">¶</a></h3>
+<p>Django now has much better support for <a class="reference internal" href="../../topics/conditional-view-processing/index.html"><em>conditional view processing</em></a> using the standard <tt class="docutils literal"><span class="pre">ETag</span></tt> and
+<tt class="docutils literal"><span class="pre">Last-Modified</span></tt> HTTP headers. This means you can now easily short-circuit
+view processing by testing less-expensive conditions. For many views this can
+lead to a serious improvement in speed and reduction in bandwidth.</p>
+</div>
+<div class="section" id="s-other-improvements">
+<span id="other-improvements"></span><h3>Other improvements<a class="headerlink" href="index.html#other-improvements" title="Permalink to this headline">¶</a></h3>
+<p>Finally, a grab-bag of other neat features made their way into this beta
+release, including:</p>
+<ul class="simple">
+<li>The <a class="reference internal" href="../../ref/django-admin/index.html#django-admin-dumpdata"><tt class="xref std std-djadmin docutils literal"><span class="pre">dumpdata</span></tt></a> management command now accepts individual
+model names as arguments, allowing you to export the data just from
+particular models.</li>
+<li>There&#8217;s a new <a class="reference internal" href="../../ref/templates/builtins/index.html#std:templatefilter-safeseq"><tt class="xref std std-tfilter docutils literal"><span class="pre">safeseq</span></tt></a> template filter which works just like
+<a class="reference internal" href="../../ref/templates/builtins/index.html#std:templatefilter-safe"><tt class="xref std std-tfilter docutils literal"><span class="pre">safe</span></tt></a> for lists, marking each item in the list as safe.</li>
+<li><a class="reference internal" href="../../topics/cache/index.html"><em>Cache backends</em></a> now support <tt class="docutils literal"><span class="pre">incr()</span></tt> and
+<tt class="docutils literal"><span class="pre">decr()</span></tt> commands to increment and decrement the value of a cache key.
+On cache backends that support atomic increment/decrement &#8211; most
+notably, the memcached backend &#8211; these operations will be atomic, and
+quite fast.</li>
+<li>Django now can <a class="reference internal" href="../../howto/auth-remote-user/index.html"><em>easily delegate authentication to the Web server</em></a> via a new authentication backend that supports
+the standard <tt class="docutils literal"><span class="pre">REMOTE_USER</span></tt> environment variable used for this purpose.</li>
+<li>There&#8217;s a new <a class="reference internal" href="../../topics/http/shortcuts.1#django.shortcuts.redirect" title="django.shortcuts.redirect"><tt class="xref py py-func docutils literal"><span class="pre">django.shortcuts.redirect()</span></tt></a> function that makes it
+easier to issue redirects given an object, a view name, or a URL.</li>
+<li>The <tt class="docutils literal"><span class="pre">postgresql_psycopg2</span></tt> backend now supports <a class="reference internal" href="../../ref/databases/index.html#postgresql-notes"><em>native PostgreSQL
+autocommit</em></a>. This is an advanced, PostgreSQL-specific
+feature, that can make certain read-heavy applications a good deal
+faster.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="s-the-django-1-1-roadmap">
+<span id="the-django-1-1-roadmap"></span><h2>The Django 1.1 roadmap<a class="headerlink" href="index.html#the-django-1-1-roadmap" title="Permalink to this headline">¶</a></h2>
+<p>Before Django 1.1 goes final, at least one other preview/development release
+will be made available. The current schedule consists of at least the
+following:</p>
+<ul class="simple">
+<li>Week of <em>April 2, 2009:</em> Django 1.1 release candidate. At this point all
+strings marked for translation must freeze to allow translations to
+be submitted in advance of the final release.</li>
+<li>Week of <em>April 13, 2009:</em> Django 1.1 final.</li>
+</ul>
+<p>If deemed necessary, additional beta or release candidate packages will be
+issued prior to the final 1.1 release.</p>
+</div>
+<div class="section" id="s-what-you-can-do-to-help">
+<span id="what-you-can-do-to-help"></span><h2>What you can do to help<a class="headerlink" href="index.html#what-you-can-do-to-help" title="Permalink to this headline">¶</a></h2>
+<p>In order to provide a high-quality 1.1 release, we need your help. Although this
+beta release is, again, <em>not</em> intended for production use, you can help the
+Django team by trying out the beta codebase in a safe test environment and
+reporting any bugs or issues you encounter. The Django ticket tracker is the
+central place to search for open issues:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://code.djangoproject.com/timeline">https://code.djangoproject.com/timeline</a></li>
+</ul>
+<p>Please open new tickets if no existing ticket corresponds to a problem you&#8217;re
+running into.</p>
+<p>Additionally, discussion of Django development, including progress toward the
+1.1 release, takes place daily on the django-developers mailing list:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://groups.google.com/group/django-developers">http://groups.google.com/group/django-developers</a></li>
+</ul>
+<p>... and in the <tt class="docutils literal"><span class="pre">#django-dev</span></tt> IRC channel on <tt class="docutils literal"><span class="pre">irc.freenode.net</span></tt>. If you&#8217;re
+interested in helping out with Django&#8217;s development, feel free to join the
+discussions there.</p>
+<p>Django&#8217;s online documentation also includes pointers on how to contribute to
+Django:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../internals/contributing/index.html"><em>How to contribute to Django</em></a></li>
+</ul>
+<p>Contributions on any level &#8211; developing code, writing documentation or simply
+triaging tickets and helping to test proposed bugfixes &#8211; are always welcome and
+appreciated.</p>
+<p>Development sprints for Django 1.1 will also be taking place at PyCon US 2009,
+on the dedicated sprint days (March 30 through April 2), and anyone who wants to
+help out is welcome to join in, either in person at PyCon or virtually in the
+IRC channel or on the mailing list.</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../1.1-rc-1/index.html">&laquo; Django 1.1 RC 1 release notes</a></div>
+  
+  
+    <div class="right"><a href="../1.1-alpha-1/index.html">Django 1.1 alpha 1 release notes &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Django 1.1 beta 1 release notes</a><ul>
+<li><a class="reference internal" href="index.html#what-s-new-in-django-1-1-beta-1">What&#8217;s new in Django 1.1 beta 1</a><ul>
+<li><a class="reference internal" href="index.html#model-improvements">Model improvements</a><ul>
+<li><a class="reference internal" href="index.html#unmanaged-models">&#8220;Unmanaged&#8221; models</a></li>
+<li><a class="reference internal" href="index.html#proxy-models">Proxy models</a></li>
+<li><a class="reference internal" href="index.html#deferred-fields">Deferred fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#new-admin-features">New admin features</a><ul>
+<li><a class="reference internal" href="index.html#editable-fields-on-the-change-list">Editable fields on the change list</a></li>
+<li><a class="reference internal" href="index.html#admin-actions">Admin &#8220;actions&#8221;</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#testing-improvements">Testing improvements</a></li>
+<li><a class="reference internal" href="index.html#conditional-view-processing">Conditional view processing</a></li>
+<li><a class="reference internal" href="index.html#other-improvements">Other improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#the-django-1-1-roadmap">The Django 1.1 roadmap</a></li>
+<li><a class="reference internal" href="index.html#what-you-can-do-to-help">What you can do to help</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../1.1-rc-1/index.html">Django 1.1 RC 1 release notes</a></li>
+        
+        
+          <li>Next: <a href="../1.1-alpha-1/index.html">Django 1.1 alpha 1 release notes</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Release notes</a>
+          
+          <ul><li>Django 1.1 beta 1 release notes</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Porting to Python 3 | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../1.6/topics/python3.1">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../dev/topics/python3.1">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-porting-to-python-3">
+<span id="porting-to-python-3"></span><h1>Porting to Python 3<a class="headerlink" href="python3.1#porting-to-python-3" title="Permalink to this headline">¶</a></h1>
+<p>Django 1.5 is the first version of Django to support Python 3. The same code
+runs both on Python 2 (≥&nbsp;2.6.5) and Python 3 (≥&nbsp;3.2), thanks to the <a class="reference external" href="http://packages.python.org/six/">six</a>
+compatibility layer.</p>
+<p>This document is primarily targeted at authors of pluggable application
+who want to support both Python 2 and 3. It also describes guidelines that
+apply to Django&#8217;s code.</p>
+<div class="section" id="s-philosophy">
+<span id="philosophy"></span><h2>Philosophy<a class="headerlink" href="python3.1#philosophy" title="Permalink to this headline">¶</a></h2>
+<p>This document assumes that you are familiar with the changes between Python 2
+and Python 3. If you aren&#8217;t, read <a class="reference external" href="http://docs.python.org/py3k/howto/pyporting.html">Python&#8217;s official porting guide</a> first.
+Refreshing your knowledge of unicode handling on Python 2 and 3 will help; the
+<a class="reference external" href="http://nedbatchelder.com/text/unipain.html">Pragmatic Unicode</a> presentation is a good resource.</p>
+<p>Django uses the <em>Python 2/3 Compatible Source</em> strategy. Of course, you&#8217;re
+free to chose another strategy for your own code, especially if you don&#8217;t need
+to stay compatible with Python 2. But authors of pluggable applications are
+encouraged to use the same porting strategy as Django itself.</p>
+<p>Writing compatible code is much easier if you target Python ≥ 2.6. Django 1.5
+introduces compatibility tools such as <a class="reference internal" href="python3.1#module-django.utils.six" title="django.utils.six"><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.six</span></tt></a>, which is a
+customized version of the <a class="reference external" href="http://pythonhosted.org/six/index.html#module-six" title="(in six v1.4)"><tt class="xref py py-mod docutils literal"><span class="pre">six</span> <span class="pre">module</span></tt></a>. For convenience,
+forwards-compatible aliases were introduced in Django 1.4.2. If your
+application takes advantage of these tools, it will require Django ≥ 1.4.2.</p>
+<p>Obviously, writing compatible source code adds some overhead, and that can
+cause frustration. Django&#8217;s developers have found that attempting to write
+Python 3 code that&#8217;s compatible with Python 2 is much more rewarding than the
+opposite. Not only does that make your code more future-proof, but Python 3&#8217;s
+advantages (like the saner string handling) start shining quickly. Dealing
+with Python 2 becomes a backwards compatibility requirement, and we as
+developers are used to dealing with such constraints.</p>
+<p>Porting tools provided by Django are inspired by this philosophy, and it&#8217;s
+reflected throughout this guide.</p>
+</div>
+<div class="section" id="s-porting-tips">
+<span id="porting-tips"></span><h2>Porting tips<a class="headerlink" href="python3.1#porting-tips" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="s-unicode-literals">
+<span id="unicode-literals"></span><h3>Unicode literals<a class="headerlink" href="python3.1#unicode-literals" title="Permalink to this headline">¶</a></h3>
+<p>This step consists in:</p>
+<ul class="simple">
+<li>Adding <tt class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">unicode_literals</span></tt> at the top of your Python
+modules &#8211; it&#8217;s best to put it in each and every module, otherwise you&#8217;ll
+keep checking the top of your files to see which mode is in effect;</li>
+<li>Removing the <tt class="docutils literal"><span class="pre">u</span></tt> prefix before unicode strings;</li>
+<li>Adding a <tt class="docutils literal"><span class="pre">b</span></tt> prefix before bytestrings.</li>
+</ul>
+<p>Performing these changes systematically guarantees backwards compatibility.</p>
+<p>However, Django applications generally don&#8217;t need bytestrings, since Django
+only exposes unicode interfaces to the programmer. Python 3 discourages using
+bytestrings, except for binary data or byte-oriented interfaces. Python 2
+makes bytestrings and unicode strings effectively interchangeable, as long as
+they only contain ASCII data. Take advantage of this to use unicode strings
+wherever possible and avoid the <tt class="docutils literal"><span class="pre">b</span></tt> prefixes.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Python 2&#8217;s <tt class="docutils literal"><span class="pre">u</span></tt> prefix is a syntax error in Python 3.2 but it will be
+allowed again in Python 3.3 thanks to <span class="target" id="index-0"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-0414"><strong>PEP 414</strong></a>. Thus, this
+transformation is optional if you target Python ≥ 3.3. It&#8217;s still
+recommended, per the &#8220;write Python 3 code&#8221; philosophy.</p>
+</div>
+</div>
+<div class="section" id="s-string-handling">
+<span id="string-handling"></span><h3>String handling<a class="headerlink" href="python3.1#string-handling" title="Permalink to this headline">¶</a></h3>
+<p>Python 2&#8217;s <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">unicode()</span></tt></a> type was renamed <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">str()</span></tt></a> in Python 3,
+<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">str()</span></tt></a> was renamed <tt class="docutils literal"><span class="pre">bytes()</span></tt>, and <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#basestring" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">basestring()</span></tt></a> disappeared.
+<a class="reference external" href="http://packages.python.org/six/">six</a> provides <a class="reference internal" href="python3.1#string-handling-with-six"><em>tools</em></a> to deal with these
+changes.</p>
+<p>Django also contains several string related classes and functions in the
+<a class="reference internal" href="../ref/utils.1#module-django.utils.encoding" title="django.utils.encoding: A series of helper classes and function to manage character encoding."><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.encoding</span></tt></a> and <a class="reference internal" href="../ref/utils.1#module-django.utils.safestring" title="django.utils.safestring: Functions and classes for working with strings that can be displayed safely without further escaping in HTML."><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.safestring</span></tt></a> modules. Their
+names used the words <tt class="docutils literal"><span class="pre">str</span></tt>, which doesn&#8217;t mean the same thing in Python 2
+and Python 3, and <tt class="docutils literal"><span class="pre">unicode</span></tt>, which doesn&#8217;t exist in Python 3. In order to
+avoid ambiguity and confusion these concepts were renamed <tt class="docutils literal"><span class="pre">bytes</span></tt> and
+<tt class="docutils literal"><span class="pre">text</span></tt>.</p>
+<p>Here are the name changes in <a class="reference internal" href="../ref/utils.1#module-django.utils.encoding" title="django.utils.encoding: A series of helper classes and function to manage character encoding."><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.encoding</span></tt></a>:</p>
+<table class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Old name</th>
+<th class="head">New name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">smart_str</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">smart_bytes</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">smart_unicode</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">smart_text</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">force_unicode</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">force_text</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>For backwards compatibility, the old names still work on Python 2. Under
+Python 3, <tt class="docutils literal"><span class="pre">smart_str</span></tt> is an alias for <tt class="docutils literal"><span class="pre">smart_text</span></tt>.</p>
+<p>For forwards compatibility, the new names work as of Django 1.4.2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="../ref/utils.1#module-django.utils.encoding" title="django.utils.encoding: A series of helper classes and function to manage character encoding."><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.encoding</span></tt></a> was deeply refactored in Django 1.5 to
+provide a more consistent API. Check its documentation for more
+information.</p>
+</div>
+<p><a class="reference internal" href="../ref/utils.1#module-django.utils.safestring" title="django.utils.safestring: Functions and classes for working with strings that can be displayed safely without further escaping in HTML."><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.safestring</span></tt></a> is mostly used via the
+<a class="reference internal" href="../ref/utils.1#django.utils.safestring.mark_safe" title="django.utils.safestring.mark_safe"><tt class="xref py py-func docutils literal"><span class="pre">mark_safe()</span></tt></a> and
+<a class="reference internal" href="../ref/utils.1#django.utils.safestring.mark_for_escaping" title="django.utils.safestring.mark_for_escaping"><tt class="xref py py-func docutils literal"><span class="pre">mark_for_escaping()</span></tt></a> functions, which didn&#8217;t
+change. In case you&#8217;re using the internals, here are the name changes:</p>
+<table class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Old name</th>
+<th class="head">New name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">EscapeString</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">EscapeBytes</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">EscapeUnicode</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">EscapeText</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">SafeString</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">SafeBytes</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">SafeUnicode</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">SafeText</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>For backwards compatibility, the old names still work on Python 2. Under
+Python 3, <tt class="docutils literal"><span class="pre">EscapeString</span></tt> and <tt class="docutils literal"><span class="pre">SafeString</span></tt> are aliases for <tt class="docutils literal"><span class="pre">EscapeText</span></tt>
+and <tt class="docutils literal"><span class="pre">SafeText</span></tt> respectively.</p>
+<p>For forwards compatibility, the new names work as of Django 1.4.2.</p>
+</div>
+<div class="section" id="s-str-and-unicode-methods">
+<span id="str-and-unicode-methods"></span><h3><a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__unicode__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__unicode__()</span></tt></a> methods<a class="headerlink" href="python3.1#str-and-unicode-methods" title="Permalink to this headline">¶</a></h3>
+<p>In Python 2, the object model specifies <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> and
+<a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__unicode__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__unicode__()</span></tt></a> methods. If these methods exist, they must return
+<tt class="docutils literal"><span class="pre">str</span></tt> (bytes) and <tt class="docutils literal"><span class="pre">unicode</span></tt> (text) respectively.</p>
+<p>The <tt class="docutils literal"><span class="pre">print</span></tt> statement and the <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">str()</span></tt></a> built-in call
+<a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> to determine the human-readable representation of an
+object. The <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">unicode()</span></tt></a> built-in calls <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__unicode__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__unicode__()</span></tt></a> if it
+exists, and otherwise falls back to <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> and decodes the
+result with the system encoding. Conversely, the
+<a class="reference internal" href="../ref/models/instances/index.html#django.db.models.Model" title="django.db.models.Model"><tt class="xref py py-class docutils literal"><span class="pre">Model</span></tt></a> base class automatically derives
+<a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> from <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__unicode__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__unicode__()</span></tt></a> by encoding to UTF-8.</p>
+<p>In Python 3, there&#8217;s simply <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a>, which must return <tt class="docutils literal"><span class="pre">str</span></tt>
+(text).</p>
+<p>(It is also possible to define <tt class="docutils literal"><span class="pre">__bytes__()</span></tt>, but Django application have
+little use for that method, because they hardly ever deal with
+<tt class="docutils literal"><span class="pre">bytes</span></tt>.)</p>
+<p>Django provides a simple way to define <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> and
+<a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__unicode__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__unicode__()</span></tt></a> methods that work on Python 2 and 3: you must
+define a <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> method returning text and to apply the
+<a class="reference internal" href="../ref/utils.1#django.utils.encoding.python_2_unicode_compatible" title="django.utils.encoding.python_2_unicode_compatible"><tt class="xref py py-func docutils literal"><span class="pre">python_2_unicode_compatible()</span></tt></a> decorator.</p>
+<p>On Python 3, the decorator is a no-op. On Python 2, it defines appropriate
+<a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__unicode__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__unicode__()</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> methods (replacing the
+original <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__str__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__str__()</span></tt></a> method in the process). Here&#8217;s an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">django.utils.encoding</span> <span class="kn">import</span> <span class="n">python_2_unicode_compatible</span>
+
+<span class="nd">@python_2_unicode_compatible</span>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;Instance of my class&quot;</span>
+</pre></div>
+</div>
+<p>This technique is the best match for Django&#8217;s porting philosophy.</p>
+<p>For forwards compatibility, this decorator is available as of Django 1.4.2.</p>
+<p>Finally, note that <a class="reference external" href="http://docs.python.org/2.7/reference/datamodel.html#object.__repr__" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">__repr__()</span></tt></a> must return a <tt class="docutils literal"><span class="pre">str</span></tt> on all
+versions of Python.</p>
+</div>
+<div class="section" id="s-dict-and-dict-like-classes">
+<span id="dict-and-dict-like-classes"></span><h3><a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>-like classes<a class="headerlink" href="python3.1#dict-and-dict-like-classes" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict.keys" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">dict.keys()</span></tt></a>, <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict.items" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">dict.items()</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict.values" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">dict.values()</span></tt></a> return lists in
+Python 2 and iterators in Python 3. <a class="reference internal" href="../ref/request-response.1#django.http.QueryDict" title="django.http.QueryDict"><tt class="xref py py-class docutils literal"><span class="pre">QueryDict</span></tt></a> and the
+<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>-like classes defined in <a class="reference internal" href="../ref/utils.1#module-django.utils.datastructures" title="django.utils.datastructures: Data structures that aren't in Python's standard library."><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.datastructures</span></tt></a>
+behave likewise in Python 3.</p>
+<p><a class="reference external" href="http://packages.python.org/six/">six</a> provides compatibility functions to work around this change:
+<a class="reference external" href="http://pythonhosted.org/six/index.html#six.iterkeys" title="(in six v1.4)"><tt class="xref py py-func docutils literal"><span class="pre">iterkeys()</span></tt></a>, <a class="reference external" href="http://pythonhosted.org/six/index.html#six.iteritems" title="(in six v1.4)"><tt class="xref py py-func docutils literal"><span class="pre">iteritems()</span></tt></a>, and <a class="reference external" href="http://pythonhosted.org/six/index.html#six.itervalues" title="(in six v1.4)"><tt class="xref py py-func docutils literal"><span class="pre">itervalues()</span></tt></a>.
+It also contains an undocumented <tt class="docutils literal"><span class="pre">iterlists</span></tt> function that works well for
+<tt class="docutils literal"><span class="pre">django.utils.datastructures.MultiValueDict</span></tt> and its subclasses.</p>
+</div>
+<div class="section" id="s-httprequest-and-httpresponse-objects">
+<span id="httprequest-and-httpresponse-objects"></span><h3><a class="reference internal" href="../ref/request-response.1#django.http.HttpRequest" title="django.http.HttpRequest"><tt class="xref py py-class docutils literal"><span class="pre">HttpRequest</span></tt></a> and <a class="reference internal" href="../ref/request-response.1#django.http.HttpResponse" title="django.http.HttpResponse"><tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt></a> objects<a class="headerlink" href="python3.1#httprequest-and-httpresponse-objects" title="Permalink to this headline">¶</a></h3>
+<p>According to <span class="target" id="index-1"></span><a class="pep reference external" href="http://www.python.org/dev/peps/pep-3333"><strong>PEP 3333</strong></a>:</p>
+<ul class="simple">
+<li>headers are always <tt class="docutils literal"><span class="pre">str</span></tt> objects,</li>
+<li>input and output streams are always <tt class="docutils literal"><span class="pre">bytes</span></tt> objects.</li>
+</ul>
+<p>Specifically, <a class="reference internal" href="../ref/request-response.1#django.http.HttpResponse.content" title="django.http.HttpResponse.content"><tt class="xref py py-attr docutils literal"><span class="pre">HttpResponse.content</span></tt></a>
+contains <tt class="docutils literal"><span class="pre">bytes</span></tt>, which may become an issue if you compare it with a
+<tt class="docutils literal"><span class="pre">str</span></tt> in your tests. The preferred solution is to rely on
+<a class="reference internal" href="testing/overview.1#django.test.TestCase.assertContains" title="django.test.TestCase.assertContains"><tt class="xref py py-meth docutils literal"><span class="pre">assertContains()</span></tt></a> and
+<a class="reference internal" href="testing/overview.1#django.test.TestCase.assertNotContains" title="django.test.TestCase.assertNotContains"><tt class="xref py py-meth docutils literal"><span class="pre">assertNotContains()</span></tt></a>. These methods accept a
+response and a unicode string as arguments.</p>
+</div>
+</div>
+<div class="section" id="s-coding-guidelines">
+<span id="coding-guidelines"></span><h2>Coding guidelines<a class="headerlink" href="python3.1#coding-guidelines" title="Permalink to this headline">¶</a></h2>
+<p>The following guidelines are enforced in Django&#8217;s source code. They&#8217;re also
+recommended for third-party application who follow the same porting strategy.</p>
+<div class="section" id="s-syntax-requirements">
+<span id="syntax-requirements"></span><h3>Syntax requirements<a class="headerlink" href="python3.1#syntax-requirements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="s-unicode">
+<span id="unicode"></span><h4>Unicode<a class="headerlink" href="python3.1#unicode" title="Permalink to this headline">¶</a></h4>
+<p>In Python 3, all strings are considered Unicode by default. The <tt class="docutils literal"><span class="pre">unicode</span></tt>
+type from Python 2 is called <tt class="docutils literal"><span class="pre">str</span></tt> in Python 3, and <tt class="docutils literal"><span class="pre">str</span></tt> becomes
+<tt class="docutils literal"><span class="pre">bytes</span></tt>.</p>
+<p>You mustn&#8217;t use the <tt class="docutils literal"><span class="pre">u</span></tt> prefix before a unicode string literal because it&#8217;s
+a syntax error in Python 3.2. You must prefix byte strings with <tt class="docutils literal"><span class="pre">b</span></tt>.</p>
+<p>In order to enable the same behavior in Python 2, every module must import
+<tt class="docutils literal"><span class="pre">unicode_literals</span></tt> from <tt class="docutils literal"><span class="pre">__future__</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="n">my_string</span> <span class="o">=</span> <span class="s">&quot;This is an unicode literal&quot;</span>
+<span class="n">my_bytestring</span> <span class="o">=</span> <span class="n">b</span><span class="s">&quot;This is a bytestring&quot;</span>
+</pre></div>
+</div>
+<p>If you need a byte string literal under Python 2 and a unicode string literal
+under Python 3, use the <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">str()</span></tt></a> builtin:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">str</span><span class="p">(</span><span class="s">&#39;my string&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Python 3, there aren&#8217;t any automatic conversions between <tt class="docutils literal"><span class="pre">str</span></tt> and
+<tt class="docutils literal"><span class="pre">bytes</span></tt>, and the <a class="reference external" href="http://docs.python.org/2.7/library/codecs.html#module-codecs" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">codecs</span></tt></a> module became more strict. <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#str.encode" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">str.encode()</span></tt></a>
+always returns <tt class="docutils literal"><span class="pre">bytes</span></tt>, and <tt class="docutils literal"><span class="pre">bytes.decode</span></tt> always returns <tt class="docutils literal"><span class="pre">str</span></tt>. As a
+consequence, the following pattern is sometimes necessary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;ascii&#39;</span><span class="p">,</span> <span class="s">&#39;ignore&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;ascii&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Be cautious if you have to <a class="reference external" href="http://docs.python.org/py3k/howto/pyporting.html#bytes-literals">index bytestrings</a>.</p>
+</div>
+<div class="section" id="s-exceptions">
+<span id="exceptions"></span><h4>Exceptions<a class="headerlink" href="python3.1#exceptions" title="Permalink to this headline">¶</a></h4>
+<p>When you capture exceptions, use the <tt class="docutils literal"><span class="pre">as</span></tt> keyword:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="o">...</span>
+<span class="k">except</span> <span class="n">MyException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>This older syntax was removed in Python 3:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="o">...</span>
+<span class="k">except</span> <span class="n">MyException</span><span class="p">,</span> <span class="n">exc</span><span class="p">:</span>    <span class="c"># Don&#39;t do that!</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>The syntax to reraise an exception with a different traceback also changed.
+Use <a class="reference external" href="http://pythonhosted.org/six/index.html#six.reraise" title="(in six v1.4)"><tt class="xref py py-func docutils literal"><span class="pre">six.reraise()</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="s-magic-methods">
+<span id="magic-methods"></span><h3>Magic methods<a class="headerlink" href="python3.1#magic-methods" title="Permalink to this headline">¶</a></h3>
+<p>Use the patterns below to handle magic methods renamed in Python 3.</p>
+<div class="section" id="s-iterators">
+<span id="iterators"></span><h4>Iterators<a class="headerlink" href="python3.1#iterators" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyIterator</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">Iterator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>             <span class="c"># implement some logic here</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">StopIteration</span>     <span class="c"># implement some logic here</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-boolean-evaluation">
+<span id="boolean-evaluation"></span><h4>Boolean evaluation<a class="headerlink" href="python3.1#boolean-evaluation" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyBoolean</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>             <span class="c"># implement some logic here</span>
+
+    <span class="k">def</span> <span class="nf">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>      <span class="c"># Python 2 compatibility</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-division">
+<span id="division"></span><h4>Division<a class="headerlink" href="python3.1#division" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyDivisible</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">/</span> <span class="n">other</span>     <span class="c"># implement some logic here</span>
+
+    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>   <span class="c"># Python 2 compatibility</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__itruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">//</span> <span class="n">other</span>    <span class="c"># implement some logic here</span>
+
+    <span class="k">def</span> <span class="nf">__idiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>  <span class="c"># Python 2 compatibility</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__itruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-writing-compatible-code-with-six">
+<span id="writing-compatible-code-with-six"></span><h3>Writing compatible code with six<a class="headerlink" href="python3.1#writing-compatible-code-with-six" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://packages.python.org/six/">six</a> is the canonical compatibility library for supporting Python 2 and 3 in
+a single codebase. Read its documentation!</p>
+<p>A <a class="reference internal" href="python3.1#module-django.utils.six" title="django.utils.six"><tt class="xref py py-mod docutils literal"><span class="pre">customized</span> <span class="pre">version</span> <span class="pre">of</span> <span class="pre">six</span></tt></a> is bundled with Django
+as of version 1.4.2. You can import it as <tt class="docutils literal"><span class="pre">django.utils.six</span></tt>.</p>
+<p>Here are the most common changes required to write compatible code.</p>
+<div class="section" id="s-string-handling-with-six">
+<span id="s-id1"></span><span id="string-handling-with-six"></span><span id="id1"></span><h4>String handling<a class="headerlink" href="python3.1#string-handling-with-six" title="Permalink to this headline">¶</a></h4>
+<p>The <tt class="docutils literal"><span class="pre">basestring</span></tt> and <tt class="docutils literal"><span class="pre">unicode</span></tt> types were removed in Python 3, and the
+meaning of <tt class="docutils literal"><span class="pre">str</span></tt> changed. To test these types, use the following idioms:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">isinstance</span><span class="p">(</span><span class="n">myvalue</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">)</span>       <span class="c"># replacement for basestring</span>
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">myvalue</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">text_type</span><span class="p">)</span>          <span class="c"># replacement for unicode</span>
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">myvalue</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span>                  <span class="c"># replacement for str</span>
+</pre></div>
+</div>
+<p>Python ≥ 2.6 provides <tt class="docutils literal"><span class="pre">bytes</span></tt> as an alias for <tt class="docutils literal"><span class="pre">str</span></tt>, so you don&#8217;t need
+<a class="reference external" href="http://pythonhosted.org/six/index.html#six.binary_type" title="(in six v1.4)"><tt class="xref py py-data docutils literal"><span class="pre">six.binary_type</span></tt></a>.</p>
+</div>
+<div class="section" id="s-long">
+<span id="long"></span><h4><tt class="docutils literal"><span class="pre">long</span></tt><a class="headerlink" href="python3.1#long" title="Permalink to this headline">¶</a></h4>
+<p>The <tt class="docutils literal"><span class="pre">long</span></tt> type no longer exists in Python 3. <tt class="docutils literal"><span class="pre">1L</span></tt> is a syntax error. Use
+<a class="reference external" href="http://pythonhosted.org/six/index.html#six.integer_types" title="(in six v1.4)"><tt class="xref py py-data docutils literal"><span class="pre">six.integer_types</span></tt></a> check if a value is an integer or a long:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">isinstance</span><span class="p">(</span><span class="n">myvalue</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">integer_types</span><span class="p">)</span>      <span class="c"># replacement for (int, long)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-xrange">
+<span id="xrange"></span><h4><tt class="docutils literal"><span class="pre">xrange</span></tt><a class="headerlink" href="python3.1#xrange" title="Permalink to this headline">¶</a></h4>
+<p>Import <tt class="docutils literal"><span class="pre">six.moves.xrange</span></tt> wherever you use <tt class="docutils literal"><span class="pre">xrange</span></tt>.</p>
+</div>
+<div class="section" id="s-moved-modules">
+<span id="moved-modules"></span><h4>Moved modules<a class="headerlink" href="python3.1#moved-modules" title="Permalink to this headline">¶</a></h4>
+<p>Some modules were renamed in Python 3. The <tt class="docutils literal"><span class="pre">django.utils.six.moves</span></tt>
+module (based on the <a class="reference external" href="http://pythonhosted.org/six/index.html#module-six.moves" title="(in six v1.4)"><tt class="xref py py-mod docutils literal"><span class="pre">six.moves</span> <span class="pre">module</span></tt></a>) provides a
+compatible location to import them.</p>
+<p>The <tt class="docutils literal"><span class="pre">urllib</span></tt>, <tt class="docutils literal"><span class="pre">urllib2</span></tt> and <tt class="docutils literal"><span class="pre">urlparse</span></tt> modules were reworked in depth
+and <a class="reference external" href="http://pythonhosted.org/six/index.html#module-six.moves" title="(in six v1.4)"><tt class="xref py py-mod docutils literal"><span class="pre">django.utils.six.moves</span></tt></a> doesn&#8217;t handle them. Django
+explicitly tries both locations, as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span><span class="p">,</span> <span class="n">urlunparse</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>     <span class="c"># Python 2</span>
+    <span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">urlparse</span><span class="p">,</span> <span class="n">urlunparse</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-py3">
+<span id="py3"></span><h4>PY3<a class="headerlink" href="python3.1#py3" title="Permalink to this headline">¶</a></h4>
+<p>If you need different code in Python 2 and Python 3, check <a class="reference external" href="http://pythonhosted.org/six/index.html#six.PY3" title="(in six v1.4)"><tt class="xref py py-data docutils literal"><span class="pre">six.PY3</span></tt></a>:</p>
+<div class="highlight-python"><pre>if six.PY3:
+    # do stuff Python 3-wise
+else:
+    # do stuff Python 2-wise</pre>
+</div>
+<p>This is a last resort solution when <a class="reference external" href="http://pythonhosted.org/six/index.html#module-six" title="(in six v1.4)"><tt class="xref py py-mod docutils literal"><span class="pre">six</span></tt></a> doesn&#8217;t provide an appropriate
+function.</p>
+<span class="target" id="module-django.utils.six"></span></div>
+</div>
+<div class="section" id="s-django-customized-version-of-six">
+<span id="django-customized-version-of-six"></span><h3>Django customized version of six<a class="headerlink" href="python3.1#django-customized-version-of-six" title="Permalink to this headline">¶</a></h3>
+<p>The version of six bundled with Django (<tt class="docutils literal"><span class="pre">django.utils.six</span></tt>) includes a few
+extras.</p>
+<dl class="function">
+<dt id="django.utils.six.assertRaisesRegex">
+<tt class="descname">assertRaisesRegex</tt>(<em>testcase</em>, <em>*args</em>, <em>**kwargs</em>)<a class="headerlink" href="python3.1#django.utils.six.assertRaisesRegex" title="Permalink to this definition">¶</a></dt>
+<dd><p>This replaces <tt class="docutils literal"><span class="pre">testcase.assertRaisesRegexp</span></tt> on Python 2, and
+<tt class="docutils literal"><span class="pre">testcase.assertRaisesRegex</span></tt> on Python 3. <tt class="docutils literal"><span class="pre">assertRaisesRegexp</span></tt> still
+exists in current Python3 versions, but issues a warning.</p>
+</dd></dl>
+
+<p>In addition to six&#8217; defaults moves, Django&#8217;s version provides <tt class="docutils literal"><span class="pre">thread</span></tt> as
+<tt class="docutils literal"><span class="pre">_thread</span></tt> and <tt class="docutils literal"><span class="pre">dummy_thread</span></tt> as <tt class="docutils literal"><span class="pre">_dummy_thread</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="pagination.1">&laquo; Pagination</a></div>
+  
+  
+    <div class="right"><a href="security/index.html">Security in Django &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="python3.1#">Porting to Python 3</a><ul>
+<li><a class="reference internal" href="python3.1#philosophy">Philosophy</a></li>
+<li><a class="reference internal" href="python3.1#porting-tips">Porting tips</a><ul>
+<li><a class="reference internal" href="python3.1#unicode-literals">Unicode literals</a></li>
+<li><a class="reference internal" href="python3.1#string-handling">String handling</a></li>
+<li><a class="reference internal" href="python3.1#str-and-unicode-methods"><tt class="docutils literal"><span class="pre">__str__()</span></tt> and <tt class="docutils literal"><span class="pre">__unicode__()</span></tt> methods</a></li>
+<li><a class="reference internal" href="python3.1#dict-and-dict-like-classes"><tt class="docutils literal"><span class="pre">dict</span></tt> and <tt class="docutils literal"><span class="pre">dict</span></tt>-like classes</a></li>
+<li><a class="reference internal" href="python3.1#httprequest-and-httpresponse-objects"><tt class="docutils literal"><span class="pre">HttpRequest</span></tt> and <tt class="docutils literal"><span class="pre">HttpResponse</span></tt> objects</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="python3.1#coding-guidelines">Coding guidelines</a><ul>
+<li><a class="reference internal" href="python3.1#syntax-requirements">Syntax requirements</a><ul>
+<li><a class="reference internal" href="python3.1#unicode">Unicode</a></li>
+<li><a class="reference internal" href="python3.1#exceptions">Exceptions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="python3.1#magic-methods">Magic methods</a><ul>
+<li><a class="reference internal" href="python3.1#iterators">Iterators</a></li>
+<li><a class="reference internal" href="python3.1#boolean-evaluation">Boolean evaluation</a></li>
+<li><a class="reference internal" href="python3.1#division">Division</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="python3.1#writing-compatible-code-with-six">Writing compatible code with six</a><ul>
+<li><a class="reference internal" href="python3.1#string-handling-with-six">String handling</a></li>
+<li><a class="reference internal" href="python3.1#long"><tt class="docutils literal"><span class="pre">long</span></tt></a></li>
+<li><a class="reference internal" href="python3.1#xrange"><tt class="docutils literal"><span class="pre">xrange</span></tt></a></li>
+<li><a class="reference internal" href="python3.1#moved-modules">Moved modules</a></li>
+<li><a class="reference internal" href="python3.1#py3">PY3</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="python3.1#django-customized-version-of-six">Django customized version of six</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="pagination.1">Pagination</a></li>
+        
+        
+          <li>Next: <a href="security/index.html">Security in Django</a></li>
+        
+        <li><a href="../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="index.html">Using Django</a>
+          
+          <ul><li>Porting to Python 3</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

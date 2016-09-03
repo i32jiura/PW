@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h3>Destinatarios</h3>
+	{% for destinatario in destinatarios %}
+		<a href='{{destinatario.id}}'>{{destinatario.nombre}}</a>
+	{% endfor %}
+
+
+
+
+{% endblock %}

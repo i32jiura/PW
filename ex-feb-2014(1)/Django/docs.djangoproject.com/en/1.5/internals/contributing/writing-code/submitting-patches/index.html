@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Submitting patches | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../1.4/internals/contributing/writing-code/submitting-patches/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../1.6/internals/contributing/writing-code/submitting-patches/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../../dev/internals/contributing/writing-code/submitting-patches/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-submitting-patches">
+<span id="submitting-patches"></span><h1>Submitting patches<a class="headerlink" href="index.html#submitting-patches" title="Permalink to this headline">¶</a></h1>
+<p>We&#8217;re always grateful for patches to Django&#8217;s code. Indeed, bug reports
+with associated patches will get fixed <em>far</em> more quickly than those
+without patches.</p>
+<div class="section" id="s-typo-fixes-and-trivial-documentation-changes">
+<span id="typo-fixes-and-trivial-documentation-changes"></span><h2>Typo fixes and trivial documentation changes<a class="headerlink" href="index.html#typo-fixes-and-trivial-documentation-changes" title="Permalink to this headline">¶</a></h2>
+<p>If you are fixing a really trivial issue, for example changing a word in the
+documentation, the preferred way to provide the patch is using GitHub pull
+requests without a Trac ticket. Trac tickets are still acceptable.</p>
+<p>See the <a class="reference internal" href="../working-with-git/index.html"><em>Working with Git and GitHub</em></a> for more details on how to use pull requests.</p>
+</div>
+<div class="section" id="s-claiming-tickets">
+<span id="claiming-tickets"></span><h2>&#8220;Claiming&#8221; tickets<a class="headerlink" href="index.html#claiming-tickets" title="Permalink to this headline">¶</a></h2>
+<p>In an open-source project with hundreds of contributors around the world, it&#8217;s
+important to manage communication efficiently so that work doesn&#8217;t get
+duplicated and contributors can be as effective as possible.</p>
+<p>Hence, our policy is for contributors to &#8220;claim&#8221; tickets in order to let other
+developers know that a particular bug or feature is being worked on.</p>
+<p>If you have identified a contribution you want to make and you&#8217;re capable of
+fixing it (as measured by your coding ability, knowledge of Django internals
+and time availability), claim it by following these steps:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.djangoproject.com/accounts/register/">Create an account</a> to use in our ticket system. If you have an account
+but have forgotten your password, you can reset it using the
+<a class="reference external" href="https://www.djangoproject.com/accounts/password/reset/">password reset page</a>.</li>
+<li>If a ticket for this issue doesn&#8217;t exist yet, create one in our
+<a class="reference external" href="https://code.djangoproject.com/newticket">ticket tracker</a>.</li>
+<li>If a ticket for this issue already exists, make sure nobody else has
+claimed it. To do this, look at the &#8220;Assigned to&#8221; section of the ticket.
+If it&#8217;s assigned to &#8220;nobody,&#8221; then it&#8217;s available to be claimed.
+Otherwise, somebody else is working on this ticket, and you either find
+another bug/feature to work on, or contact the developer working on the
+ticket to offer your help.</li>
+<li>Log into your account, if you haven&#8217;t already, by clicking &#8220;Login&#8221; in
+the upper right of the ticket page.</li>
+<li>Claim the ticket:<ol class="arabic">
+<li>click the &#8220;accept&#8221; radio button under &#8220;Action&#8221; near the bottom of the
+page,</li>
+<li>then click &#8220;Submit changes.&#8221;</li>
+</ol>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Django software foundation requests that anyone contributing more than
+a trivial patch to Django sign and submit a <a class="reference external" href="https://www.djangoproject.com/foundation/cla/">Contributor License
+Agreement</a>, this ensures that the Django Software Foundation has clear
+license to all contributions allowing for a clear license for all users.</p>
+</div>
+<div class="section" id="s-ticket-claimers-responsibility">
+<span id="ticket-claimers-responsibility"></span><h3>Ticket claimers&#8217; responsibility<a class="headerlink" href="index.html#ticket-claimers-responsibility" title="Permalink to this headline">¶</a></h3>
+<p>Once you&#8217;ve claimed a ticket, you have a responsibility to work on that ticket
+in a reasonably timely fashion. If you don&#8217;t have time to work on it, either
+unclaim it or don&#8217;t claim it in the first place!</p>
+<p>If there&#8217;s no sign of progress on a particular claimed ticket for a week or
+two, another developer may ask you to relinquish the ticket claim so that it&#8217;s
+no longer monopolized and somebody else can claim it.</p>
+<p>If you&#8217;ve claimed a ticket and it&#8217;s taking a long time (days or weeks) to code,
+keep everybody updated by posting comments on the ticket. If you don&#8217;t provide
+regular updates, and you don&#8217;t respond to a request for a progress report,
+your claim on the ticket may be revoked.</p>
+<p>As always, more communication is better than less communication!</p>
+</div>
+<div class="section" id="s-which-tickets-should-be-claimed">
+<span id="which-tickets-should-be-claimed"></span><h3>Which tickets should be claimed?<a class="headerlink" href="index.html#which-tickets-should-be-claimed" title="Permalink to this headline">¶</a></h3>
+<p>Of course, going through the steps of claiming tickets is overkill in some
+cases.</p>
+<p>In the case of small changes, such as typos in the documentation or
+small bugs that will only take a few minutes to fix, you don&#8217;t need to jump
+through the hoops of claiming tickets. Just submit your patch and be done with
+it.</p>
+<p>Of course, it is <em>always</em> acceptable, regardless whether someone has claimed it
+or not, to submit patches to a ticket if you happen to have a patch ready.</p>
+</div>
+</div>
+<div class="section" id="s-patch-style">
+<span id="s-id1"></span><span id="patch-style"></span><span id="id1"></span><h2>Patch style<a class="headerlink" href="index.html#patch-style" title="Permalink to this headline">¶</a></h2>
+<p>Make sure that any contribution you do fulfills at least the following
+requirements:</p>
+<ul class="simple">
+<li>The code required to fix a problem or add a feature is an essential part
+of a patch, but it is not the only part. A good patch should also include a
+<a class="reference internal" href="../unit-tests/index.html"><em>regression test</em></a> to validate the behavior that has been
+fixed and to prevent the problem from arising again. Also, if some tickets
+are relevant to the code that you&#8217;ve written, mention the ticket numbers in
+some comments in the test so that one can easily trace back the relevant
+discussions after your patch gets committed, and the tickets get closed.</li>
+<li>If the code associated with a patch adds a new feature, or modifies
+behavior of an existing feature, the patch should also contain
+documentation.</li>
+</ul>
+<p>You can use either GitHub branches and pull requests or direct patches
+to publish your work. If you use the Git workflow, then you should
+announce your branch in the ticket by including a link to your branch.
+When you think your work is ready to be merged in create a pull request.</p>
+<p>See the <a class="reference internal" href="../working-with-git/index.html"><em>Working with Git and GitHub</em></a> documentation for mode details.</p>
+<p>You can also use patches in Trac. When using this style, follow these
+guidelines.</p>
+<ul class="simple">
+<li>Submit patches in the format returned by the <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> command.
+An exception is for code changes that are described more clearly in
+plain English than in code. Indentation is the most common example; it&#8217;s
+hard to read patches when the only difference in code is that it&#8217;s
+indented.</li>
+<li>Attach patches to a ticket in the <a class="reference external" href="https://code.djangoproject.com/newticket">ticket tracker</a>, using the &#8220;attach
+file&#8221; button. Please <em>don&#8217;t</em> put the patch in the ticket description
+or comment unless it&#8217;s a single line patch.</li>
+<li>Name the patch file with a <tt class="docutils literal"><span class="pre">.diff</span></tt> extension; this will let the ticket
+tracker apply correct syntax highlighting, which is quite helpful.</li>
+</ul>
+<p>Regardless of the way you submit your work, follow these steps.</p>
+<ul class="simple">
+<li>Make sure your code matches our <a class="reference internal" href="../coding-style/index.html"><em>Coding style</em></a>.</li>
+<li>Check the &#8220;Has patch&#8221; box on the ticket details. This will make it
+obvious that the ticket includes a patch, and it will add the ticket to
+the <a class="reference external" href="https://code.djangoproject.com/query?status=new&amp;status=assigned&amp;status=reopened&amp;has_patch=1&amp;order=priority">list of tickets with patches</a>.</li>
+</ul>
+</div>
+<div class="section" id="s-non-trivial-patches">
+<span id="non-trivial-patches"></span><h2>Non-trivial patches<a class="headerlink" href="index.html#non-trivial-patches" title="Permalink to this headline">¶</a></h2>
+<p>A &#8220;non-trivial&#8221; patch is one that is more than a simple bug fix. It&#8217;s a patch
+that introduces Django functionality and makes some sort of design decision.</p>
+<p>If you provide a non-trivial patch, include evidence that alternatives have
+been discussed on <a class="reference external" href="http://groups.google.com/group/django-developers">django-developers</a>.</p>
+<p>If you&#8217;re not sure whether your patch should be considered non-trivial, just
+ask.</p>
+</div>
+<div class="section" id="s-javascript-patches">
+<span id="javascript-patches"></span><h2>Javascript patches<a class="headerlink" href="index.html#javascript-patches" title="Permalink to this headline">¶</a></h2>
+<p>Django&#8217;s admin system leverages the jQuery framework to increase the
+capabilities of the admin interface. In conjunction, there is an emphasis on
+admin javascript performance and minimizing overall admin media file size.
+Serving compressed or &#8220;minified&#8221; versions of javascript files is considered
+best practice in this regard.</p>
+<p>To that end, patches for javascript files should include both the original
+code for future development (e.g. <tt class="docutils literal"><span class="pre">foo.js</span></tt>), and a compressed version for
+production use (e.g. <tt class="docutils literal"><span class="pre">foo.min.js</span></tt>). Any links to the file in the codebase
+should point to the compressed version.</p>
+<div class="section" id="s-compressing-javascript">
+<span id="compressing-javascript"></span><h3>Compressing JavaScript<a class="headerlink" href="index.html#compressing-javascript" title="Permalink to this headline">¶</a></h3>
+<p>To simplify the process of providing optimized javascript code, Django
+includes a handy python script which should be used to create a &#8220;minified&#8221;
+version. To run it:</p>
+<div class="highlight-python"><pre>python django/contrib/admin/bin/compress.py</pre>
+</div>
+<p>Behind the scenes, <tt class="docutils literal"><span class="pre">compress.py</span></tt> is a front-end for Google&#8217;s
+<a class="reference external" href="https://developers.google.com/closure/compiler/">Closure Compiler</a> which is written in Java. However, the Closure Compiler
+library is not bundled with Django directly, so those wishing to contribute
+complete javascript patches will need to download and install the library
+independently.</p>
+<p>The Closure Compiler library requires Java version 6 or higher (Java 1.6 or
+higher on Mac OS X. Note that Mac OS X 10.5 and earlier did not ship with
+Java 1.6 by default, so it may be necessary to upgrade your Java installation
+before the tool will be functional. Also note that even after upgrading Java,
+the default <tt class="docutils literal"><span class="pre">/usr/bin/java</span></tt> command may remain linked to the previous Java
+binary, so relinking that command may be necessary as well.)</p>
+<p>Please don&#8217;t forget to run <tt class="docutils literal"><span class="pre">compress.py</span></tt> and include the <tt class="docutils literal"><span class="pre">diff</span></tt> of the
+minified scripts when submitting patches for Django&#8217;s javascript.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../unit-tests/index.html">&laquo; Unit tests</a></div>
+  
+  
+    <div class="right"><a href="../working-with-git/index.html">Working with Git and GitHub &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Submitting patches</a><ul>
+<li><a class="reference internal" href="index.html#typo-fixes-and-trivial-documentation-changes">Typo fixes and trivial documentation changes</a></li>
+<li><a class="reference internal" href="index.html#claiming-tickets">&#8220;Claiming&#8221; tickets</a><ul>
+<li><a class="reference internal" href="index.html#ticket-claimers-responsibility">Ticket claimers&#8217; responsibility</a></li>
+<li><a class="reference internal" href="index.html#which-tickets-should-be-claimed">Which tickets should be claimed?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#patch-style">Patch style</a></li>
+<li><a class="reference internal" href="index.html#non-trivial-patches">Non-trivial patches</a></li>
+<li><a class="reference internal" href="index.html#javascript-patches">Javascript patches</a><ul>
+<li><a class="reference internal" href="index.html#compressing-javascript">Compressing JavaScript</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../unit-tests/index.html">Unit tests</a></li>
+        
+        
+          <li>Next: <a href="../working-with-git/index.html">Working with Git and GitHub</a></li>
+        
+        <li><a href="../../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../../index.html">Django internals</a>
+          
+            <ul><li><a href="../../index.html">Contributing to Django</a>
+          
+            <ul><li><a href="../index.html">Writing code</a>
+          
+          <ul><li>Submitting patches</li></ul>
+          </li></ul></li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

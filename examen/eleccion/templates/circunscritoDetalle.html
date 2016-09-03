@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+
+{% block contents %}
+	
+	{% if user.is_superuser %}
+    	<p>Hello, admin.</p>
+	{% else %}
+    	<p>Hello, ordinary visitor.</p>
+	{% endif %}
+	
+	 <h2> Detalles de {{circuns.nombre}}:</h2>
+
+    <p>Escanyos: {{ circuns.escanyos }}</p>
+
+    <input type="button" value="Atrás" onclick="location.reload();location.href='/verCircunscritos'"/>
+
+{% endblock %}

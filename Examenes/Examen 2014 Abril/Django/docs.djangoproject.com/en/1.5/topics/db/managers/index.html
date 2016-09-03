@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Managers | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.0/topics/db/managers/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.1/topics/db/managers/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.2/topics/db/managers/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.3/topics/db/managers/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.4/topics/db/managers/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.6/topics/db/managers/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../dev/topics/db/managers/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-managers">
+<span id="managers"></span><h1>Managers<a class="headerlink" href="index.html#managers" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="django.db.models.Manager">
+<em class="property">class </em><tt class="descname">Manager</tt><a class="headerlink" href="index.html#django.db.models.Manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>A <tt class="docutils literal"><span class="pre">Manager</span></tt> is the interface through which database query operations are
+provided to Django models. At least one <tt class="docutils literal"><span class="pre">Manager</span></tt> exists for every model in
+a Django application.</p>
+<p>The way <tt class="docutils literal"><span class="pre">Manager</span></tt> classes work is documented in <a class="reference internal" href="../queries/index.html"><em>Making queries</em></a>;
+this document specifically touches on model options that customize <tt class="docutils literal"><span class="pre">Manager</span></tt>
+behavior.</p>
+<div class="section" id="s-manager-names">
+<span id="s-id1"></span><span id="manager-names"></span><span id="id1"></span><h2>Manager names<a class="headerlink" href="index.html#manager-names" title="Permalink to this headline">¶</a></h2>
+<p>By default, Django adds a <tt class="docutils literal"><span class="pre">Manager</span></tt> with the name <tt class="docutils literal"><span class="pre">objects</span></tt> to every Django
+model class. However, if you want to use <tt class="docutils literal"><span class="pre">objects</span></tt> as a field name, or if you
+want to use a name other than <tt class="docutils literal"><span class="pre">objects</span></tt> for the <tt class="docutils literal"><span class="pre">Manager</span></tt>, you can rename
+it on a per-model basis. To rename the <tt class="docutils literal"><span class="pre">Manager</span></tt> for a given class, define a
+class attribute of type <tt class="docutils literal"><span class="pre">models.Manager()</span></tt> on that model. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="c">#...</span>
+    <span class="n">people</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Using this example model, <tt class="docutils literal"><span class="pre">Person.objects</span></tt> will generate an
+<tt class="docutils literal"><span class="pre">AttributeError</span></tt> exception, but <tt class="docutils literal"><span class="pre">Person.people.all()</span></tt> will provide a list
+of all <tt class="docutils literal"><span class="pre">Person</span></tt> objects.</p>
+</div>
+<div class="section" id="s-custom-managers">
+<span id="s-id2"></span><span id="custom-managers"></span><span id="id2"></span><h2>Custom Managers<a class="headerlink" href="index.html#custom-managers" title="Permalink to this headline">¶</a></h2>
+<p>You can use a custom <tt class="docutils literal"><span class="pre">Manager</span></tt> in a particular model by extending the base
+<tt class="docutils literal"><span class="pre">Manager</span></tt> class and instantiating your custom <tt class="docutils literal"><span class="pre">Manager</span></tt> in your model.</p>
+<p>There are two reasons you might want to customize a <tt class="docutils literal"><span class="pre">Manager</span></tt>: to add extra
+<tt class="docutils literal"><span class="pre">Manager</span></tt> methods, and/or to modify the initial <tt class="docutils literal"><span class="pre">QuerySet</span></tt> the <tt class="docutils literal"><span class="pre">Manager</span></tt>
+returns.</p>
+<div class="section" id="s-adding-extra-manager-methods">
+<span id="adding-extra-manager-methods"></span><h3>Adding extra Manager methods<a class="headerlink" href="index.html#adding-extra-manager-methods" title="Permalink to this headline">¶</a></h3>
+<p>Adding extra <tt class="docutils literal"><span class="pre">Manager</span></tt> methods is the preferred way to add &#8220;table-level&#8221;
+functionality to your models. (For &#8220;row-level&#8221; functionality &#8211; i.e., functions
+that act on a single instance of a model object &#8211; use <a class="reference internal" href="../models.1#model-methods"><em>Model methods</em></a>, not custom <tt class="docutils literal"><span class="pre">Manager</span></tt> methods.)</p>
+<p>A custom <tt class="docutils literal"><span class="pre">Manager</span></tt> method can return anything you want. It doesn&#8217;t have to
+return a <tt class="docutils literal"><span class="pre">QuerySet</span></tt>.</p>
+<p>For example, this custom <tt class="docutils literal"><span class="pre">Manager</span></tt> offers a method <tt class="docutils literal"><span class="pre">with_counts()</span></tt>, which
+returns a list of all <tt class="docutils literal"><span class="pre">OpinionPoll</span></tt> objects, each with an extra
+<tt class="docutils literal"><span class="pre">num_responses</span></tt> attribute that is the result of an aggregate query:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">PollManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">with_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">            SELECT p.id, p.question, p.poll_date, COUNT(*)</span>
+<span class="s">            FROM polls_opinionpoll p, polls_response r</span>
+<span class="s">            WHERE p.id = r.poll_id</span>
+<span class="s">            GROUP BY p.id, p.question, p.poll_date</span>
+<span class="s">            ORDER BY p.poll_date DESC&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">question</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">poll_date</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">num_responses</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result_list</span>
+
+<span class="k">class</span> <span class="nc">OpinionPoll</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">poll_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">PollManager</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Response</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">poll</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">OpinionPoll</span><span class="p">)</span>
+    <span class="n">person_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>With this example, you&#8217;d use <tt class="docutils literal"><span class="pre">OpinionPoll.objects.with_counts()</span></tt> to return
+that list of <tt class="docutils literal"><span class="pre">OpinionPoll</span></tt> objects with <tt class="docutils literal"><span class="pre">num_responses</span></tt> attributes.</p>
+<p>Another thing to note about this example is that <tt class="docutils literal"><span class="pre">Manager</span></tt> methods can
+access <tt class="docutils literal"><span class="pre">self.model</span></tt> to get the model class to which they&#8217;re attached.</p>
+</div>
+<div class="section" id="s-modifying-initial-manager-querysets">
+<span id="modifying-initial-manager-querysets"></span><h3>Modifying initial Manager QuerySets<a class="headerlink" href="index.html#modifying-initial-manager-querysets" title="Permalink to this headline">¶</a></h3>
+<p>A <tt class="docutils literal"><span class="pre">Manager</span></tt>&#8216;s base <tt class="docutils literal"><span class="pre">QuerySet</span></tt> returns all objects in the system. For
+example, using this model:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>...the statement <tt class="docutils literal"><span class="pre">Book.objects.all()</span></tt> will return all books in the database.</p>
+<p>You can override a <tt class="docutils literal"><span class="pre">Manager</span></tt>&#8216;s base <tt class="docutils literal"><span class="pre">QuerySet</span></tt> by overriding the
+<tt class="docutils literal"><span class="pre">Manager.get_query_set()</span></tt> method. <tt class="docutils literal"><span class="pre">get_query_set()</span></tt> should return a
+<tt class="docutils literal"><span class="pre">QuerySet</span></tt> with the properties you require.</p>
+<p>For example, the following model has <em>two</em> <tt class="docutils literal"><span class="pre">Manager</span></tt>s &#8211; one that returns
+all objects, and one that returns only the books by Roald Dahl:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># First, define the Manager subclass.</span>
+<span class="k">class</span> <span class="nc">DahlBookManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_query_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DahlBookManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_query_set</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="s">&#39;Roald Dahl&#39;</span><span class="p">)</span>
+
+<span class="c"># Then hook it into the Book model explicitly.</span>
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span> <span class="c"># The default manager.</span>
+    <span class="n">dahl_objects</span> <span class="o">=</span> <span class="n">DahlBookManager</span><span class="p">()</span> <span class="c"># The Dahl-specific manager.</span>
+</pre></div>
+</div>
+<p>With this sample model, <tt class="docutils literal"><span class="pre">Book.objects.all()</span></tt> will return all books in the
+database, but <tt class="docutils literal"><span class="pre">Book.dahl_objects.all()</span></tt> will only return the ones written by
+Roald Dahl.</p>
+<p>Of course, because <tt class="docutils literal"><span class="pre">get_query_set()</span></tt> returns a <tt class="docutils literal"><span class="pre">QuerySet</span></tt> object, you can
+use <tt class="docutils literal"><span class="pre">filter()</span></tt>, <tt class="docutils literal"><span class="pre">exclude()</span></tt> and all the other <tt class="docutils literal"><span class="pre">QuerySet</span></tt> methods on it.
+So these statements are all legal:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Book</span><span class="o">.</span><span class="n">dahl_objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="n">Book</span><span class="o">.</span><span class="n">dahl_objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Matilda&#39;</span><span class="p">)</span>
+<span class="n">Book</span><span class="o">.</span><span class="n">dahl_objects</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This example also pointed out another interesting technique: using multiple
+managers on the same model. You can attach as many <tt class="docutils literal"><span class="pre">Manager()</span></tt> instances to
+a model as you&#8217;d like. This is an easy way to define common &#8220;filters&#8221; for your
+models.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MaleManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_query_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">MaleManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_query_set</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">sex</span><span class="o">=</span><span class="s">&#39;M&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">FemaleManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_query_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">FemaleManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_query_set</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">sex</span><span class="o">=</span><span class="s">&#39;F&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">first_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">sex</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">((</span><span class="s">&#39;M&#39;</span><span class="p">,</span> <span class="s">&#39;Male&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;F&#39;</span><span class="p">,</span> <span class="s">&#39;Female&#39;</span><span class="p">)))</span>
+    <span class="n">people</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span>
+    <span class="n">men</span> <span class="o">=</span> <span class="n">MaleManager</span><span class="p">()</span>
+    <span class="n">women</span> <span class="o">=</span> <span class="n">FemaleManager</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This example allows you to request <tt class="docutils literal"><span class="pre">Person.men.all()</span></tt>, <tt class="docutils literal"><span class="pre">Person.women.all()</span></tt>,
+and <tt class="docutils literal"><span class="pre">Person.people.all()</span></tt>, yielding predictable results.</p>
+<p>If you use custom <tt class="docutils literal"><span class="pre">Manager</span></tt> objects, take note that the first <tt class="docutils literal"><span class="pre">Manager</span></tt>
+Django encounters (in the order in which they&#8217;re defined in the model) has a
+special status. Django interprets the first <tt class="docutils literal"><span class="pre">Manager</span></tt> defined in a class as
+the &#8220;default&#8221; <tt class="docutils literal"><span class="pre">Manager</span></tt>, and several parts of Django
+(including <a class="reference internal" href="../../../ref/django-admin/index.html#django-admin-dumpdata"><tt class="xref std std-djadmin docutils literal"><span class="pre">dumpdata</span></tt></a>) will use that <tt class="docutils literal"><span class="pre">Manager</span></tt>
+exclusively for that model. As a result, it&#8217;s a good idea to be careful in
+your choice of default manager in order to avoid a situation where overriding
+<tt class="docutils literal"><span class="pre">get_query_set()</span></tt> results in an inability to retrieve objects you&#8217;d like to
+work with.</p>
+<div class="section" id="s-using-managers-for-related-object-access">
+<span id="s-managers-for-related-objects"></span><span id="using-managers-for-related-object-access"></span><span id="managers-for-related-objects"></span><h4>Using managers for related object access<a class="headerlink" href="index.html#using-managers-for-related-object-access" title="Permalink to this headline">¶</a></h4>
+<p>By default, Django uses an instance of a &#8220;plain&#8221; manager class when accessing
+related objects (i.e. <tt class="docutils literal"><span class="pre">choice.poll</span></tt>), not the default manager on the related
+object. This is because Django needs to be able to retrieve the related
+object, even if it would otherwise be filtered out (and hence be inaccessible)
+by the default manager.</p>
+<p>If the normal plain manager class (<a class="reference internal" href="index.html#django.db.models.Manager" title="django.db.models.Manager"><tt class="xref py py-class docutils literal"><span class="pre">django.db.models.Manager</span></tt></a>) is not
+appropriate for your circumstances, you can force Django to use the same class
+as the default manager for your model by setting the <tt class="docutils literal"><span class="pre">use_for_related_fields</span></tt>
+attribute on the manager class. This is documented fully <a class="reference internal" href="index.html#manager-types">below</a>.</p>
+</div>
+</div>
+<div class="section" id="s-custom-managers-and-model-inheritance">
+<span id="s-custom-managers-and-inheritance"></span><span id="custom-managers-and-model-inheritance"></span><span id="custom-managers-and-inheritance"></span><h3>Custom managers and model inheritance<a class="headerlink" href="index.html#custom-managers-and-model-inheritance" title="Permalink to this headline">¶</a></h3>
+<p>Class inheritance and model managers aren&#8217;t quite a perfect match for each
+other. Managers are often specific to the classes they are defined on and
+inheriting them in subclasses isn&#8217;t necessarily a good idea. Also, because the
+first manager declared is the <em>default manager</em>, it is important to allow that
+to be controlled. So here&#8217;s how Django handles custom managers and
+<a class="reference internal" href="../models.1#model-inheritance"><em>model inheritance</em></a>:</p>
+<ol class="arabic simple">
+<li>Managers defined on non-abstract base classes are <em>not</em> inherited by
+child classes. If you want to reuse a manager from a non-abstract base,
+redeclare it explicitly on the child class. These sorts of managers are
+likely to be fairly specific to the class they are defined on, so
+inheriting them can often lead to unexpected results (particularly as
+far as the default manager goes). Therefore, they aren&#8217;t passed onto
+child classes.</li>
+<li>Managers from abstract base classes are always inherited by the child
+class, using Python&#8217;s normal name resolution order (names on the child
+class override all others; then come names on the first parent class,
+and so on). Abstract base classes are designed to capture information
+and behavior that is common to their child classes. Defining common
+managers is an appropriate part of this common information.</li>
+<li>The default manager on a class is either the first manager declared on
+the class, if that exists, or the default manager of the first abstract
+base class in the parent hierarchy, if that exists. If no default
+manager is explicitly declared, Django&#8217;s normal default manager is
+used.</li>
+</ol>
+<p>These rules provide the necessary flexibility if you want to install a
+collection of custom managers on a group of models, via an abstract base
+class, but still customize the default manager. For example, suppose you have
+this base class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">AbstractBase</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">CustomManager</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>If you use this directly in a subclass, <tt class="docutils literal"><span class="pre">objects</span></tt> will be the default
+manager if you declare no managers in the base class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ChildA</span><span class="p">(</span><span class="n">AbstractBase</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="c"># This class has CustomManager as the default manager.</span>
+</pre></div>
+</div>
+<p>If you want to inherit from <tt class="docutils literal"><span class="pre">AbstractBase</span></tt>, but provide a different default
+manager, you can provide the default manager on the child class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ChildB</span><span class="p">(</span><span class="n">AbstractBase</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="c"># An explicit default manager.</span>
+    <span class="n">default_manager</span> <span class="o">=</span> <span class="n">OtherManager</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here, <tt class="docutils literal"><span class="pre">default_manager</span></tt> is the default. The <tt class="docutils literal"><span class="pre">objects</span></tt> manager is
+still available, since it&#8217;s inherited. It just isn&#8217;t used as the default.</p>
+<p>Finally for this example, suppose you want to add extra managers to the child
+class, but still use the default from <tt class="docutils literal"><span class="pre">AbstractBase</span></tt>. You can&#8217;t add the new
+manager directly in the child class, as that would override the default and you would
+have to also explicitly include all the managers from the abstract base class.
+The solution is to put the extra managers in another base class and introduce
+it into the inheritance hierarchy <em>after</em> the defaults:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ExtraManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">extra_manager</span> <span class="o">=</span> <span class="n">OtherManager</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="k">class</span> <span class="nc">ChildC</span><span class="p">(</span><span class="n">AbstractBase</span><span class="p">,</span> <span class="n">ExtraManager</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="c"># Default manager is CustomManager, but OtherManager is</span>
+    <span class="c"># also available via the &quot;extra_manager&quot; attribute.</span>
+</pre></div>
+</div>
+<p>Note that while you can <em>define</em> a custom manager on the abstract model, you
+can&#8217;t <em>invoke</em> any methods using the abstract model. That is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ClassA</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>is legal, but:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">AbstractBase</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>will raise an exception. This is because managers are intended to encapsulate
+logic for managing collections of objects. Since you can&#8217;t have a collection of
+abstract objects, it doesn&#8217;t make sense to be managing them. If you have
+functionality that applies to the abstract model, you should put that functionality
+in a <tt class="docutils literal"><span class="pre">staticmethod</span></tt> or <tt class="docutils literal"><span class="pre">classmethod</span></tt> on the abstract model.</p>
+</div>
+<div class="section" id="s-implementation-concerns">
+<span id="implementation-concerns"></span><h3>Implementation concerns<a class="headerlink" href="index.html#implementation-concerns" title="Permalink to this headline">¶</a></h3>
+<p>Whatever features you add to your custom <tt class="docutils literal"><span class="pre">Manager</span></tt>, it must be
+possible to make a shallow copy of a <tt class="docutils literal"><span class="pre">Manager</span></tt> instance; i.e., the
+following code must work:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">manager</span> <span class="o">=</span> <span class="n">MyManager</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">manager</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Django makes shallow copies of manager objects during certain queries;
+if your Manager cannot be copied, those queries will fail.</p>
+<p>This won&#8217;t be an issue for most custom managers. If you are just
+adding simple methods to your <tt class="docutils literal"><span class="pre">Manager</span></tt>, it is unlikely that you
+will inadvertently make instances of your <tt class="docutils literal"><span class="pre">Manager</span></tt> uncopyable.
+However, if you&#8217;re overriding <tt class="docutils literal"><span class="pre">__getattr__</span></tt> or some other private
+method of your <tt class="docutils literal"><span class="pre">Manager</span></tt> object that controls object state, you
+should ensure that you don&#8217;t affect the ability of your <tt class="docutils literal"><span class="pre">Manager</span></tt> to
+be copied.</p>
+</div>
+</div>
+<div class="section" id="s-controlling-automatic-manager-types">
+<span id="s-manager-types"></span><span id="controlling-automatic-manager-types"></span><span id="manager-types"></span><h2>Controlling automatic Manager types<a class="headerlink" href="index.html#controlling-automatic-manager-types" title="Permalink to this headline">¶</a></h2>
+<p>This document has already mentioned a couple of places where Django creates a
+manager class for you: <a class="reference internal" href="index.html#manager-names">default managers</a> and the &#8220;plain&#8221; manager used to
+<a class="reference internal" href="index.html#managers-for-related-objects">access related objects</a>. There are other places in the implementation of
+Django where temporary plain managers are needed. Those automatically created
+managers will normally be instances of the <a class="reference internal" href="index.html#django.db.models.Manager" title="django.db.models.Manager"><tt class="xref py py-class docutils literal"><span class="pre">django.db.models.Manager</span></tt></a>
+class.</p>
+<p>Throughout this section, we will use the term &#8220;automatic manager&#8221; to mean a
+manager that Django creates for you &#8211; either as a default manager on a model
+with no managers, or to use temporarily when accessing related objects.</p>
+<p>Sometimes this default class won&#8217;t be the right choice. One example is in the
+<a class="reference internal" href="../../../ref/contrib/gis/index#module-django.contrib.gis" title="django.contrib.gis: Geographic Information System (GIS) extensions for Django"><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.gis</span></tt></a> application that ships with Django itself. All <tt class="docutils literal"><span class="pre">gis</span></tt>
+models must use a special manager class (<a class="reference internal" href="../../../ref/contrib/gis/model-api.1#django.contrib.gis.db.models.GeoManager" title="django.contrib.gis.db.models.GeoManager"><tt class="xref py py-class docutils literal"><span class="pre">GeoManager</span></tt></a>)
+because they need a special queryset (<a class="reference internal" href="../../../ref/contrib/gis/geoquerysets/index.html#django.contrib.gis.db.models.GeoQuerySet" title="django.contrib.gis.db.models.GeoQuerySet"><tt class="xref py py-class docutils literal"><span class="pre">GeoQuerySet</span></tt></a>)
+to be used for interacting with the database.  It turns out that models which require
+a special manager like this need to use the same manager class wherever an automatic
+manager is created.</p>
+<p>Django provides a way for custom manager developers to say that their manager
+class should be used for automatic managers whenever it is the default manager
+on a model. This is done by setting the <tt class="docutils literal"><span class="pre">use_for_related_fields</span></tt> attribute on
+the manager class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="n">use_for_related_fields</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>If this attribute is set on the <em>default</em> manager for a model (only the
+default manager is considered in these situations), Django will use that class
+whenever it needs to automatically create a manager for the class.  Otherwise,
+it will use <a class="reference internal" href="index.html#django.db.models.Manager" title="django.db.models.Manager"><tt class="xref py py-class docutils literal"><span class="pre">django.db.models.Manager</span></tt></a>.</p>
+<div class="admonition-historical-note admonition">
+<p class="first admonition-title">Historical Note</p>
+<p class="last">Given the purpose for which it&#8217;s used, the name of this attribute
+(<tt class="docutils literal"><span class="pre">use_for_related_fields</span></tt>) might seem a little odd. Originally, the
+attribute only controlled the type of manager used for related field
+access, which is where the name came from. As it became clear the concept
+was more broadly useful, the name hasn&#8217;t been changed. This is primarily
+so that existing code will <a class="reference internal" href="../../../misc/api-stability/index.html"><em>continue to work</em></a> in
+future Django versions.</p>
+</div>
+<div class="section" id="s-writing-correct-managers-for-use-in-automatic-manager-instances">
+<span id="writing-correct-managers-for-use-in-automatic-manager-instances"></span><h3>Writing correct Managers for use in automatic Manager instances<a class="headerlink" href="index.html#writing-correct-managers-for-use-in-automatic-manager-instances" title="Permalink to this headline">¶</a></h3>
+<p>As already suggested by the <a class="reference internal" href="../../../ref/contrib/gis/index#module-django.contrib.gis" title="django.contrib.gis: Geographic Information System (GIS) extensions for Django"><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.gis</span></tt></a> example, above, the
+<tt class="docutils literal"><span class="pre">use_for_related_fields</span></tt> feature is primarily for managers that need to
+return a custom <tt class="docutils literal"><span class="pre">QuerySet</span></tt> subclass. In providing this functionality in your
+manager, there are a couple of things to remember.</p>
+<div class="section" id="s-do-not-filter-away-any-results-in-this-type-of-manager-subclass">
+<span id="do-not-filter-away-any-results-in-this-type-of-manager-subclass"></span><h4>Do not filter away any results in this type of manager subclass<a class="headerlink" href="index.html#do-not-filter-away-any-results-in-this-type-of-manager-subclass" title="Permalink to this headline">¶</a></h4>
+<p>One reason an automatic manager is used is to access objects that are related
+to from some other model. In those situations, Django has to be able to see
+all the objects for the model it is fetching, so that <em>anything</em> which is
+referred to can be retrieved.</p>
+<p>If you override the <tt class="docutils literal"><span class="pre">get_query_set()</span></tt> method and filter out any rows, Django
+will return incorrect results. Don&#8217;t do that. A manager that filters results
+in <tt class="docutils literal"><span class="pre">get_query_set()</span></tt> is not appropriate for use as an automatic manager.</p>
+</div>
+<div class="section" id="s-set-use-for-related-fields-when-you-define-the-class">
+<span id="set-use-for-related-fields-when-you-define-the-class"></span><h4>Set <tt class="docutils literal"><span class="pre">use_for_related_fields</span></tt> when you define the class<a class="headerlink" href="index.html#set-use-for-related-fields-when-you-define-the-class" title="Permalink to this headline">¶</a></h4>
+<p>The <tt class="docutils literal"><span class="pre">use_for_related_fields</span></tt> attribute must be set on the manager <em>class</em>, not
+on an <em>instance</em> of the class. The earlier example shows the correct way to set
+it, whereas the following will not work:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># BAD: Incorrect code</span>
+<span class="k">class</span> <span class="nc">MyManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="c"># Sets the attribute on an instance of MyManager. Django will</span>
+<span class="c"># ignore this setting.</span>
+<span class="n">mgr</span> <span class="o">=</span> <span class="n">MyManager</span><span class="p">()</span>
+<span class="n">mgr</span><span class="o">.</span><span class="n">use_for_related_fields</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">mgr</span>
+
+<span class="c"># End of incorrect code.</span>
+</pre></div>
+</div>
+<p>You also shouldn&#8217;t change the attribute on the class object after it has been
+used in a model, since the attribute&#8217;s value is processed when the model class
+is created and not subsequently reread. Set the attribute on the manager class
+when it is first defined, as in the initial example of this section and
+everything will work smoothly.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../aggregation/index.html">&laquo; Aggregation</a></div>
+  
+  
+    <div class="right"><a href="../sql/index.html">Performing raw SQL queries &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Managers</a><ul>
+<li><a class="reference internal" href="index.html#manager-names">Manager names</a></li>
+<li><a class="reference internal" href="index.html#custom-managers">Custom Managers</a><ul>
+<li><a class="reference internal" href="index.html#adding-extra-manager-methods">Adding extra Manager methods</a></li>
+<li><a class="reference internal" href="index.html#modifying-initial-manager-querysets">Modifying initial Manager QuerySets</a><ul>
+<li><a class="reference internal" href="index.html#using-managers-for-related-object-access">Using managers for related object access</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#custom-managers-and-model-inheritance">Custom managers and model inheritance</a></li>
+<li><a class="reference internal" href="index.html#implementation-concerns">Implementation concerns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#controlling-automatic-manager-types">Controlling automatic Manager types</a><ul>
+<li><a class="reference internal" href="index.html#writing-correct-managers-for-use-in-automatic-manager-instances">Writing correct Managers for use in automatic Manager instances</a><ul>
+<li><a class="reference internal" href="index.html#do-not-filter-away-any-results-in-this-type-of-manager-subclass">Do not filter away any results in this type of manager subclass</a></li>
+<li><a class="reference internal" href="index.html#set-use-for-related-fields-when-you-define-the-class">Set <tt class="docutils literal"><span class="pre">use_for_related_fields</span></tt> when you define the class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../aggregation/index.html">Aggregation</a></li>
+        
+        
+          <li>Next: <a href="../sql/index.html">Performing raw SQL queries</a></li>
+        
+        <li><a href="../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../index.html">Using Django</a>
+          
+            <ul><li><a href="../index">Models and databases</a>
+          
+          <ul><li>Managers</li></ul>
+          </li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

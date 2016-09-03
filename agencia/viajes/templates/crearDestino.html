@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+	<h2> Añadir destino:</h2>
+
+  <form id='formulario' method="post" action="">
+    {% csrf_token %}
+    {{ formulario.as_p }}
+    <input type="button" value="Cancelar" onclick="location.reload();location.href='/crearDestinos'"/>
+    <input type="submit" value="Añadir"/>
+  </form>
+{% endblock %}

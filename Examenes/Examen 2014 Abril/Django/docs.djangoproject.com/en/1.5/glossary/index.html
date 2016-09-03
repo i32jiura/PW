@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Glossary | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../1.0/glossary/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../1.1/glossary/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../1.2/glossary/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../1.3/glossary/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../1.4/glossary/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../1.6/glossary/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../dev/glossary/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-glossary">
+<span id="s-id1"></span><span id="glossary"></span><span id="id1"></span><h1>Glossary<a class="headerlink" href="index.html#glossary" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-field">field</dt>
+<dd><p class="first">An attribute on a <a class="reference internal" href="index.html#term-model"><em class="xref std std-term">model</em></a>; a given field usually maps directly to
+a single database column.</p>
+<p class="last">See <a class="reference internal" href="../topics/db/models.1"><em>Models</em></a>.</p>
+</dd>
+<dt id="term-generic-view">generic view</dt>
+<dd><p class="first">A higher-order <a class="reference internal" href="index.html#term-view"><em class="xref std std-term">view</em></a> function that provides an abstract/generic
+implementation of a common idiom or pattern found in view development.</p>
+<p class="last">See <a class="reference internal" href="../topics/class-based-views/index.html"><em>Class-based views</em></a>.</p>
+</dd>
+<dt id="term-model">model</dt>
+<dd><p class="first">Models store your application&#8217;s data.</p>
+<p class="last">See <a class="reference internal" href="../topics/db/models.1"><em>Models</em></a>.</p>
+</dd>
+<dt id="term-mtv">MTV</dt>
+<dd><p class="first">&#8220;Model-template-view&#8221;; a software pattern, similar in style to MVC, but
+a better description of the way Django does things.</p>
+<p class="last">See <a class="reference internal" href="../faq/general/index.html#faq-mtv"><em>the FAQ entry</em></a>.</p>
+</dd>
+<dt id="term-mvc">MVC</dt>
+<dd><a class="reference external" href="http://en.wikipedia.org/wiki/Model-view-controller">Model-view-controller</a>; a software pattern. Django <a class="reference internal" href="../faq/general/index.html#faq-mtv"><em>follows MVC
+to some extent</em></a>.</dd>
+<dt id="term-project">project</dt>
+<dd>A Python package &#8211; i.e. a directory of code &#8211; that contains all the
+settings for an instance of Django. This would include database
+configuration, Django-specific options and application-specific
+settings.</dd>
+<dt id="term-property">property</dt>
+<dd><p class="first">Also known as &#8220;managed attributes&#8221;, and a feature of Python since
+version 2.2. This is a neat way to implement attributes whose usage
+resembles attribute access, but whose implementation uses method calls.</p>
+<p class="last">See <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#property" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">property()</span></tt></a>.</p>
+</dd>
+<dt id="term-queryset">queryset</dt>
+<dd><p class="first">An object representing some set of rows to be fetched from the database.</p>
+<p class="last">See <a class="reference internal" href="../topics/db/queries/index.html"><em>Making queries</em></a>.</p>
+</dd>
+<dt id="term-slug">slug</dt>
+<dd><p class="first">A short label for something, containing only letters, numbers,
+underscores or hyphens. They&#8217;re generally used in URLs. For
+example, in a typical blog entry URL:</p>
+<pre class="literal-block">
+<a class="reference external" href="https://www.djangoproject.com/weblog/2008/apr/12/">https://www.djangoproject.com/weblog/2008/apr/12/</a><strong>spring</strong>/
+</pre>
+<p class="last">the last bit (<tt class="docutils literal"><span class="pre">spring</span></tt>) is the slug.</p>
+</dd>
+<dt id="term-template">template</dt>
+<dd><p class="first">A chunk of text that acts as formatting for representing data. A
+template helps to abstract the presentation of data from the data
+itself.</p>
+<p class="last">See <a class="reference internal" href="../topics/templates/index.html"><em>The Django template language</em></a>.</p>
+</dd>
+<dt id="term-view">view</dt>
+<dd>A function responsible for rending a page.</dd>
+</dl>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../misc/distributions/index.html">&laquo; Third-party distributions of Django</a></div>
+  
+  
+    <div class="right"><a href="../releases/index.html">Release notes &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Glossary</a></li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../misc/distributions/index.html">Third-party distributions of Django</a></li>
+        
+        
+          <li>Next: <a href="../releases/index.html">Release notes</a></li>
+        
+        <li><a href="../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../index.html">Django 1.5 documentation</a>
+          
+          <ul><li>Glossary</li></ul>
+          
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

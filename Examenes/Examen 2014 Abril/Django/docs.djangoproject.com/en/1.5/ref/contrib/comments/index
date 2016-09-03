@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Django&#8217;s comments framework | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.0/ref/contrib/comments/index">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.1/ref/contrib/comments/index">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.2/ref/contrib/comments/index">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.3/ref/contrib/comments/index">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.4/ref/contrib/comments/index">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.6/ref/contrib/comments/index">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../dev/ref/contrib/comments/index">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-module-django.contrib.comments">
+<span id="s-django-s-comments-framework"></span><span id="module-django.contrib.comments"></span><span id="django-s-comments-framework"></span><h1>Django&#8217;s comments framework<a class="headerlink" href="index#module-django.contrib.comments" title="Permalink to this headline">¶</a></h1>
+<p>Django includes a simple, yet customizable comments framework. The built-in
+comments framework can be used to attach comments to any model, so you can use
+it for comments on blog entries, photos, book chapters, or anything else.</p>
+<div class="section" id="s-quick-start-guide">
+<span id="quick-start-guide"></span><h2>Quick start guide<a class="headerlink" href="index#quick-start-guide" title="Permalink to this headline">¶</a></h2>
+<p>To get started using the <tt class="docutils literal"><span class="pre">comments</span></tt> app, follow these steps:</p>
+<ol class="arabic">
+<li><p class="first">Install the comments framework by adding <tt class="docutils literal"><span class="pre">'django.contrib.comments'</span></tt> to
+<a class="reference internal" href="../../settings/index.html#std:setting-INSTALLED_APPS"><tt class="xref std std-setting docutils literal"><span class="pre">INSTALLED_APPS</span></tt></a>.</p>
+</li>
+<li><p class="first">Run <tt class="docutils literal"><span class="pre">manage.py</span> <span class="pre">syncdb</span></tt> so that Django will create the comment tables.</p>
+</li>
+<li><p class="first">Add the comment app&#8217;s URLs to your project&#8217;s <tt class="docutils literal"><span class="pre">urls.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="o">...</span>
+    <span class="p">(</span><span class="s">r&#39;^comments/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;django.contrib.comments.urls&#39;</span><span class="p">)),</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Use the <a class="reference internal" href="index#comment-template-tags">comment template tags</a> below to embed comments in your
+templates.</p>
+</li>
+</ol>
+<p>You might also want to examine <a class="reference internal" href="settings/index.html"><em>Comment settings</em></a>.</p>
+</div>
+<div class="section" id="s-comment-template-tags">
+<span id="comment-template-tags"></span><h2>Comment template tags<a class="headerlink" href="index#comment-template-tags" title="Permalink to this headline">¶</a></h2>
+<p>You&#8217;ll primarily interact with the comment system through a series of template
+tags that let you embed comments and generate forms for your users to post them.</p>
+<p>Like all custom template tag libraries, you&#8217;ll need to <a class="reference internal" href="../../../topics/templates/index.html#loading-custom-template-libraries"><em>load the custom
+tags</em></a> before you can use them:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">load</span> <span class="nv">comments</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Once loaded you can use the template tags below.</p>
+<div class="section" id="s-specifying-which-object-comments-are-attached-to">
+<span id="specifying-which-object-comments-are-attached-to"></span><h3>Specifying which object comments are attached to<a class="headerlink" href="index#specifying-which-object-comments-are-attached-to" title="Permalink to this headline">¶</a></h3>
+<p>Django&#8217;s comments are all &#8220;attached&#8221; to some parent object. This can be any
+instance of a Django model. Each of the tags below gives you a couple of
+different ways you can specify which object to attach to:</p>
+<ol class="arabic">
+<li><p class="first">Refer to the object directly &#8211; the more common method. Most of the
+time, you&#8217;ll have some object in the template&#8217;s context you want
+to attach the comment to; you can simply use that object.</p>
+<p>For example, in a blog entry page that has a variable named <tt class="docutils literal"><span class="pre">entry</span></tt>,
+you could use the following to load the number of comments:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_count</span> <span class="nv">for</span> <span class="nv">entry</span> <span class="k">as</span> <span class="nv">comment_count</span> <span class="cp">%}</span>.
+</pre></div>
+</div>
+</li>
+<li><p class="first">Refer to the object by content-type and object id. You&#8217;d use this method
+if you, for some reason, don&#8217;t actually have direct access to the object.</p>
+<p>Following the above example, if you knew the object ID was <tt class="docutils literal"><span class="pre">14</span></tt> but
+didn&#8217;t have access to the actual object, you could do something like:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_count</span> <span class="nv">for</span> <span class="nv">blog.entry</span> <span class="m">14</span> <span class="k">as</span> <span class="nv">comment_count</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>In the above, <tt class="docutils literal"><span class="pre">blog.entry</span></tt> is the app label and (lower-cased) model
+name of the model class.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="s-displaying-comments">
+<span id="displaying-comments"></span><h3>Displaying comments<a class="headerlink" href="index#displaying-comments" title="Permalink to this headline">¶</a></h3>
+<p>To display a list of comments, you can use the template tags
+<a class="reference internal" href="index#std:templatetag-render_comment_list"><tt class="xref std std-ttag docutils literal"><span class="pre">render_comment_list</span></tt></a> or <a class="reference internal" href="index#std:templatetag-get_comment_list"><tt class="xref std std-ttag docutils literal"><span class="pre">get_comment_list</span></tt></a>.</p>
+<div class="section" id="s-quickly-rendering-a-comment-list">
+<span id="s-std:templatetag-render_comment_list"></span><span id="quickly-rendering-a-comment-list"></span><span id="std:templatetag-render_comment_list"></span><h4>Quickly rendering a comment list<a class="headerlink" href="index#quickly-rendering-a-comment-list" title="Permalink to this headline">¶</a></h4>
+<p>The easiest way to display a list of comments for some object is by using
+<a class="reference internal" href="index#std:templatetag-render_comment_list"><tt class="xref std std-ttag docutils literal"><span class="pre">render_comment_list</span></tt></a>:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">render_comment_list</span> <span class="nv">for</span> <span class="o">[</span><span class="nv">object</span><span class="o">]</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">render_comment_list</span> <span class="nv">for</span> <span class="nv">event</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>This will render comments using a template named <tt class="docutils literal"><span class="pre">comments/list.html</span></tt>, a
+default version of which is included with Django.</p>
+</div>
+<div class="section" id="s-rendering-a-custom-comment-list">
+<span id="s-std:templatetag-get_comment_list"></span><span id="rendering-a-custom-comment-list"></span><span id="std:templatetag-get_comment_list"></span><h4>Rendering a custom comment list<a class="headerlink" href="index#rendering-a-custom-comment-list" title="Permalink to this headline">¶</a></h4>
+<p>To get the list of comments for some object, use <a class="reference internal" href="index#std:templatetag-get_comment_list"><tt class="xref std std-ttag docutils literal"><span class="pre">get_comment_list</span></tt></a>:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_list</span> <span class="nv">for</span> <span class="o">[</span><span class="nv">object</span><span class="o">]</span> <span class="k">as</span> <span class="o">[</span><span class="nv">varname</span><span class="o">]</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_list</span> <span class="nv">for</span> <span class="nv">event</span> <span class="k">as</span> <span class="nv">comment_list</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">comment</span> <span class="k">in</span> <span class="nv">comment_list</span> <span class="cp">%}</span>
+    ...
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>This returns a list of <a class="reference internal" href="models.1#django.contrib.comments.models.Comment" title="django.contrib.comments.models.Comment"><tt class="xref py py-class docutils literal"><span class="pre">Comment</span></tt></a> objects;
+see <a class="reference internal" href="models.1"><em>the comment model documentation</em></a> for
+details.</p>
+</div>
+</div>
+<div class="section" id="s-linking-to-comments">
+<span id="s-std:templatetag-get_comment_permalink"></span><span id="linking-to-comments"></span><span id="std:templatetag-get_comment_permalink"></span><h3>Linking to comments<a class="headerlink" href="index#linking-to-comments" title="Permalink to this headline">¶</a></h3>
+<p>To provide a permalink to a specific comment, use <a class="reference internal" href="index#std:templatetag-get_comment_permalink"><tt class="xref std std-ttag docutils literal"><span class="pre">get_comment_permalink</span></tt></a>:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_permalink</span> <span class="nv">comment_obj</span> <span class="o">[</span><span class="nv">format_string</span><span class="o">]</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>By default, the named anchor that will be appended to the URL will be the letter
+&#8216;c&#8217; followed by the comment id, for example &#8216;c82&#8217;. You may specify a custom
+format string if you wish to override this behavior:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_permalink</span> <span class="nv">comment</span> <span class="s2">&quot;#c%(id)s-by-%(user_name)s&quot;</span><span class="cp">%}</span>
+</pre></div>
+</div>
+<p>The format string is a standard python format string. Valid mapping keys
+include any attributes of the comment object.</p>
+<p>Regardless of whether you specify a custom anchor pattern, you must supply a
+matching named anchor at a suitable place in your template.</p>
+<p>For example:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">comment</span> <span class="k">in</span> <span class="nv">comment_list</span> <span class="cp">%}</span>
+    <span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;c</span><span class="cp">{{</span> <span class="nv">comment.id</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">get_comment_permalink</span> <span class="nv">comment</span> <span class="cp">%}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+        permalink for comment #<span class="cp">{{</span> <span class="nb">forloop</span><span class="nv">.counter</span> <span class="cp">}}</span>
+    <span class="nt">&lt;/a&gt;</span>
+    ...
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">There&#8217;s a <a class="reference external" href="https://bugs.webkit.org/show_bug.cgi?id=24175">known bug</a> in Safari/Webkit which causes the named anchor to be
+forgotten following a redirect. The practical impact for comments is that
+the Safari/webkit browsers will arrive at the correct page but will not
+scroll to the named anchor.</p>
+</div>
+</div>
+<div class="section" id="s-counting-comments">
+<span id="s-std:templatetag-get_comment_count"></span><span id="counting-comments"></span><span id="std:templatetag-get_comment_count"></span><h3>Counting comments<a class="headerlink" href="index#counting-comments" title="Permalink to this headline">¶</a></h3>
+<p>To count comments attached to an object, use <a class="reference internal" href="index#std:templatetag-get_comment_count"><tt class="xref std std-ttag docutils literal"><span class="pre">get_comment_count</span></tt></a>:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_count</span> <span class="nv">for</span> <span class="o">[</span><span class="nv">object</span><span class="o">]</span> <span class="k">as</span> <span class="o">[</span><span class="nv">varname</span><span class="o">]</span>  <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_count</span> <span class="nv">for</span> <span class="nv">event</span> <span class="k">as</span> <span class="nv">comment_count</span> <span class="cp">%}</span>
+
+<span class="nt">&lt;p&gt;</span>This event has <span class="cp">{{</span> <span class="nv">comment_count</span> <span class="cp">}}</span> comments.<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-displaying-the-comment-post-form">
+<span id="displaying-the-comment-post-form"></span><h3>Displaying the comment post form<a class="headerlink" href="index#displaying-the-comment-post-form" title="Permalink to this headline">¶</a></h3>
+<p>To show the form that users will use to post a comment, you can use
+<a class="reference internal" href="index#std:templatetag-render_comment_form"><tt class="xref std std-ttag docutils literal"><span class="pre">render_comment_form</span></tt></a> or <a class="reference internal" href="index#std:templatetag-get_comment_form"><tt class="xref std std-ttag docutils literal"><span class="pre">get_comment_form</span></tt></a></p>
+<div class="section" id="s-quickly-rendering-the-comment-form">
+<span id="s-std:templatetag-render_comment_form"></span><span id="quickly-rendering-the-comment-form"></span><span id="std:templatetag-render_comment_form"></span><h4>Quickly rendering the comment form<a class="headerlink" href="index#quickly-rendering-the-comment-form" title="Permalink to this headline">¶</a></h4>
+<p>The easiest way to display a comment form is by using
+<a class="reference internal" href="index#std:templatetag-render_comment_form"><tt class="xref std std-ttag docutils literal"><span class="pre">render_comment_form</span></tt></a>:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">render_comment_form</span> <span class="nv">for</span> <span class="o">[</span><span class="nv">object</span><span class="o">]</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">render_comment_form</span> <span class="nv">for</span> <span class="nv">event</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>This will render comments using a template named <tt class="docutils literal"><span class="pre">comments/form.html</span></tt>, a
+default version of which is included with Django.</p>
+</div>
+<div class="section" id="s-rendering-a-custom-comment-form">
+<span id="s-std:templatetag-get_comment_form"></span><span id="rendering-a-custom-comment-form"></span><span id="std:templatetag-get_comment_form"></span><h4>Rendering a custom comment form<a class="headerlink" href="index#rendering-a-custom-comment-form" title="Permalink to this headline">¶</a></h4>
+<p>If you want more control over the look and feel of the comment form, you may use
+<a class="reference internal" href="index#std:templatetag-get_comment_form"><tt class="xref std std-ttag docutils literal"><span class="pre">get_comment_form</span></tt></a> to get a <a class="reference internal" href="../../../topics/forms/index.html"><em>form object</em></a> that
+you can use in the template:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_form</span> <span class="nv">for</span> <span class="o">[</span><span class="nv">object</span><span class="o">]</span> <span class="k">as</span> <span class="o">[</span><span class="nv">varname</span><span class="o">]</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>A complete form might look like:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">get_comment_form</span> <span class="nv">for</span> <span class="nv">event</span> <span class="k">as</span> <span class="nv">form</span> <span class="cp">%}</span>
+<span class="nt">&lt;table&gt;</span>
+  <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">comment_form_target</span> <span class="cp">%}</span><span class="s">&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{%</span> <span class="k">csrf_token</span> <span class="cp">%}</span>
+    <span class="cp">{{</span> <span class="nv">form</span> <span class="cp">}}</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;td</span> <span class="na">colspan=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Post&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;preview&quot;</span> <span class="na">value=</span><span class="s">&quot;Preview&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</pre></div>
+</div>
+<p>Be sure to read the <a class="reference internal" href="index#id1">notes on the comment form</a>, below, for some special
+considerations you&#8217;ll need to make if you&#8217;re using this approach.</p>
+</div>
+<div class="section" id="s-getting-the-comment-form-target">
+<span id="s-std:templatetag-comment_form_target"></span><span id="getting-the-comment-form-target"></span><span id="std:templatetag-comment_form_target"></span><h4>Getting the comment form target<a class="headerlink" href="index#getting-the-comment-form-target" title="Permalink to this headline">¶</a></h4>
+<p>You may have noticed that the above example uses another template tag &#8211;
+<a class="reference internal" href="index#std:templatetag-comment_form_target"><tt class="xref std std-ttag docutils literal"><span class="pre">comment_form_target</span></tt></a> &#8211; to actually get the <tt class="docutils literal"><span class="pre">action</span></tt> attribute of the
+form. This will always return the correct URL that comments should be posted to;
+you&#8217;ll always want to use it like above:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">comment_form_target</span> <span class="cp">%}</span><span class="s">&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-redirecting-after-the-comment-post">
+<span id="redirecting-after-the-comment-post"></span><h4>Redirecting after the comment post<a class="headerlink" href="index#redirecting-after-the-comment-post" title="Permalink to this headline">¶</a></h4>
+<p>To specify the URL you want to redirect to after the comment has been posted,
+you can include a hidden form input called <tt class="docutils literal"><span class="pre">next</span></tt> in your comment form. For example:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;next&quot;</span> <span class="na">value=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">url</span> <span class="s1">&#39;my_comment_was_posted&#39;</span> <span class="cp">%}</span><span class="s">&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-providing-a-comment-form-for-authenticated-users">
+<span id="providing-a-comment-form-for-authenticated-users"></span><h4>Providing a comment form for authenticated users<a class="headerlink" href="index#providing-a-comment-form-for-authenticated-users" title="Permalink to this headline">¶</a></h4>
+<p>If a user is already authenticated, it makes little sense to display the name,
+email, and URL fields, since these can already be retrieved from their login
+data and profile. In addition, some sites will only accept comments from
+authenticated users.</p>
+<p>To provide a comment form for authenticated users, you can manually provide the
+additional fields expected by the Django comments framework. For example,
+assuming comments are attached to the model &#8220;object&#8221;:</p>
+<div class="highlight-html+django"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">user.is_authenticated</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">get_comment_form</span> <span class="nv">for</span> <span class="nv">object</span> <span class="k">as</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">comment_form_target</span> <span class="cp">%}</span><span class="s">&quot;</span> <span class="na">method=</span><span class="s">&quot;POST&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{%</span> <span class="k">csrf_token</span> <span class="cp">%}</span>
+    <span class="cp">{{</span> <span class="nv">form.comment</span> <span class="cp">}}</span>
+    <span class="cp">{{</span> <span class="nv">form.honeypot</span> <span class="cp">}}</span>
+    <span class="cp">{{</span> <span class="nv">form.content_type</span> <span class="cp">}}</span>
+    <span class="cp">{{</span> <span class="nv">form.object_pk</span> <span class="cp">}}</span>
+    <span class="cp">{{</span> <span class="nv">form.timestamp</span> <span class="cp">}}</span>
+    <span class="cp">{{</span> <span class="nv">form.security_hash</span> <span class="cp">}}</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;next&quot;</span> <span class="na">value=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">url</span> <span class="s1">&#39;object_detail_view&#39;</span> <span class="nv">object.id</span> <span class="cp">%}</span><span class="s">&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Add comment&quot;</span> <span class="na">id=</span><span class="s">&quot;id_submit&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+    <span class="nt">&lt;p&gt;</span>Please <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">url</span> <span class="s1">&#39;auth_login&#39;</span> <span class="cp">%}</span><span class="s">&quot;</span><span class="nt">&gt;</span>log in<span class="nt">&lt;/a&gt;</span> to leave a comment.<span class="nt">&lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>The honeypot, content_type, object_pk, timestamp, and security_hash fields are
+fields that would have been created automatically if you had simply used
+<tt class="docutils literal"><span class="pre">{{</span> <span class="pre">form</span> <span class="pre">}}</span></tt> in your template, and are referred to in <a class="reference internal" href="index#id1">Notes on the comment
+form</a> below.</p>
+<p>Note that we do not need to specify the user to be associated with comments
+submitted by authenticated users. This is possible because the <a class="reference internal" href="models.1"><em>Built-in
+Comment Models</em></a> that come with Django associate
+comments with authenticated users by default.</p>
+<p>In this example, the honeypot field will still be visible to the user; you&#8217;ll
+need to hide that field in your CSS:</p>
+<div class="highlight-html+django"><div class="highlight"><pre>#id_honeypot {
+    display: none;
+}
+</pre></div>
+</div>
+<p>If you want to accept either anonymous or authenticated comments, replace the
+contents of the &#8220;else&#8221; clause above with a standard comment form and the right
+thing will happen whether a user is logged in or not.</p>
+</div>
+</div>
+<div class="section" id="s-notes-on-the-comment-form">
+<span id="s-id1"></span><span id="notes-on-the-comment-form"></span><span id="id1"></span><h3>Notes on the comment form<a class="headerlink" href="index#notes-on-the-comment-form" title="Permalink to this headline">¶</a></h3>
+<p>The form used by the comment system has a few important anti-spam attributes you
+should know about:</p>
+<ul>
+<li><p class="first">It contains a number of hidden fields that contain timestamps, information
+about the object the comment should be attached to, and a &#8220;security hash&#8221;
+used to validate this information. If someone tampers with this data &#8211;
+something comment spammers will try &#8211; the comment submission will fail.</p>
+<p>If you&#8217;re rendering a custom comment form, you&#8217;ll need to make sure to
+pass these values through unchanged.</p>
+</li>
+<li><p class="first">The timestamp is used to ensure that &#8220;reply attacks&#8221; can&#8217;t continue very
+long. Users who wait too long between requesting the form and posting a
+comment will have their submissions refused.</p>
+</li>
+<li><p class="first">The comment form includes a &#8220;<a class="reference external" href="http://en.wikipedia.org/wiki/Honeypot_(computing)">honeypot</a>&#8221; field. It&#8217;s a trap: if any data is
+entered in that field, the comment will be considered spam (spammers often
+automatically fill in all fields in an attempt to make valid submissions).</p>
+<p>The default form hides this field with a piece of CSS and further labels
+it with a warning field; if you use the comment form with a custom
+template you should be sure to do the same.</p>
+</li>
+</ul>
+<p>The comments app also depends on the more general <a class="reference internal" href="../csrf.1"><em>Cross Site Request
+Forgery protection</em></a> that comes with Django.  As described in
+the documentation, it is best to use <tt class="docutils literal"><span class="pre">CsrfViewMiddleware</span></tt>.  However, if you
+are not using that, you will need to use the <tt class="docutils literal"><span class="pre">csrf_protect</span></tt> decorator on any
+views that include the comment form, in order for those views to be able to
+output the CSRF token and cookie.</p>
+</div>
+</div>
+<div class="section" id="s-more-information">
+<span id="more-information"></span><h2>More information<a class="headerlink" href="index#more-information" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="models.1">The built-in comment models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings/index.html">Comment settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.1">Signals sent by the comments app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom/index.html">Customizing the comments framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.1">Comment form classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moderation.1">Generic comment moderation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example/index.html">Example of using the built-in comments app</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../auth.1">&laquo; <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">django.contrib.auth</span></tt></a></div>
+  
+  
+    <div class="right"><a href="models.1">The built-in comment models &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index#">Django&#8217;s comments framework</a><ul>
+<li><a class="reference internal" href="index#quick-start-guide">Quick start guide</a></li>
+<li><a class="reference internal" href="index#comment-template-tags">Comment template tags</a><ul>
+<li><a class="reference internal" href="index#specifying-which-object-comments-are-attached-to">Specifying which object comments are attached to</a></li>
+<li><a class="reference internal" href="index#displaying-comments">Displaying comments</a><ul>
+<li><a class="reference internal" href="index#quickly-rendering-a-comment-list">Quickly rendering a comment list</a></li>
+<li><a class="reference internal" href="index#rendering-a-custom-comment-list">Rendering a custom comment list</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index#linking-to-comments">Linking to comments</a></li>
+<li><a class="reference internal" href="index#counting-comments">Counting comments</a></li>
+<li><a class="reference internal" href="index#displaying-the-comment-post-form">Displaying the comment post form</a><ul>
+<li><a class="reference internal" href="index#quickly-rendering-the-comment-form">Quickly rendering the comment form</a></li>
+<li><a class="reference internal" href="index#rendering-a-custom-comment-form">Rendering a custom comment form</a></li>
+<li><a class="reference internal" href="index#getting-the-comment-form-target">Getting the comment form target</a></li>
+<li><a class="reference internal" href="index#redirecting-after-the-comment-post">Redirecting after the comment post</a></li>
+<li><a class="reference internal" href="index#providing-a-comment-form-for-authenticated-users">Providing a comment form for authenticated users</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index#notes-on-the-comment-form">Notes on the comment form</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index#more-information">More information</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../auth.1"><tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">django.contrib.auth</span></tt></a></li>
+        
+        
+          <li>Next: <a href="models.1">The built-in comment models</a></li>
+        
+        <li><a href="../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../index.html">API Reference</a>
+          
+            <ul><li><a href="../index.html"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">contrib</span></tt> packages</a>
+          
+          <ul><li>Django&#8217;s comments framework</li></ul>
+          </li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

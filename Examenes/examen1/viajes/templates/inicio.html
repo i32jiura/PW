@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  <h2> Inicio</h2>
+{% endblock %}
+
+{% block body %}
+  {% if not user.is_authenticated %}
+      <b>Bienvenido anónim@.</b>
+    <form method="POST">{% csrf_token %}
+      <input type="text" name="username" id=inputUsername placeholder="Usuario">
+      <input type="password" name="password" id=inputPassword placeholder="Contraseña">
+      <input type="submit" value="Iniciar sesión"/>
+    </form>
+  {% else %}
+    <b>Bienvenido {{user.username}}.</b>
+    <input type="button" value="Cerrar sesión" onclick="location.reload();location.href='/logout'"/>
+  {% endif %}
+  <h3>Elige una categoría:</h3>
+  <ul>
+    <b><li><a href="/destino">Destinos</a></li><b>
+    <br>
+    <b><li><a href="/viaje">Viajes</a></li><b>
+        <br>
+    <b><li><a href="/ruta">Rutas</a></li><b>
+  </ul>
+{% endblock %}

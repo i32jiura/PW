@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Internationalization and localization | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.0/topics/i18n/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.1/topics/i18n/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.2/topics/i18n/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/topics/i18n/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/topics/i18n/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/topics/i18n/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/topics/i18n/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-internationalization-and-localization">
+<span id="internationalization-and-localization"></span><h1>Internationalization and localization<a class="headerlink" href="index.html#internationalization-and-localization" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="s-overview">
+<span id="overview"></span><h2>Overview<a class="headerlink" href="index.html#overview" title="Permalink to this headline">¶</a></h2>
+<p>The goal of internationalization and localization is to allow a single Web
+application to offer its content in languages and formats tailored to the
+audience.</p>
+<p>Django has full support for <a class="reference internal" href="translation.1"><em>translation of text</em></a>, <a class="reference internal" href="formatting/index.html"><em>formatting of dates, times and numbers</em></a>, and <a class="reference internal" href="timezones/index.html"><em>time zones</em></a>.</p>
+<p>Essentially, Django does two things:</p>
+<ul class="simple">
+<li>It allows developers and template authors to specify which parts of their apps
+should be translated or formatted for local languages and cultures.</li>
+<li>It uses these hooks to localize Web apps for particular users according to
+their preferences.</li>
+</ul>
+<p>Obviously, translation depends on the target language, and formatting usually
+depends on the target country. These informations are provided by browsers in
+the <tt class="docutils literal"><span class="pre">Accept-Language</span></tt> header. However, the time zone isn&#8217;t readily available.</p>
+</div>
+<div class="section" id="s-definitions">
+<span id="definitions"></span><h2>Definitions<a class="headerlink" href="index.html#definitions" title="Permalink to this headline">¶</a></h2>
+<p>The words &#8220;internationalization&#8221; and &#8220;localization&#8221; often cause confusion;
+here&#8217;s a simplified definition:</p>
+<dl class="glossary docutils">
+<dt id="term-internationalization">internationalization</dt>
+<dd>Preparing the software for localization. Usually done by developers.</dd>
+<dt id="term-localization">localization</dt>
+<dd>Writing the translations and local formats. Usually done by translators.</dd>
+</dl>
+<p>More details can be found in the <a class="reference external" href="http://www.w3.org/International/questions/qa-i18n">W3C Web Internationalization FAQ</a>, the <a class="reference external" href="http://en.wikipedia.org/wiki/Internationalization_and_localization">Wikipedia article</a> or the <a class="reference external" href="http://www.gnu.org/software/gettext/manual/gettext.html#Concepts">GNU gettext documentation</a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Translation and formatting are controlled by <a class="reference internal" href="../../ref/settings/index.html#std:setting-USE_I18N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_I18N</span></tt></a> and
+<a class="reference internal" href="../../ref/settings/index.html#std:setting-USE_L10N"><tt class="xref std std-setting docutils literal"><span class="pre">USE_L10N</span></tt></a> settings respectively. However, both features involve
+internationalization and localization. The names of the settings are an
+unfortunate result of Django&#8217;s history.</p>
+</div>
+<p>Here are some other terms that will help us to handle a common language:</p>
+<dl class="glossary docutils">
+<dt id="term-locale-name">locale name</dt>
+<dd>A locale name, either a language specification of the form <tt class="docutils literal"><span class="pre">ll</span></tt> or a
+combined language and country specification of the form <tt class="docutils literal"><span class="pre">ll_CC</span></tt>.
+Examples: <tt class="docutils literal"><span class="pre">it</span></tt>, <tt class="docutils literal"><span class="pre">de_AT</span></tt>, <tt class="docutils literal"><span class="pre">es</span></tt>, <tt class="docutils literal"><span class="pre">pt_BR</span></tt>. The language part is
+always is lower case and the country part in upper case. The separator
+is an underscore.</dd>
+<dt id="term-language-code">language code</dt>
+<dd>Represents the name of a language. Browsers send the names of the
+languages they accept in the <tt class="docutils literal"><span class="pre">Accept-Language</span></tt> HTTP header using this
+format. Examples: <tt class="docutils literal"><span class="pre">it</span></tt>, <tt class="docutils literal"><span class="pre">de-at</span></tt>, <tt class="docutils literal"><span class="pre">es</span></tt>, <tt class="docutils literal"><span class="pre">pt-br</span></tt>. Both the language
+and the country parts are in lower case. The separator is a dash.</dd>
+<dt id="term-message-file">message file</dt>
+<dd>A message file is a plain-text file, representing a single language,
+that contains all available <a class="reference internal" href="index.html#term-translation-string"><em class="xref std std-term">translation strings</em></a> and how they should be represented in the given
+language. Message files have a <tt class="docutils literal"><span class="pre">.po</span></tt> file extension.</dd>
+<dt id="term-translation-string">translation string</dt>
+<dd>A literal that can be translated.</dd>
+<dt id="term-format-file">format file</dt>
+<dd>A format file is a Python module that defines the data formats for a given
+locale.</dd>
+</dl>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../email.1">&laquo; Sending email</a></div>
+  
+  
+    <div class="right"><a href="translation.1">Translation &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Internationalization and localization</a><ul>
+<li><a class="reference internal" href="index.html#overview">Overview</a></li>
+<li><a class="reference internal" href="index.html#definitions">Definitions</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../email.1">Sending email</a></li>
+        
+        
+          <li>Next: <a href="translation.1">Translation</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Using Django</a>
+          
+          <ul><li>Internationalization and localization</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

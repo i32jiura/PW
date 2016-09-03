@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Django 1.3.5 release notes | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.3/releases/1.3.5/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/releases/1.3.5/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/releases/1.3.5/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/releases/1.3.5/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-django-1-3-5-release-notes">
+<span id="django-1-3-5-release-notes"></span><h1>Django 1.3.5 release notes<a class="headerlink" href="index.html#django-1-3-5-release-notes" title="Permalink to this headline">¶</a></h1>
+<p><em>December 10, 2012</em></p>
+<p>Django 1.3.5 addresses two security issues present in previous Django releases
+in the 1.3 series.</p>
+<p>Please be aware that this security release is slightly different from previous
+ones. Both issues addressed here have been dealt with in prior security updates
+to Django. In one case, we have received ongoing reports of problems, and in
+the other we&#8217;ve chosen to take further steps to tighten up Django&#8217;s code in
+response to independent discovery of potential problems from multiple sources.</p>
+<div class="section" id="s-host-header-poisoning">
+<span id="host-header-poisoning"></span><h2>Host header poisoning<a class="headerlink" href="index.html#host-header-poisoning" title="Permalink to this headline">¶</a></h2>
+<p>Several earlier Django security releases focused on the issue of poisoning the
+HTTP Host header, causing Django to generate URLs pointing to arbitrary,
+potentially-malicious domains.</p>
+<p>In response to further input received and reports of continuing issues
+following the previous release, we&#8217;re taking additional steps to tighten Host
+header validation. Rather than attempt to accommodate all features HTTP
+supports here, Django&#8217;s Host header validation attempts to support a smaller,
+but far more common, subset:</p>
+<ul class="simple">
+<li>Hostnames must consist of characters [A-Za-z0-9] plus hyphen (&#8216;-&#8216;) or dot
+(&#8216;.&#8217;).</li>
+<li>IP addresses &#8211; both IPv4 and IPv6 &#8211; are permitted.</li>
+<li>Port, if specified, is numeric.</li>
+</ul>
+<p>Any deviation from this will now be rejected, raising the exception
+<a class="reference internal" href="../../ref/exceptions.1#django.core.exceptions.SuspiciousOperation" title="django.core.exceptions.SuspiciousOperation"><tt class="xref py py-exc docutils literal"><span class="pre">django.core.exceptions.SuspiciousOperation</span></tt></a>.</p>
+</div>
+<div class="section" id="s-redirect-poisoning">
+<span id="redirect-poisoning"></span><h2>Redirect poisoning<a class="headerlink" href="index.html#redirect-poisoning" title="Permalink to this headline">¶</a></h2>
+<p>Also following up on a previous issue: in July of this year, we made changes to
+Django&#8217;s HTTP redirect classes, performing additional validation of the scheme
+of the URL to redirect to (since, both within Django&#8217;s own supplied
+applications and many third-party applications, accepting a user-supplied
+redirect target is a common pattern).</p>
+<p>Since then, two independent audits of the code turned up further potential
+problems. So, similar to the Host-header issue, we are taking steps to provide
+tighter validation in response to reported problems (primarily with third-party
+applications, but to a certain extent also within Django itself). This comes in
+two parts:</p>
+<p>1. A new utility function, <tt class="docutils literal"><span class="pre">django.utils.http.is_safe_url</span></tt>, is added; this
+function takes a URL and a hostname, and checks that the URL is either
+relative, or if absolute matches the supplied hostname. This function is
+intended for use whenever user-supplied redirect targets are accepted, to
+ensure that such redirects cannot lead to arbitrary third-party sites.</p>
+<p>2. All of Django&#8217;s own built-in views &#8211; primarily in the authentication system
+&#8211; which allow user-supplied redirect targets now use <tt class="docutils literal"><span class="pre">is_safe_url</span></tt> to
+validate the supplied URL.</p>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../1.3.6/index.html">&laquo; Django 1.3.6 release notes</a></div>
+  
+  
+    <div class="right"><a href="../1.3.4/index.html">Django 1.3.4 release notes &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Django 1.3.5 release notes</a><ul>
+<li><a class="reference internal" href="index.html#host-header-poisoning">Host header poisoning</a></li>
+<li><a class="reference internal" href="index.html#redirect-poisoning">Redirect poisoning</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../1.3.6/index.html">Django 1.3.6 release notes</a></li>
+        
+        
+          <li>Next: <a href="../1.3.4/index.html">Django 1.3.4 release notes</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">Release notes</a>
+          
+          <ul><li>Django 1.3.5 release notes</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

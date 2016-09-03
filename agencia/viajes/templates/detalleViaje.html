@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+
+{% block body %}
+	 <h2> Detalles del viaje {{viajeEspecifico.lugar}}:</h2>
+  <ul>
+      <p>Destino: {{ viajeEspecifico.destino }}</p>
+      <p>Días: {{ viajeEspecifico.dias }}</p>
+      <p>Precio: {{ viajeEspecifico.precio }}</p>
+      <p>Medio de desplazamiento: {{ viajeEspecifico.desplazamiento }}</p>
+      <input type="button" value="Atrás" onclick="location.reload();location.href='/viaje'"/>
+      <input type="button" value="Editar viaje" onclick="location.reload();location.href='/editarViaje/{{ viajeEspecifico.id }}'"/>
+  </ul>
+{% endblock %}

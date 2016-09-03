@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block contest %}
+
+	<form id=formulario method=post enctype=multipart/data-form action=''>
+	{% csrf_token %}
+	{{formulario.as_p}}
+	<input type=submit value=Enviar>
+	</form>
+
+
+{% endblock %}

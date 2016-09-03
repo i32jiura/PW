@@ -1,0 +1,27 @@
+<html>
+<head>
+   <title>Texto en la barra de estado</title>
+   <script language="javascript">
+   //texto del mensaje
+   var texto_estado = "        Bienvenidos a mi pagina web"
+   var posicion = 0
+   
+    //funcion para mover el texto de la barra de estado
+   function mueve_texto(){
+      if (posicion < texto_estado.length) 
+         posicion ++;
+      else
+         posicion = 1;
+      string_actual = texto_estado.substring(posicion) + texto_estado.substring(0,posicion)
+      window.status = string_actual
+      setTimeout("mueve_texto()",50)
+   }
+   mueve_texto()
+   </script>
+</head>
+
+<body>
+<h1>Ejemplo de script con un texto en la barra de estado</h1>
+
+</body>
+</html> 

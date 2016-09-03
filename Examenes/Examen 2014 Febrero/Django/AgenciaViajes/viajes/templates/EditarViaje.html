@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h2>Editando viaje</h2>
+	
+	<form id=formulario, method='post', enctype='multipart/form-data' action=''>
+	{%csrf_token%}
+	{{formulario.as_p}}
+	<input type="submit" value="Enviar">
+	</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<form id='formulario', method='post', enctype='multipart/data-form', action=''>
+	{% csrf_token %}
+	{{formulario.as_p}}
+	<input type='submit', value='Enviar'>
+	</form>
+	<h2>Destinos</h2>
+	<li>
+	<a href="Listar">Listar Destinos</a>
+	<a href="AddDestino">Añadir Destino</a>
+	</li>
+	
+	<h2>Viajes</h2>
+	<li>
+	<a href="ListarV">Listar Viajes</a>
+	<a href="AddViaje">Añadir Viaje</a>
+	</li>
+{% endblock %}

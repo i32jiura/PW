@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Clickjacking Protection | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.4/ref/clickjacking/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../1.6/ref/clickjacking/index.html">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../dev/ref/clickjacking/index.html">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-module-django.middleware.clickjacking">
+<span id="s-clickjacking-protection"></span><span id="module-django.middleware.clickjacking"></span><span id="clickjacking-protection"></span><h1>Clickjacking Protection<a class="headerlink" href="index.html#module-django.middleware.clickjacking" title="Permalink to this headline">¶</a></h1>
+<p>The clickjacking middleware and decorators provide easy-to-use protection
+against <a class="reference external" href="http://en.wikipedia.org/wiki/Clickjacking">clickjacking</a>.  This type of attack occurs when a malicious site
+tricks a user into clicking on a concealed element of another site which they
+have loaded in a hidden frame or iframe.</p>
+<div class="section" id="s-an-example-of-clickjacking">
+<span id="an-example-of-clickjacking"></span><h2>An example of clickjacking<a class="headerlink" href="index.html#an-example-of-clickjacking" title="Permalink to this headline">¶</a></h2>
+<p>Suppose an online store has a page where a logged in user can click &#8220;Buy Now&#8221; to
+purchase an item. A user has chosen to stay logged into the store all the time
+for convenience. An attacker site might create an &#8220;I Like Ponies&#8221; button on one
+of their own pages, and load the store&#8217;s page in a transparent iframe such that
+the &#8220;Buy Now&#8221; button is invisibly overlaid on the &#8220;I Like Ponies&#8221; button. If the
+user visits the attacker site and clicks &#8220;I Like Ponies&#8221; he will inadvertently
+click on the online store&#8217;s &#8220;Buy Now&#8221; button and unknowingly purchase the item.</p>
+</div>
+<div class="section" id="s-preventing-clickjacking">
+<span id="s-clickjacking-prevention"></span><span id="preventing-clickjacking"></span><span id="clickjacking-prevention"></span><h2>Preventing clickjacking<a class="headerlink" href="index.html#preventing-clickjacking" title="Permalink to this headline">¶</a></h2>
+<p>Modern browsers honor the <a class="reference external" href="https://developer.mozilla.org/en/The_X-FRAME-OPTIONS_response_header">X-Frame-Options</a> HTTP header that indicates whether
+or not a resource is allowed to load within a frame or iframe. If the response
+contains the header with a value of <tt class="docutils literal"><span class="pre">SAMEORIGIN</span></tt> then the browser will only
+load the resource in a frame if the request originated from the same site. If
+the header is set to <tt class="docutils literal"><span class="pre">DENY</span></tt> then the browser will block the resource from
+loading in a frame no matter which site made the request.</p>
+<p>Django provides a few simple ways to include this header in responses from your
+site:</p>
+<ol class="arabic simple">
+<li>A simple middleware that sets the header in all responses.</li>
+<li>A set of view decorators that can be used to override the middleware or to
+only set the header for certain views.</li>
+</ol>
+</div>
+<div class="section" id="s-how-to-use-it">
+<span id="how-to-use-it"></span><h2>How to use it<a class="headerlink" href="index.html#how-to-use-it" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="s-setting-x-frame-options-for-all-responses">
+<span id="setting-x-frame-options-for-all-responses"></span><h3>Setting X-Frame-Options for all responses<a class="headerlink" href="index.html#setting-x-frame-options-for-all-responses" title="Permalink to this headline">¶</a></h3>
+<p>To set the same X-Frame-Options value for all responses in your site, add
+<tt class="docutils literal"><span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware'</span></tt> to
+<a class="reference internal" href="../settings/index.html#std:setting-MIDDLEWARE_CLASSES"><tt class="xref std std-setting docutils literal"><span class="pre">MIDDLEWARE_CLASSES</span></tt></a>:</p>
+<div class="highlight-python"><pre>MIDDLEWARE_CLASSES = (
+    ...
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ...
+)</pre>
+</div>
+<p>By default, the middleware will set the <tt class="docutils literal"><span class="pre">X-Frame-Options</span></tt> header to
+<tt class="docutils literal"><span class="pre">SAMEORIGIN</span></tt> for every outgoing <tt class="docutils literal"><span class="pre">HttpResponse</span></tt>. If you want <tt class="docutils literal"><span class="pre">DENY</span></tt>
+instead, set the <a class="reference internal" href="../settings/index.html#std:setting-X_FRAME_OPTIONS"><tt class="xref std std-setting docutils literal"><span class="pre">X_FRAME_OPTIONS</span></tt></a> setting:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X_FRAME_OPTIONS</span> <span class="o">=</span> <span class="s">&#39;DENY&#39;</span>
+</pre></div>
+</div>
+<p>When using the middleware there may be some views where you do <strong>not</strong> want the
+<tt class="docutils literal"><span class="pre">X-Frame-Options</span></tt> header set. For those cases, you can use a view decorator
+that tells the middleware not to set the header:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.views.decorators.clickjacking</span> <span class="kn">import</span> <span class="n">xframe_options_exempt</span>
+
+<span class="nd">@xframe_options_exempt</span>
+<span class="k">def</span> <span class="nf">ok_to_load_in_a_frame</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;This page is safe to load in a frame on any site.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-setting-x-frame-options-per-view">
+<span id="setting-x-frame-options-per-view"></span><h3>Setting X-Frame-Options per view<a class="headerlink" href="index.html#setting-x-frame-options-per-view" title="Permalink to this headline">¶</a></h3>
+<p>To set the <tt class="docutils literal"><span class="pre">X-Frame-Options</span></tt> header on a per view basis, Django provides these
+decorators:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.views.decorators.clickjacking</span> <span class="kn">import</span> <span class="n">xframe_options_deny</span>
+<span class="kn">from</span> <span class="nn">django.views.decorators.clickjacking</span> <span class="kn">import</span> <span class="n">xframe_options_sameorigin</span>
+
+<span class="nd">@xframe_options_deny</span>
+<span class="k">def</span> <span class="nf">view_one</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;I won&#39;t display in any frame!&quot;</span><span class="p">)</span>
+
+<span class="nd">@xframe_options_sameorigin</span>
+<span class="k">def</span> <span class="nf">view_two</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;Display in a frame if it&#39;s from the same origin as me.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that you can use the decorators in conjunction with the middleware. Use of
+a decorator overrides the middleware.</p>
+</div>
+</div>
+<div class="section" id="s-limitations">
+<span id="limitations"></span><h2>Limitations<a class="headerlink" href="index.html#limitations" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">X-Frame-Options</span></tt> header will only protect against clickjacking in a
+modern browser. Older browsers will quietly ignore the header and need <a class="reference external" href="http://en.wikipedia.org/wiki/Clickjacking#Prevention">other
+clickjacking prevention techniques</a>.</p>
+<div class="section" id="s-browsers-that-support-x-frame-options">
+<span id="browsers-that-support-x-frame-options"></span><h3>Browsers that support X-Frame-Options<a class="headerlink" href="index.html#browsers-that-support-x-frame-options" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Internet Explorer 8+</li>
+<li>Firefox 3.6.9+</li>
+<li>Opera 10.5+</li>
+<li>Safari 4+</li>
+<li>Chrome 4.1+</li>
+</ul>
+</div>
+<div class="section" id="s-see-also">
+<span id="see-also"></span><h3>See also<a class="headerlink" href="index.html#see-also" title="Permalink to this headline">¶</a></h3>
+<p>A <a class="reference external" href="https://developer.mozilla.org/en/The_X-FRAME-OPTIONS_response_header#Browser_compatibility">complete list</a> of browsers supporting <tt class="docutils literal"><span class="pre">X-Frame-Options</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../class-based-views/flattened-index/index.html">&laquo; Class-based generic views - flattened index</a></div>
+  
+  
+    <div class="right"><a href="../contrib/index.html"><tt class="docutils literal"><span class="pre">contrib</span></tt> packages &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="index.html#">Clickjacking Protection</a><ul>
+<li><a class="reference internal" href="index.html#an-example-of-clickjacking">An example of clickjacking</a></li>
+<li><a class="reference internal" href="index.html#preventing-clickjacking">Preventing clickjacking</a></li>
+<li><a class="reference internal" href="index.html#how-to-use-it">How to use it</a><ul>
+<li><a class="reference internal" href="index.html#setting-x-frame-options-for-all-responses">Setting X-Frame-Options for all responses</a></li>
+<li><a class="reference internal" href="index.html#setting-x-frame-options-per-view">Setting X-Frame-Options per view</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="index.html#limitations">Limitations</a><ul>
+<li><a class="reference internal" href="index.html#browsers-that-support-x-frame-options">Browsers that support X-Frame-Options</a></li>
+<li><a class="reference internal" href="index.html#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../class-based-views/flattened-index/index.html">Class-based generic views - flattened index</a></li>
+        
+        
+          <li>Next: <a href="../contrib/index.html"><tt class="docutils literal"><span class="pre">contrib</span></tt> packages</a></li>
+        
+        <li><a href="../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../index.html">API Reference</a>
+          
+          <ul><li>Clickjacking Protection</li></ul>
+          </li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

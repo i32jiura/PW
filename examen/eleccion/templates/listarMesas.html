@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	<h3>Mesas</h3>
+	{% for mesa in mesas %}
+		<li>{{ mesa.nombre }} - {{ mesa.recuento }} </li>
+	{% endfor %}
+<td><a href='/'>Inicio</a></td>
+{% endblock %}

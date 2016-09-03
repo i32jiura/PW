@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body>
+
+<script language="JavaScript">
+/*3) Barra de estado. Realiza una página que muestre un mensaje en la barra de estado. Modifica la función para que el mensaje se desplace por la barra de estado. (NOTA: Usa window.status).*/
+
+
+var var txt="            Clab            -              Cristalab.com            -";
+var espera=1;
+var refresco=null;
+function rotulo_title() {
+        document.title=txt;
+        txt=txt.substring(1,txt.length)+txt.charAt(0);
+        refresco=setTimeout("rotulo_title()",espera);}
+rotulo_title();
+</script>
+
+
+
+</body>
+</html>

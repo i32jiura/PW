@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+  <h2> Rutas disponibles:</h2>
+{% endblock %}
+
+{% block body %}
+  <ul>
+    {% if circunscritos %}
+      {% for circunscrito in circunscritos %}
+        <p><b><a href="/verRuta/{{ruta.id}}">
+            Ruta {{ circunscrito.nombre }} [
+            {% for mesa in circunscrito.mesa.all %}
+                {{ mesa.nombre }}
+            {% endfor %}
+        ]</a></b></p>
+      {% endfor %}
+    {% else %}
+      <h4> No hay ninguna circunscrito :( </h4>
+    {% endif %}
+  </ul>
+{% endblock %}

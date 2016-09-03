@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+	{% for destino in destinos %}
+		<li>
+		<a href="Viaje/{{viaje.pk}}">{{viaje.destino}}</a>
+		</li>
+	{% endfor %}
+{% endblock %}

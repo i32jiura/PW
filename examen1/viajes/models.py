@@ -16,7 +16,7 @@ class Viaje(models.Model):
     ('Barco', 'Barco'),
     ('Autobus', 'Autobus'),
     )
-
+    #un viaje solo puede tener un destino
     destino=models.ForeignKey(Destino, related_name="viajes")
     dias=models.IntegerField()
     precio=models.IntegerField()

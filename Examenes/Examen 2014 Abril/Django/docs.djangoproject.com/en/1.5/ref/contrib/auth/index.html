@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>django.contrib.auth | Django documentation | Django</title>
+    <meta name="ROBOTS" content="ALL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta name="Copyright" content="Django Software Foundation" />
+    <meta name="keywords" content="Python, Django, framework, open-source" />
+    <meta name="description" content="Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design." />
+    
+    <link href="../../../../../s/css/base.383e0bb3119d.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <link href="../../../../../s/css/print.ac134bbb8dfc.css" rel="stylesheet" type="text/css" media="print" />
+    
+  
+  <link rel="stylesheet" href="../../../../../s/css/docs/docs.feec2ab82630.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../s/css/pygments.0d57d48be058.css" type="text/css" />
+
+  </head>
+  <body id="documentation" class="default">
+  <div id="container">
+    <div id="header">
+      <h1 id="logo"><a href="https://www.djangoproject.com/"><img src="../../../../../s/img/site/hdr_logo.b19c5e60269d.gif" alt="Django" /></a></h1>
+      <ul id="nav-global">
+        <li id="nav-homepage"><a href="https://www.djangoproject.com/">Home</a></li>
+        <li id="nav-download"><a href="https://www.djangoproject.com/download/">Download</a></li>
+        <li id="nav-documentation"><a href="../../../../../index.html">Documentation</a></li>
+        <li id="nav-weblog"><a href="https://www.djangoproject.com/weblog/">Weblog</a></li>
+        <li id="nav-community"><a href="https://www.djangoproject.com/community/">Community</a></li>
+        <li id="nav-code"><a href="https://code.djangoproject.com/">Code</a></li>
+      </ul>
+    </div>
+    <!-- END Header -->
+    <div id="billboard">
+  <h2><a href="../../../../../index.html">Django documentation</a></h2>
+</div>
+    <div id="columnwrap">
+      
+		<div id="content-main">
+		
+
+
+  
+  
+  <ul id="doc-versions">
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.0/ref/contrib/auth/index.html">1.0</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.1/ref/contrib/auth/index.html">1.1</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.2/ref/contrib/auth/index.html">1.2</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.3/ref/contrib/auth/index.html">1.3</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.4/ref/contrib/auth/index.html">1.4</a>
+          
+          </li>
+        
+      
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../1.6/ref/contrib/auth.1">1.6</a>
+          
+          </li>
+        
+      
+        
+          <li class="other">
+          
+            <a href="../../../../dev/ref/contrib/auth.1">dev</a>
+          
+          </li>
+        
+      
+      <li class="current"
+          title="This document describes Django 1.5. Click on the links on the left to see other versions.">
+        <span>Documentation version:
+          <strong>1.5
+          </strong>
+        </span>
+      </li>
+  </ul>
+  <div class="section" id="s-django-contrib-auth">
+<span id="django-contrib-auth"></span><h1><tt class="docutils literal"><span class="pre">django.contrib.auth</span></tt><a class="headerlink" href="../auth.1#django-contrib-auth" title="Permalink to this headline">¶</a></h1>
+<p>This document provides API reference material for the components of Django&#8217;s
+authentication system. For more details on the usage of these components or
+how to customize authentication and authorization see the <a class="reference internal" href="../../../topics/auth/index"><em>authentication
+topic guide</em></a>.</p>
+</div>
+<div class="section" id="s-user">
+<span id="user"></span><h1>User<a class="headerlink" href="../auth.1#user" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="s-fields">
+<span id="fields"></span><h2>Fields<a class="headerlink" href="../auth.1#fields" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="django.contrib.auth.models.User">
+<em class="property">class </em><tt class="descclassname">models.</tt><tt class="descname">User</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> objects have the following
+fields:</p>
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.username">
+<tt class="descname">username</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required. 30 characters or fewer. Usernames may contain alphanumeric,
+<tt class="docutils literal"><span class="pre">_</span></tt>, <tt class="docutils literal"><span class="pre">&#64;</span></tt>, <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">.</span></tt> and <tt class="docutils literal"><span class="pre">-</span></tt> characters.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.first_name">
+<tt class="descname">first_name</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.first_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional. 30 characters or fewer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.last_name">
+<tt class="descname">last_name</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.last_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional. 30 characters or fewer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.email">
+<tt class="descname">email</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.email" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional. Email address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.password">
+<tt class="descname">password</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required. A hash of, and metadata about, the password. (Django doesn&#8217;t
+store the raw password.) Raw passwords can be arbitrarily long and can
+contain any character. See the <a class="reference internal" href="../../../topics/auth/passwords.1"><em>password documentation</em></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.groups">
+<tt class="descname">groups</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Many-to-many relationship to <a class="reference internal" href="../auth.1#django.contrib.auth.models.Group" title="django.contrib.auth.models.Group"><tt class="xref py py-class docutils literal"><span class="pre">Group</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.user_permissions">
+<tt class="descname">user_permissions</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.user_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Many-to-many relationship to <a class="reference internal" href="../auth.1#django.contrib.auth.models.Permission" title="django.contrib.auth.models.Permission"><tt class="xref py py-class docutils literal"><span class="pre">Permission</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.is_staff">
+<tt class="descname">is_staff</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.is_staff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean. Designates whether this user can access the admin site.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.is_active">
+<tt class="descname">is_active</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.is_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean. Designates whether this user account should be considered
+active. We recommend that you set this flag to <tt class="docutils literal"><span class="pre">False</span></tt> instead of
+deleting accounts; that way, if your applications have any foreign keys
+to users, the foreign keys won&#8217;t break.</p>
+<p>This doesn&#8217;t necessarily control whether or not the user can log in.
+Authentication backends aren&#8217;t required to check for the <tt class="docutils literal"><span class="pre">is_active</span></tt>
+flag, and the default backends do not. If you want to reject a login
+based on <tt class="docutils literal"><span class="pre">is_active</span></tt> being <tt class="docutils literal"><span class="pre">False</span></tt>, it&#8217;s up to you to check that in
+your own login view or a custom authentication backend. However, the
+<a class="reference internal" href="../../../topics/auth/default.1#django.contrib.auth.forms.AuthenticationForm" title="django.contrib.auth.forms.AuthenticationForm"><tt class="xref py py-class docutils literal"><span class="pre">AuthenticationForm</span></tt></a> used by the
+<a class="reference internal" href="../../../topics/auth/default.1#django.contrib.auth.views.login" title="django.contrib.auth.views.login"><tt class="xref py py-func docutils literal"><span class="pre">login()</span></tt></a> view (which is the default)
+<em>does</em> perform this check, as do the permission-checking methods such
+as <a class="reference internal" href="../auth.1#django.contrib.auth.models.User.has_perm" title="django.contrib.auth.models.User.has_perm"><tt class="xref py py-meth docutils literal"><span class="pre">has_perm()</span></tt></a> and the
+authentication in the Django admin. All of those functions/methods will
+return <tt class="docutils literal"><span class="pre">False</span></tt> for inactive users.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.is_superuser">
+<tt class="descname">is_superuser</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.is_superuser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean. Designates that this user has all permissions without
+explicitly assigning them.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.last_login">
+<tt class="descname">last_login</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.last_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>A datetime of the user&#8217;s last login. Is set to the current date/time by
+default.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.models.User.date_joined">
+<tt class="descname">date_joined</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.User.date_joined" title="Permalink to this definition">¶</a></dt>
+<dd><p>A datetime designating when the account was created. Is set to the
+current date/time by default when the account is created.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="s-methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="../auth.1#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><tt class="descclassname">models.</tt><tt class="descname">User</tt></dt>
+<dd><dl class="method">
+<dt id="django.contrib.auth.models.User.get_username">
+<tt class="descname">get_username</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.get_username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the username for the user. Since the User model can be swapped
+out, you should use  this method instead of referencing the username
+attribute directly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.is_anonymous">
+<tt class="descname">is_anonymous</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.is_anonymous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Always returns <tt class="docutils literal"><span class="pre">False</span></tt>. This is a way of differentiating
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> and
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.AnonymousUser" title="django.contrib.auth.models.AnonymousUser"><tt class="xref py py-class docutils literal"><span class="pre">AnonymousUser</span></tt></a> objects.
+Generally, you should prefer using
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_authenticated" title="django.contrib.auth.models.User.is_authenticated"><tt class="xref py py-meth docutils literal"><span class="pre">is_authenticated()</span></tt></a> to this
+method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.is_authenticated">
+<tt class="descname">is_authenticated</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.is_authenticated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Always returns <tt class="docutils literal"><span class="pre">True</span></tt> (as opposed to
+<tt class="docutils literal"><span class="pre">AnonymousUser.is_authenticated()</span></tt> which always returns <tt class="docutils literal"><span class="pre">False</span></tt>).
+This is a way to tell if the user has been authenticated. This does not
+imply any permissions, and doesn&#8217;t check if the user is active or has
+a valid session. Even though normally you will call this method on
+<tt class="docutils literal"><span class="pre">request.user</span></tt> to find out whether it has been populated by the
+<a class="reference internal" href="../../middleware.1#django.contrib.auth.middleware.AuthenticationMiddleware" title="django.contrib.auth.middleware.AuthenticationMiddleware"><tt class="xref py py-class docutils literal"><span class="pre">AuthenticationMiddleware</span></tt></a>
+(representing the currently logged-in user), you should know this method
+returns <tt class="docutils literal"><span class="pre">True</span></tt> for any <a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a>
+instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.get_full_name">
+<tt class="descname">get_full_name</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.get_full_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="../auth.1#django.contrib.auth.models.User.first_name" title="django.contrib.auth.models.User.first_name"><tt class="xref py py-attr docutils literal"><span class="pre">first_name</span></tt></a> plus
+the <a class="reference internal" href="../auth.1#django.contrib.auth.models.User.last_name" title="django.contrib.auth.models.User.last_name"><tt class="xref py py-attr docutils literal"><span class="pre">last_name</span></tt></a>, with a space in
+between.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.set_password">
+<tt class="descname">set_password</tt>(<em>raw_password</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.set_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the user&#8217;s password to the given raw string, taking care of the
+password hashing. Doesn&#8217;t save the
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.check_password">
+<tt class="descname">check_password</tt>(<em>raw_password</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.check_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <tt class="docutils literal"><span class="pre">True</span></tt> if the given raw string is the correct password for
+the user. (This takes care of the password hashing in making the
+comparison.)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.set_unusable_password">
+<tt class="descname">set_unusable_password</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.set_unusable_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks the user as having no password set.  This isn&#8217;t the same as
+having a blank string for a password.
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.check_password" title="django.contrib.auth.models.User.check_password"><tt class="xref py py-meth docutils literal"><span class="pre">check_password()</span></tt></a> for this user
+will never return <tt class="docutils literal"><span class="pre">True</span></tt>. Doesn&#8217;t save the
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> object.</p>
+<p>You may need this if authentication for your application takes place
+against an existing external source such as an LDAP directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.has_usable_password">
+<tt class="descname">has_usable_password</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.has_usable_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <tt class="docutils literal"><span class="pre">False</span></tt> if
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.set_unusable_password" title="django.contrib.auth.models.User.set_unusable_password"><tt class="xref py py-meth docutils literal"><span class="pre">set_unusable_password()</span></tt></a> has
+been called for this user.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.get_group_permissions">
+<tt class="descname">get_group_permissions</tt>(<em>obj=None</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.get_group_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of permission strings that the user has, through his/her
+groups.</p>
+<p>If <tt class="docutils literal"><span class="pre">obj</span></tt> is passed in, only returns the group permissions for
+this specific object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.get_all_permissions">
+<tt class="descname">get_all_permissions</tt>(<em>obj=None</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.get_all_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of permission strings that the user has, both through
+group and user permissions.</p>
+<p>If <tt class="docutils literal"><span class="pre">obj</span></tt> is passed in, only returns the permissions for this
+specific object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.has_perm">
+<tt class="descname">has_perm</tt>(<em>perm</em>, <em>obj=None</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.has_perm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <tt class="docutils literal"><span class="pre">True</span></tt> if the user has the specified permission, where perm
+is in the format <tt class="docutils literal"><span class="pre">&quot;&lt;app</span> <span class="pre">label&gt;.&lt;permission</span> <span class="pre">codename&gt;&quot;</span></tt>. (see
+documentation on <a class="reference internal" href="../../../topics/auth/default.1#topic-authorization"><em>permissions</em></a>). If the user is
+inactive, this method will always return <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p>If <tt class="docutils literal"><span class="pre">obj</span></tt> is passed in, this method won&#8217;t check for a permission for
+the model, but for this specific object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.has_perms">
+<tt class="descname">has_perms</tt>(<em>perm_list</em>, <em>obj=None</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.has_perms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <tt class="docutils literal"><span class="pre">True</span></tt> if the user has each of the specified permissions,
+where each perm is in the format
+<tt class="docutils literal"><span class="pre">&quot;&lt;app</span> <span class="pre">label&gt;.&lt;permission</span> <span class="pre">codename&gt;&quot;</span></tt>. If the user is inactive,
+this method will always return <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<p>If <tt class="docutils literal"><span class="pre">obj</span></tt> is passed in, this method won&#8217;t check for permissions for
+the model, but for the specific object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.has_module_perms">
+<tt class="descname">has_module_perms</tt>(<em>package_name</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.has_module_perms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <tt class="docutils literal"><span class="pre">True</span></tt> if the user has any permissions in the given package
+(the Django app label). If the user is inactive, this method will
+always return <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.email_user">
+<tt class="descname">email_user</tt>(<em>subject</em>, <em>message</em>, <em>from_email=None</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.email_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends an email to the user. If <tt class="docutils literal"><span class="pre">from_email</span></tt> is <tt class="docutils literal"><span class="pre">None</span></tt>, Django uses
+the <a class="reference internal" href="../../settings/index.html#std:setting-DEFAULT_FROM_EMAIL"><tt class="xref std std-setting docutils literal"><span class="pre">DEFAULT_FROM_EMAIL</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.User.get_profile">
+<tt class="descname">get_profile</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.models.User.get_profile" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<span class="title">Deprecated in Django 1.5:</span> <p><span>Deprecated since version 1.5: </span>With the introduction of <a class="reference internal" href="../../../topics/auth/customizing/index.html#auth-custom-user"><em>custom User models</em></a>,
+the use of <a class="reference internal" href="../../settings/index.html#std:setting-AUTH_PROFILE_MODULE"><tt class="xref std std-setting docutils literal"><span class="pre">AUTH_PROFILE_MODULE</span></tt></a> to define a single profile
+model is no longer supported. See the
+<a class="reference internal" href="../../../releases/1.5/index.html"><em>Django 1.5 release notes</em></a> for more information.</p>
+</div>
+<p>Returns a site-specific profile for this user. Raises
+<tt class="docutils literal"><span class="pre">django.contrib.auth.models.SiteProfileNotAvailable</span></tt> if the
+current site doesn&#8217;t allow profiles, or
+<a class="reference internal" href="../../exceptions.1#django.core.exceptions.ObjectDoesNotExist" title="django.core.exceptions.ObjectDoesNotExist"><tt class="xref py py-exc docutils literal"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></tt></a> if the user does not
+have a profile.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="s-manager-methods">
+<span id="manager-methods"></span><h2>Manager methods<a class="headerlink" href="../auth.1#manager-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="django.contrib.auth.models.UserManager">
+<em class="property">class </em><tt class="descclassname">models.</tt><tt class="descname">UserManager</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.UserManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> model has a custom manager
+that has the following helper methods (in addition to the methods provided
+by <a class="reference internal" href="../../../topics/auth/customizing/index.html#django.contrib.auth.models.BaseUserManager" title="django.contrib.auth.models.BaseUserManager"><tt class="xref py py-class docutils literal"><span class="pre">BaseUserManager</span></tt></a>):</p>
+<dl class="method">
+<dt id="django.contrib.auth.models.UserManager.create_user">
+<tt class="descname">create_user</tt>(<em>username</em>, <em>email=None</em>, <em>password=None</em>, <em>**extra_fields</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.UserManager.create_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates, saves and returns a <a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a>.</p>
+<p>The <a class="reference internal" href="../auth.1#django.contrib.auth.models.User.username" title="django.contrib.auth.models.User.username"><tt class="xref py py-attr docutils literal"><span class="pre">username</span></tt></a> and
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.password" title="django.contrib.auth.models.User.password"><tt class="xref py py-attr docutils literal"><span class="pre">password</span></tt></a> are set as given. The
+domain portion of <a class="reference internal" href="../auth.1#django.contrib.auth.models.User.email" title="django.contrib.auth.models.User.email"><tt class="xref py py-attr docutils literal"><span class="pre">email</span></tt></a> is
+automatically converted to lowercase, and the returned
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> object will have
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_active" title="django.contrib.auth.models.User.is_active"><tt class="xref py py-attr docutils literal"><span class="pre">is_active</span></tt></a> set to <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+<p>If no password is provided,
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.set_unusable_password" title="django.contrib.auth.models.User.set_unusable_password"><tt class="xref py py-meth docutils literal"><span class="pre">set_unusable_password()</span></tt></a> will
+be called.</p>
+<p>The <tt class="docutils literal"><span class="pre">extra_fields</span></tt> keyword arguments are passed through to the
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a>&#8216;s <tt class="docutils literal"><span class="pre">__init__</span></tt> method to
+allow setting arbitrary fields on a <a class="reference internal" href="../../../topics/auth/customizing/index.html#auth-custom-user"><em>custom User model</em></a>.</p>
+<p>See <a class="reference internal" href="../../../topics/auth/default.1#topics-auth-creating-users"><em>Creating users</em></a> for example usage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="django.contrib.auth.models.UserManager.create_superuser">
+<tt class="descname">create_superuser</tt>(<em>self</em>, <em>username</em>, <em>email</em>, <em>password</em>, <em>**extra_fields</em>)<a class="headerlink" href="../auth.1#django.contrib.auth.models.UserManager.create_superuser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <a class="reference internal" href="../auth.1#django.contrib.auth.models.UserManager.create_user" title="django.contrib.auth.models.UserManager.create_user"><tt class="xref py py-meth docutils literal"><span class="pre">create_user()</span></tt></a>, but sets <a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_staff" title="django.contrib.auth.models.User.is_staff"><tt class="xref py py-attr docutils literal"><span class="pre">is_staff</span></tt></a> and
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_superuser" title="django.contrib.auth.models.User.is_superuser"><tt class="xref py py-attr docutils literal"><span class="pre">is_superuser</span></tt></a> to <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="s-anonymous-users">
+<span id="anonymous-users"></span><h1>Anonymous users<a class="headerlink" href="../auth.1#anonymous-users" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="django.contrib.auth.models.AnonymousUser">
+<em class="property">class </em><tt class="descclassname">models.</tt><tt class="descname">AnonymousUser</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.AnonymousUser" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="../auth.1#django.contrib.auth.models.AnonymousUser" title="django.contrib.auth.models.AnonymousUser"><tt class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.models.AnonymousUser</span></tt></a> is a class that
+implements the <a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">django.contrib.auth.models.User</span></tt></a> interface, with
+these differences:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../../../topics/db/models.1#automatic-primary-key-fields"><em>id</em></a> is always <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_staff" title="django.contrib.auth.models.User.is_staff"><tt class="xref py py-attr docutils literal"><span class="pre">is_staff</span></tt></a> and
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_superuser" title="django.contrib.auth.models.User.is_superuser"><tt class="xref py py-attr docutils literal"><span class="pre">is_superuser</span></tt></a> are always
+<tt class="docutils literal"><span class="pre">False</span></tt>.</li>
+<li><a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_active" title="django.contrib.auth.models.User.is_active"><tt class="xref py py-attr docutils literal"><span class="pre">is_active</span></tt></a> is always <tt class="docutils literal"><span class="pre">False</span></tt>.</li>
+<li><a class="reference internal" href="../auth.1#django.contrib.auth.models.User.groups" title="django.contrib.auth.models.User.groups"><tt class="xref py py-attr docutils literal"><span class="pre">groups</span></tt></a> and
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.user_permissions" title="django.contrib.auth.models.User.user_permissions"><tt class="xref py py-attr docutils literal"><span class="pre">user_permissions</span></tt></a> are always
+empty.</li>
+<li><a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_anonymous" title="django.contrib.auth.models.User.is_anonymous"><tt class="xref py py-meth docutils literal"><span class="pre">is_anonymous()</span></tt></a> returns <tt class="docutils literal"><span class="pre">True</span></tt>
+instead of <tt class="docutils literal"><span class="pre">False</span></tt>.</li>
+<li><a class="reference internal" href="../auth.1#django.contrib.auth.models.User.is_authenticated" title="django.contrib.auth.models.User.is_authenticated"><tt class="xref py py-meth docutils literal"><span class="pre">is_authenticated()</span></tt></a> returns
+<tt class="docutils literal"><span class="pre">False</span></tt> instead of <tt class="docutils literal"><span class="pre">True</span></tt>.</li>
+<li><a class="reference internal" href="../auth.1#django.contrib.auth.models.User.set_password" title="django.contrib.auth.models.User.set_password"><tt class="xref py py-meth docutils literal"><span class="pre">set_password()</span></tt></a>,
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User.check_password" title="django.contrib.auth.models.User.check_password"><tt class="xref py py-meth docutils literal"><span class="pre">check_password()</span></tt></a>,
+<a class="reference internal" href="../../models/instances/index.html#django.db.models.Model.save" title="django.db.models.Model.save"><tt class="xref py py-meth docutils literal"><span class="pre">save()</span></tt></a> and
+<a class="reference internal" href="../../models/instances/index.html#django.db.models.Model.delete" title="django.db.models.Model.delete"><tt class="xref py py-meth docutils literal"><span class="pre">delete()</span></tt></a> raise
+<a class="reference external" href="http://docs.python.org/2.7/library/exceptions.html#exceptions.NotImplementedError" title="(in Python v2.7)"><tt class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></tt></a>.</li>
+</ul>
+</dd></dl>
+
+<p>In practice, you probably won&#8217;t need to use
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.AnonymousUser" title="django.contrib.auth.models.AnonymousUser"><tt class="xref py py-class docutils literal"><span class="pre">AnonymousUser</span></tt></a> objects on your own, but
+they&#8217;re used by Web requests, as explained in the next section.</p>
+</div>
+<div class="section" id="s-permission">
+<span id="permission"></span><h1>Permission<a class="headerlink" href="../auth.1#permission" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="django.contrib.auth.models.Permission">
+<em class="property">class </em><tt class="descclassname">models.</tt><tt class="descname">Permission</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.Permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="s-id1">
+<span id="id1"></span><h2>Fields<a class="headerlink" href="../auth.1#id1" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../auth.1#django.contrib.auth.models.Permission" title="django.contrib.auth.models.Permission"><tt class="xref py py-class docutils literal"><span class="pre">Permission</span></tt></a> objects have the following
+fields:</p>
+<dl class="attribute">
+<dt id="django.contrib.auth.name">
+<tt class="descname">name</tt><a class="headerlink" href="../auth.1#django.contrib.auth.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required. 50 characters or fewer. Example: <tt class="docutils literal"><span class="pre">'Can</span> <span class="pre">vote'</span></tt>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.content_type">
+<tt class="descname">content_type</tt><a class="headerlink" href="../auth.1#django.contrib.auth.content_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required. A reference to the <tt class="docutils literal"><span class="pre">django_content_type</span></tt> database table, which
+contains a record for each installed Django model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.codename">
+<tt class="descname">codename</tt><a class="headerlink" href="../auth.1#django.contrib.auth.codename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required. 100 characters or fewer. Example: <tt class="docutils literal"><span class="pre">'can_vote'</span></tt>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="s-id2">
+<span id="id2"></span><h2>Methods<a class="headerlink" href="../auth.1#id2" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../auth.1#django.contrib.auth.models.Permission" title="django.contrib.auth.models.Permission"><tt class="xref py py-class docutils literal"><span class="pre">Permission</span></tt></a> objects have the standard
+data-access methods like any other <a class="reference internal" href="../../models/instances/index.html"><em>Django model</em></a>.</p>
+</div>
+</div>
+<div class="section" id="s-group">
+<span id="group"></span><h1>Group<a class="headerlink" href="../auth.1#group" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="django.contrib.auth.models.Group">
+<em class="property">class </em><tt class="descclassname">models.</tt><tt class="descname">Group</tt><a class="headerlink" href="../auth.1#django.contrib.auth.models.Group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="s-id3">
+<span id="id3"></span><h2>Fields<a class="headerlink" href="../auth.1#id3" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../auth.1#django.contrib.auth.models.Group" title="django.contrib.auth.models.Group"><tt class="xref py py-class docutils literal"><span class="pre">Group</span></tt></a> objects have the following fields:</p>
+<dl class="attribute">
+<dt>
+<tt class="descname">name</tt></dt>
+<dd><p>Required. 80 characters or fewer. Any characters are permitted. Example:
+<tt class="docutils literal"><span class="pre">'Awesome</span> <span class="pre">Users'</span></tt>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django.contrib.auth.permissions">
+<tt class="descname">permissions</tt><a class="headerlink" href="../auth.1#django.contrib.auth.permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Many-to-many field to <a class="reference internal" href="../auth.1#django.contrib.auth.models.Permission" title="django.contrib.auth.models.Permission"><tt class="xref py py-class docutils literal"><span class="pre">Permission</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">group</span><span class="o">.</span><span class="n">permissions</span> <span class="o">=</span> <span class="p">[</span><span class="n">permission_list</span><span class="p">]</span>
+<span class="n">group</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">permission</span><span class="p">,</span> <span class="n">permission</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">group</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">permission</span><span class="p">,</span> <span class="n">permission</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">group</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="s-module-django.contrib.auth.signals">
+<span id="s-login-and-logout-signals"></span><span id="s-topics-auth-signals"></span><span id="module-django.contrib.auth.signals"></span><span id="login-and-logout-signals"></span><span id="topics-auth-signals"></span><h1>Login and logout signals<a class="headerlink" href="../auth.1#module-django.contrib.auth.signals" title="Permalink to this headline">¶</a></h1>
+<p>The auth framework uses the following <a class="reference internal" href="../../../topics/signals.1"><em>signals</em></a> that
+can be used for notification when a user logs in or out.</p>
+<dl class="function">
+<dt id="django.contrib.auth.signals.user_logged_in">
+<tt class="descname">user_logged_in</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.signals.user_logged_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sent when a user logs in successfully.</p>
+<p>Arguments sent with this signal:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">sender</span></tt></dt>
+<dd>The class of the user that just logged in.</dd>
+<dt><tt class="docutils literal"><span class="pre">request</span></tt></dt>
+<dd>The current <a class="reference internal" href="../../request-response.1#django.http.HttpRequest" title="django.http.HttpRequest"><tt class="xref py py-class docutils literal"><span class="pre">HttpRequest</span></tt></a> instance.</dd>
+<dt><tt class="docutils literal"><span class="pre">user</span></tt></dt>
+<dd>The user instance that just logged in.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="django.contrib.auth.signals.user_logged_out">
+<tt class="descname">user_logged_out</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.signals.user_logged_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sent when the logout method is called.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">sender</span></tt></dt>
+<dd>As above: the class of the user that just logged out or <tt class="docutils literal"><span class="pre">None</span></tt>
+if the user was not authenticated.</dd>
+<dt><tt class="docutils literal"><span class="pre">request</span></tt></dt>
+<dd>The current <a class="reference internal" href="../../request-response.1#django.http.HttpRequest" title="django.http.HttpRequest"><tt class="xref py py-class docutils literal"><span class="pre">HttpRequest</span></tt></a> instance.</dd>
+<dt><tt class="docutils literal"><span class="pre">user</span></tt></dt>
+<dd>The user instance that just logged out or <tt class="docutils literal"><span class="pre">None</span></tt> if the
+user was not authenticated.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="django.contrib.auth.signals.user_login_failed">
+<tt class="descname">user_login_failed</tt>()<a class="headerlink" href="../auth.1#django.contrib.auth.signals.user_login_failed" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<span class="title">New in Django 1.5.</span> </div>
+<p>Sent when the user failed to login successfully</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">sender</span></tt></dt>
+<dd>The name of the module used for authentication.</dd>
+<dt><tt class="docutils literal"><span class="pre">credentials</span></tt></dt>
+<dd>A dictionary of keyword arguments containing the user credentials that were
+passed to <a class="reference internal" href="../../../topics/auth/default.1#django.contrib.auth.authenticate" title="django.contrib.auth.authenticate"><tt class="xref py py-func docutils literal"><span class="pre">authenticate()</span></tt></a> or your own custom
+authentication backend. Credentials matching a set of &#8216;sensitive&#8217; patterns,
+(including password) will not be sent in the clear as part of the signal.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="s-module-django.contrib.auth.backends">
+<span id="s-authentication-backends"></span><span id="s-authentication-backends-reference"></span><span id="module-django.contrib.auth.backends"></span><span id="authentication-backends"></span><span id="authentication-backends-reference"></span><h1>Authentication backends<a class="headerlink" href="../auth.1#module-django.contrib.auth.backends" title="Permalink to this headline">¶</a></h1>
+<p>This section details the authentication backends that come with Django. For
+information on how to use them and how to write your own authentication
+backends, see the <a class="reference internal" href="../../../topics/auth/customizing/index.html#authentication-backends"><em>Other authentication sources section</em></a> of the <a class="reference internal" href="../../../topics/auth/index"><em>User authentication guide</em></a>.</p>
+<div class="section" id="s-available-authentication-backends">
+<span id="available-authentication-backends"></span><h2>Available authentication backends<a class="headerlink" href="../auth.1#available-authentication-backends" title="Permalink to this headline">¶</a></h2>
+<p>The following backends are available in <a class="reference internal" href="../auth.1#module-django.contrib.auth.backends" title="django.contrib.auth.backends: Django's built-in authentication backend classes."><tt class="xref py py-mod docutils literal"><span class="pre">django.contrib.auth.backends</span></tt></a>:</p>
+<dl class="class">
+<dt id="django.contrib.auth.backends.ModelBackend">
+<em class="property">class </em><tt class="descname">ModelBackend</tt><a class="headerlink" href="../auth.1#django.contrib.auth.backends.ModelBackend" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the default authentication backend used by Django.  It
+authenticates using credentials consisting of a user identifier and
+password.  For Django&#8217;s default user model, the user identifier is the
+username, for custom user models it is the field specified by
+USERNAME_FIELD (see <a class="reference internal" href="../../../topics/auth/customizing/index.html"><em>Customizing Users and authentication</em></a>).</p>
+<p>It also handles the default permissions model as defined for
+<a class="reference internal" href="../auth.1#django.contrib.auth.models.User" title="django.contrib.auth.models.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> and
+<a class="reference internal" href="../../../topics/auth/customizing/index.html#django.contrib.auth.models.PermissionsMixin" title="django.contrib.auth.models.PermissionsMixin"><tt class="xref py py-class docutils literal"><span class="pre">PermissionsMixin</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="django.contrib.auth.backends.RemoteUserBackend">
+<em class="property">class </em><tt class="descname">RemoteUserBackend</tt><a class="headerlink" href="../auth.1#django.contrib.auth.backends.RemoteUserBackend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this backend to take advantage of external-to-Django-handled
+authentication.  It authenticates using usernames passed in
+<a class="reference internal" href="../../request-response.1#django.http.HttpRequest.META" title="django.http.HttpRequest.META"><tt class="xref py py-attr docutils literal"><span class="pre">request.META['REMOTE_USER']</span></tt></a>.  See
+the <a class="reference internal" href="../../../howto/auth-remote-user/index.html"><em>Authenticating against REMOTE_USER</em></a>
+documentation.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+<div class="browse-horizontal">
+  
+    <div class="left"><a href="../admin/admindocs.1">&laquo; The Django admin documentation generator</a></div>
+  
+  
+    <div class="right"><a href="../comments/index">Django&#8217;s comments framework &raquo;</a></div>
+  
+</div>
+<div id="content-secondary">
+  <h2 id="comments">Questions/Feedback</h2>
+  <p>Having trouble? We'd like to help!</p>
+  <ul>
+    <li>
+      
+      Try the <a href="../../../faq/index.html">FAQ</a> — it's got answers to many common questions.
+    </li>
+    <li>
+      Search for information in the <a
+      href="http://groups.google.com/group/django-users/">archives of the
+      django-users mailing list</a>, or <a
+      href="http://groups.google.com/group/django-users/">post a question</a>.
+    </li>
+    <li>
+      Ask a question in the <a href="irc://irc.freenode.net/">#django IRC
+      channel</a>, or search the <a href="http://django-irc-logs.com/">IRC
+      logs</a> to see if it has been asked before.
+    </li>
+    <li>
+      If you notice errors with this documentation, please <a
+      href="https://code.djangoproject.com/newticket?component=Documentation">
+      open a ticket</a> and let us know! Please only use the ticket tracker for
+      criticisms and improvements on the docs. For tech support, use the
+      resources above.
+    </li>
+  </ul>
+</div>
+
+		</div>
+		<!-- END #content-main -->
+		<div id="content-related" class="sidebar">
+		
+  
+    <h2>Search</h2>
+    
+    
+
+<form action="https://docs.djangoproject.com/search/" id="sidebar_search" class="search">
+  <div>
+    <p>
+      <input id="id_sidebar_search_q" name="q" type="search" />
+    </p>
+    <p>
+      <label for="id_sidebar_search_release">Version:</label>
+      <select id="id_sidebar_search_release" name="release">
+<option value="2">Django 1.0</option>
+<option value="3">Django 1.1</option>
+<option value="4">Django 1.2</option>
+<option value="5">Django 1.3</option>
+<option value="6">Django 1.4</option>
+<option value="7" selected="selected">Django 1.5</option>
+<option value="9">Django 1.6</option>
+<option value="1">Development trunk</option>
+</select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Search" />
+    </p>
+  </div>
+</form>
+
+  
+
+  
+    <h2>Contents</h2>
+    
+      <ul>
+<li><a class="reference internal" href="../auth.1#"><tt class="docutils literal"><span class="pre">django.contrib.auth</span></tt></a></li>
+<li><a class="reference internal" href="../auth.1#user">User</a><ul>
+<li><a class="reference internal" href="../auth.1#fields">Fields</a></li>
+<li><a class="reference internal" href="../auth.1#methods">Methods</a></li>
+<li><a class="reference internal" href="../auth.1#manager-methods">Manager methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="../auth.1#anonymous-users">Anonymous users</a></li>
+<li><a class="reference internal" href="../auth.1#permission">Permission</a><ul>
+<li><a class="reference internal" href="../auth.1#id1">Fields</a></li>
+<li><a class="reference internal" href="../auth.1#id2">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="../auth.1#group">Group</a><ul>
+<li><a class="reference internal" href="../auth.1#id3">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="../auth.1#module-django.contrib.auth.signals">Login and logout signals</a></li>
+<li><a class="reference internal" href="../auth.1#module-django.contrib.auth.backends">Authentication backends</a><ul>
+<li><a class="reference internal" href="../auth.1#available-authentication-backends">Available authentication backends</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  
+  
+    <h2>Browse</h2>
+    <ul>
+      
+        
+          <li>Prev: <a href="../admin/admindocs.1">The Django admin documentation generator</a></li>
+        
+        
+          <li>Next: <a href="../comments/index">Django&#8217;s comments framework</a></li>
+        
+        <li><a href="../../../contents/index.html">Table of contents</a></li>
+        
+          <li><a href="../../../genindex/index.html">General Index</a></li>
+        
+          <li><a href="../../../py-modindex/index.html">Python Module Index</a></li>
+        
+      
+    </ul>
+  
+
+  
+    <h2>You are here:</h2>
+    <ul>
+      
+        <li>
+          <a href="../../../../../index.html">Django 1.5 documentation</a>
+          
+            <ul><li><a href="../../index.html">API Reference</a>
+          
+            <ul><li><a href="../index.html"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">contrib</span></tt> packages</a>
+          
+          <ul><li><tt class="docutils literal docutils literal docutils literal"><span class="pre">django.contrib.auth</span></tt></li></ul>
+          </li></ul></li></ul>
+        </li>
+      
+    </ul>
+
+    
+      <h2>Download:</h2>
+      <p>
+        Offline (Django 1.5):
+        <a href="../../../../../m/docs/django-docs-1.5-en.zip">HTML</a> |
+        <a href="http://media.readthedocs.org/pdf/django/1.5.x/django.pdf">PDF</a> |
+        <a href="http://media.readthedocs.org/epub/django/1.5.x/django.epub">ePub</a>
+      <br>
+      <span class="quiet">
+        Provided by <a href="http://readthedocs.org/">Read the Docs</a>.
+      </span>
+      </p>
+    
+  
+
+		</div>
+		<!-- END #content-related -->
+
+    </div>
+    <!-- END #content -->
+    <div id="footer">
+      <p>&copy; 2005-2013
+        <a href="https://www.djangoproject.com/foundation/"> Django Software
+        Foundation</a> unless otherwise noted. Django is a
+        <a href="https://www.djangoproject.com/trademarks/">registered
+        trademark</a> of the Django Software Foundation.
+        <a href="http://mediatemple.net/">Linux Web hosting</a> graciously
+        provided by Media Temple.
+      </p>
+    </div>
+    <!-- END #footer -->
+  </div>
+  <!-- END #container -->
+  
+
+
+  </body>
+</html>

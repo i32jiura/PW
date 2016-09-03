@@ -1,0 +1,32 @@
+
+<html>
+
+	<h1>Aplicación para agencia de viajes</h1>
+
+
+
+	<body>
+	{% block contest %}
+	<table id='menu'>
+	  <tr>
+		  <td><a href="/">Inicio</a></td>
+		  <td><a href="/login">Login</a></td>
+		  <td><a href="/destinos">Listar destinos</a></td>
+		  <td><a href="/crearDestinos">Crear destino</a></td>
+		  <td><a href="/listarViajes">Listar viajes</a></td>
+		  <td><a href="/viaje">Crear viaje</a></td>
+		  <td><a href="/ruta">Listar rutas</a></td>
+		  <td><a href="/crearRuta">Crear ruta</a></td>
+
+      	 </tr>
+    </table>
+
+	{% endblock %}
+	
+	    <div id="body">
+        {% block body %}{% endblock %}
+    </div>
+
+	</body>
+
+</html>
